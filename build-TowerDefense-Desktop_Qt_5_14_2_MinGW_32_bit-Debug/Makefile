@@ -276,7 +276,8 @@ Makefile: ../TowerDefense/TowerDefense.pro C:/Qt/Qt5.14.2/5.14.2/mingw73_32/mksp
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/Qt5Gui.prl \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/Qt5Core.prl \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/qtmain.prl \
-		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/mkspecs/features/build_pass.prf
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/mkspecs/features/build_pass.prf \
+		../TowerDefense/res.qrc
 	$(QMAKE) -o Makefile ../TowerDefense/TowerDefense.pro -spec win32-g++ CONFIG+=debug CONFIG+=qml_debug
 C:/Qt/Qt5.14.2/5.14.2/mingw73_32/mkspecs/features/spec_pre.prf:
 C:/Qt/Qt5.14.2/5.14.2/mingw73_32/mkspecs/qdevice.pri:
@@ -485,6 +486,7 @@ C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/Qt5Gui.prl:
 C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/Qt5Core.prl:
 C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/qtmain.prl:
 C:/Qt/Qt5.14.2/5.14.2/mingw73_32/mkspecs/features/build_pass.prf:
+../TowerDefense/res.qrc:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ../TowerDefense/TowerDefense.pro -spec win32-g++ CONFIG+=debug CONFIG+=qml_debug
 

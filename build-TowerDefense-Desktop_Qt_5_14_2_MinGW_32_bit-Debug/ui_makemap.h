@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
@@ -28,13 +29,6 @@ class Ui_MakeMap
 public:
     QVBoxLayout *verticalLayout;
     QTabWidget *tabWidget;
-    QWidget *tab;
-    QVBoxLayout *verticalLayout_2;
-    QWidget *widget;
-    QHBoxLayout *horizontalLayout;
-    QPushButton *pushButton;
-    QLabel *label;
-    QWidget *widget_2;
     QWidget *tab_2;
     QGridLayout *gridLayout;
     QWidget *widget_3;
@@ -49,14 +43,17 @@ public:
     QVBoxLayout *verticalLayout_3;
     QWidget *widget_5;
     QGridLayout *gridLayout_2;
-    QComboBox *comboBox;
-    QSpinBox *spinBox_2;
-    QLabel *label_3;
-    QSpinBox *spinBox;
-    QLabel *label_5;
-    QLabel *label_4;
     QPushButton *pb_addPath;
+    QSpinBox *spinBox_2;
+    QLabel *label_5;
+    QSpinBox *spinBox;
+    QComboBox *comboBox;
     QPushButton *pb_savePath;
+    QLabel *label_4;
+    QLabel *label_3;
+    QWidget *tab;
+    QVBoxLayout *verticalLayout_2;
+    QGraphicsView *graphicsView;
 
     void setupUi(QWidget *MakeMap)
     {
@@ -67,34 +64,6 @@ public:
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         tabWidget = new QTabWidget(MakeMap);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
-        tab = new QWidget();
-        tab->setObjectName(QString::fromUtf8("tab"));
-        verticalLayout_2 = new QVBoxLayout(tab);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        widget = new QWidget(tab);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setMaximumSize(QSize(16777215, 40));
-        horizontalLayout = new QHBoxLayout(widget);
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        pushButton = new QPushButton(widget);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-
-        horizontalLayout->addWidget(pushButton);
-
-        label = new QLabel(widget);
-        label->setObjectName(QString::fromUtf8("label"));
-
-        horizontalLayout->addWidget(label);
-
-
-        verticalLayout_2->addWidget(widget);
-
-        widget_2 = new QWidget(tab);
-        widget_2->setObjectName(QString::fromUtf8("widget_2"));
-
-        verticalLayout_2->addWidget(widget_2);
-
-        tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
         gridLayout = new QGridLayout(tab_2);
@@ -146,10 +115,10 @@ public:
         widget_5->setObjectName(QString::fromUtf8("widget_5"));
         gridLayout_2 = new QGridLayout(widget_5);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        comboBox = new QComboBox(widget_5);
-        comboBox->setObjectName(QString::fromUtf8("comboBox"));
+        pb_addPath = new QPushButton(widget_5);
+        pb_addPath->setObjectName(QString::fromUtf8("pb_addPath"));
 
-        gridLayout_2->addWidget(comboBox, 2, 1, 1, 1);
+        gridLayout_2->addWidget(pb_addPath, 3, 0, 1, 1);
 
         spinBox_2 = new QSpinBox(widget_5);
         spinBox_2->setObjectName(QString::fromUtf8("spinBox_2"));
@@ -158,10 +127,10 @@ public:
 
         gridLayout_2->addWidget(spinBox_2, 1, 1, 1, 1);
 
-        label_3 = new QLabel(widget_5);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_5 = new QLabel(widget_5);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
 
-        gridLayout_2->addWidget(label_3, 2, 0, 1, 1);
+        gridLayout_2->addWidget(label_5, 1, 0, 1, 1);
 
         spinBox = new QSpinBox(widget_5);
         spinBox->setObjectName(QString::fromUtf8("spinBox"));
@@ -170,25 +139,25 @@ public:
 
         gridLayout_2->addWidget(spinBox, 0, 1, 1, 1);
 
-        label_5 = new QLabel(widget_5);
-        label_5->setObjectName(QString::fromUtf8("label_5"));
+        comboBox = new QComboBox(widget_5);
+        comboBox->setObjectName(QString::fromUtf8("comboBox"));
 
-        gridLayout_2->addWidget(label_5, 1, 0, 1, 1);
+        gridLayout_2->addWidget(comboBox, 2, 1, 1, 1);
+
+        pb_savePath = new QPushButton(widget_5);
+        pb_savePath->setObjectName(QString::fromUtf8("pb_savePath"));
+
+        gridLayout_2->addWidget(pb_savePath, 3, 1, 1, 1);
 
         label_4 = new QLabel(widget_5);
         label_4->setObjectName(QString::fromUtf8("label_4"));
 
         gridLayout_2->addWidget(label_4, 0, 0, 1, 1);
 
-        pb_addPath = new QPushButton(widget_5);
-        pb_addPath->setObjectName(QString::fromUtf8("pb_addPath"));
+        label_3 = new QLabel(widget_5);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
 
-        gridLayout_2->addWidget(pb_addPath, 3, 0, 1, 1);
-
-        pb_savePath = new QPushButton(widget_5);
-        pb_savePath->setObjectName(QString::fromUtf8("pb_savePath"));
-
-        gridLayout_2->addWidget(pb_savePath, 3, 1, 1, 1);
+        gridLayout_2->addWidget(label_3, 2, 0, 1, 1);
 
 
         verticalLayout_3->addWidget(widget_5);
@@ -197,6 +166,16 @@ public:
         gridLayout->addWidget(widget_4, 1, 1, 1, 1);
 
         tabWidget->addTab(tab_2, QString());
+        tab = new QWidget();
+        tab->setObjectName(QString::fromUtf8("tab"));
+        verticalLayout_2 = new QVBoxLayout(tab);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        graphicsView = new QGraphicsView(tab);
+        graphicsView->setObjectName(QString::fromUtf8("graphicsView"));
+
+        verticalLayout_2->addWidget(graphicsView);
+
+        tabWidget->addTab(tab, QString());
 
         verticalLayout->addWidget(tabWidget);
 
@@ -212,20 +191,18 @@ public:
     void retranslateUi(QWidget *MakeMap)
     {
         MakeMap->setWindowTitle(QCoreApplication::translate("MakeMap", "Form", nullptr));
-        pushButton->setText(QCoreApplication::translate("MakeMap", "\351\200\211\346\213\251\346\226\207\344\273\266", nullptr));
-        label->setText(QCoreApplication::translate("MakeMap", "\346\226\207\344\273\266\350\267\257\345\276\204", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MakeMap", "\345\234\260\345\233\276\351\242\204\350\247\210", nullptr));
         pb_new->setText(QCoreApplication::translate("MakeMap", "\346\226\260\345\273\272\346\226\207\344\273\266", nullptr));
         pb_import->setText(QCoreApplication::translate("MakeMap", "\351\200\211\346\213\251\346\226\207\344\273\266", nullptr));
         l_fp->setText(QCoreApplication::translate("MakeMap", "\346\226\207\344\273\266\350\267\257\345\276\204", nullptr));
         pb_export->setText(QCoreApplication::translate("MakeMap", " \344\277\235\345\255\230/\345\257\274\345\207\272", nullptr));
         pb_exit1->setText(QCoreApplication::translate("MakeMap", "\351\200\200\345\207\272", nullptr));
-        label_3->setText(QCoreApplication::translate("MakeMap", "\345\275\223\345\211\215\350\267\257\345\276\204", nullptr));
-        label_5->setText(QCoreApplication::translate("MakeMap", "\345\210\227\346\225\260", nullptr));
-        label_4->setText(QCoreApplication::translate("MakeMap", " \350\241\214\346\225\260", nullptr));
         pb_addPath->setText(QCoreApplication::translate("MakeMap", "\346\267\273\345\212\240\350\267\257\345\276\204", nullptr));
+        label_5->setText(QCoreApplication::translate("MakeMap", "\345\210\227\346\225\260", nullptr));
         pb_savePath->setText(QCoreApplication::translate("MakeMap", "\344\277\235\345\255\230\350\267\257\345\276\204", nullptr));
+        label_4->setText(QCoreApplication::translate("MakeMap", " \350\241\214\346\225\260", nullptr));
+        label_3->setText(QCoreApplication::translate("MakeMap", "\345\275\223\345\211\215\350\267\257\345\276\204", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MakeMap", "\345\234\260\345\233\276\345\210\266\344\275\234", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MakeMap", "\345\234\260\345\233\276\351\242\204\350\247\210", nullptr));
     } // retranslateUi
 
 };

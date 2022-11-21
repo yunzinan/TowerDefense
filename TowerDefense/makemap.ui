@@ -19,42 +19,6 @@
      <property name="currentIndex">
       <number>1</number>
      </property>
-     <widget class="QWidget" name="tab">
-      <attribute name="title">
-       <string>地图预览</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <widget class="QWidget" name="widget" native="true">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>40</height>
-          </size>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QPushButton" name="pushButton">
-            <property name="text">
-             <string>选择文件</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>文件路径</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QWidget" name="widget_2" native="true"/>
-       </item>
-      </layout>
-     </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
        <string>地图制作</string>
@@ -122,8 +86,12 @@
           <item>
            <widget class="QWidget" name="widget_5" native="true">
             <layout class="QGridLayout" name="gridLayout_2">
-             <item row="2" column="1">
-              <widget class="QComboBox" name="comboBox"/>
+             <item row="3" column="0">
+              <widget class="QPushButton" name="pb_addPath">
+               <property name="text">
+                <string>添加路径</string>
+               </property>
+              </widget>
              </item>
              <item row="1" column="1">
               <widget class="QSpinBox" name="spinBox_2">
@@ -135,10 +103,10 @@
                </property>
               </widget>
              </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_3">
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_5">
                <property name="text">
-                <string>当前路径</string>
+                <string>列数</string>
                </property>
               </widget>
              </item>
@@ -152,10 +120,13 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_5">
+             <item row="2" column="1">
+              <widget class="QComboBox" name="comboBox"/>
+             </item>
+             <item row="3" column="1">
+              <widget class="QPushButton" name="pb_savePath">
                <property name="text">
-                <string>列数</string>
+                <string>保存路径</string>
                </property>
               </widget>
              </item>
@@ -166,17 +137,10 @@
                </property>
               </widget>
              </item>
-             <item row="3" column="0">
-              <widget class="QPushButton" name="pb_addPath">
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_3">
                <property name="text">
-                <string>添加路径</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QPushButton" name="pb_savePath">
-               <property name="text">
-                <string>保存路径</string>
+                <string>当前路径</string>
                </property>
               </widget>
              </item>
@@ -185,6 +149,16 @@
           </item>
          </layout>
         </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>地图预览</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QGraphicsView" name="graphicsView"/>
        </item>
       </layout>
      </widget>

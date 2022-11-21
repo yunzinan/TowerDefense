@@ -43,6 +43,25 @@ void MakeMap::createGrids()
     qDebug() << "createGrids: " << this->lineNum << " " << this->colNum;
 }
 
+void MakeMap::getGridStatus()
+{
+    //首先清空isGrid数组.
+    this->isGrid.clear();
+    isGrid.resize(this->lineNum);
+    for(int i = 0; i < this->lineNum; i++) {
+        this->isGrid[i].resize(this->colNum);
+    }
+    for(int i = 0; i < this->pathList.size(); i++) {
+        showPath(i);
+        for(int row = 0; row < this->lineNum; row++) {
+            for(int col = 0; col < this->colNum; col++) {
+                if(this->pbList[row][col]->isChecked()) this->isGrid[row][col] = true;
+            }
+        }
+    }
+    ui->comboBox->setCurrentIndex(this->pathList.size()-1);
+}
+
 void MakeMap::showPath(int idx)//显示第idx条路径
 {
     qDebug() << "show: " << idx;
@@ -109,11 +128,129 @@ ps MakeMap::getNext(int curCol, int curRow, int prevCol, int prevRow)
     return ret;
 }
 
+void MakeMap::drawPreview() //将地图信息转化为QGraphicsScene中的Item
+{
+    if(this->lineNum == 0 || this->colNum == 0) return ; //尚未加载地图
+    if(this->mapScene != nullptr) delete mapScene;
+    this->mapScene = new QGraphicsScene;
+    //获得当前所有各自的状态数组
+    getGridStatus();
+    int totWidth = ui->tab->width();
+    int totHeight=  ui->tab->height();
+    float sideLen;
+    float vMargin = 0;
+    float hMargin = 0;
+    if(totWidth / this->colNum > totHeight / this->lineNum) {
+        sideLen = totHeight / this->lineNum;
+        vMargin = (totWidth - this->colNum * sideLen) / 2;
+    }
+    else {
+        sideLen = totWidth / this->colNum;
+        hMargin = (totHeight - this->lineNum * sideLen) / 2;
+    }
+    QString pixPath;
+    for(int i = 0; i < this->lineNum; i++) {
+        for(int j = 0; j < this->colNum; j++) {
+            int type = getGridType(i, j);
+            qDebug() << type;
+            switch (type) {//左右上下 二进制编码
+
+            case -1://非路径
+                pixPath = ":/new/prefix1/assets/map/cp.png";
+                break;
+            case 1:
+                pixPath = ":/new/prefix1/assets/map/qds.png";
+                break;
+            case 2:
+                pixPath = ":/new/prefix1/assets/map/qdx.png";
+                break;
+            case 3:
+                pixPath = ":/new/prefix1/assets/map/lsz.png";
+                break;
+            case 4:
+                pixPath = ":/new/prefix1/assets/map/qdz.png";
+                break;
+            case 5:
+                pixPath = ":/new/prefix1/assets/map/gdyx.png";
+                break;
+            case 6:
+                pixPath = ":/new/prefix1/assets/map/gdys.png";
+                break;
+            case 7:
+                pixPath = ":/new/prefix1/assets/map/scly.png";
+                break;
+            case 8:
+                pixPath = ":/new/prefix1/assets/map/qdy.png";
+                break;
+            case 9:
+                pixPath = ":/new/prefix1/assets/map/gdzx.png";
+                break;
+            case 10:
+                pixPath = ":/new/prefix1/assets/map/gdzs.png";
+                break;
+            case 11:
+                pixPath = ":/new/prefix1/assets/map/sclz.png";
+                break;
+            case 12:
+                pixPath = ":/new/prefix1/assets/map/lsp.png";
+                break;
+            case 13:
+                pixPath = ":/new/prefix1/assets/map/sclx.png";
+                break;
+            case 14:
+                pixPath = ":/new/prefix1/assets/map/scls.png";
+                break;
+            case 15:
+                pixPath = ":/new/prefix1/assets/map/scl.png";
+                break;
+            default:
+                qDebug() << "error! no such type!";
+                break;
+
+            }
+            QGraphicsPixmapItem *cur = this->mapScene->addPixmap(QPixmap(pixPath));
+            cur->setPos(j*sideLen, i*sideLen);
+            cur->setScale(sideLen / 32);
+            qDebug() << "size: " << mapScene->items().size();
+        }
+    }
+    ui->graphicsView->setScene(this->mapScene);
+    ui->graphicsView->show();
+}
+
+int MakeMap::getGridType(int row, int col)
+{
+    if(!this->isGrid[row][col]) return -1;//非路径
+    else {
+        bool lGrid = false;//1表示左边有通路
+        bool rGrid = false;
+        bool bGrid = false;
+        bool tGrid = false;
+        if(col-1 >= 0 && isGrid[row][col-1]) lGrid = true;
+        if(col+1 < this->colNum && isGrid[row][col+1]) rGrid = true;
+        if(row-1 >= 0 && isGrid[row-1][col]) tGrid = true;
+        if(row+1 < this->lineNum && isGrid[row+1][col]) bGrid = true;
+        return lGrid * 8 + rGrid * 4 + tGrid * 2 + bGrid;//左右上下=8421
+    }
+}
+
+
+QGraphicsScene *MakeMap::getMapScene() const
+{
+    return mapScene;
+}
+
+void MakeMap::setMapScene(QGraphicsScene *value)
+{
+    mapScene = value;
+}
+
 MakeMap::MakeMap(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MakeMap)
 {
     ui->setupUi(this);
+    this->setWindowTitle("地图制作模块");
     setMinimumSize(QSize(2000, 1500));
     connect(ui->pb_exit1, &QPushButton::clicked, [=](){
         emit returnSignal();
@@ -311,6 +448,11 @@ MakeMap::MakeMap(QWidget *parent) :
         }
         this->colNum = val;
         createGrids();
+    });
+    connect(ui->tabWidget, &QTabWidget::tabBarClicked, [=](int idx){
+        if(idx == 1) {
+            this->drawPreview();
+        }
     });
 }
 
