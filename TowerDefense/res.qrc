@@ -16,5 +16,8 @@
         <file>assets/map/sclx.png</file>
         <file>assets/map/scly.png</file>
         <file>assets/map/sclz.png</file>
+        <file>assets/map/slot.png</file>
+        <file>assets/map/startPoint.png</file>
+        <file>assets/map/endPoint.png</file>
     </qresource>
 </RCC>
