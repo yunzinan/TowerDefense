@@ -4,6 +4,7 @@
 #include <QDir>
 #include <QFile>
 #include <QTextStream>
+#include <QTimer>
 
 void GameWindow::loadMap()
 {
@@ -177,6 +178,7 @@ void GameWindow::renderMap()
             }
             QGraphicsPixmapItem *cur = this->scene->addPixmap(QPixmap(pixPath));
             cur->setPos(j*sideLen, i*sideLen);
+            qDebug() << j << " " << i << " " << j *sideLen;
             cur->setScale(sideLen / 32);
             if(type == 0) {//添加槽图像
                 QPixmap pix = QPixmap(":/new/prefix1/assets/map/slot.png");
@@ -205,6 +207,92 @@ void GameWindow::renderSpecialPoints()
     }
 }
 
+void GameWindow::EnemyMove()
+{
+    for(int i = 0; i < this->enemyList.size(); i++) {
+        Enemy * curEnemy = enemyList[i];
+        //既然能够移动, 那么必然是在终点以以前, 因此必然有下一个关键节点
+        ps nxtPoint = this->pathList[curEnemy->getPathIdx()][curEnemy->getNodeIdx()+1];
+        ps curPoint = this->pathList[curEnemy->getPathIdx()][curEnemy->getNodeIdx()];
+        int dir = 0;
+        if(curPoint.row == nxtPoint.row) {
+            if(curPoint.col > nxtPoint.col) {
+                dir = 3;
+            }
+            else dir = 4;
+        }
+        else {
+            if(curPoint.row > nxtPoint.row) {
+                dir = 1;
+            }
+            else dir = 2;
+        }
+        QPointF ret = curEnemy->moveBy(dir);
+        qDebug() << ret.x() << " " << ret.y();
+        //判断是否超出终点
+        if(curEnemy->getNodeIdx() == pathList[curEnemy->getPathIdx()].size()-2) {
+            bool isDead = false;
+            ps endPoint = pathList[curEnemy->getPathIdx()][pathList[curEnemy->getPathIdx()].size()-1];
+            switch (dir) {
+            case 1:
+                if(ret.y() <= sideLen * endPoint.row) isDead = true;
+                break;
+            case 2:
+                if(ret.y() >= sideLen * endPoint.row) isDead = true;
+                break;
+            case 3:
+                if(ret.x() <= sideLen * endPoint.col) isDead = true;
+                break;
+            case 4:
+                if(ret.x() >= sideLen * endPoint.col) isDead = true;
+            default:
+                qDebug() << "error! wrong dir!";
+            }
+            if(isDead) {
+                qDebug() << "curEnemy out of map range! destroy!";
+                this->life--;
+                ui->l_hp->setText(QString::number(life));
+                delete enemyList[i];
+                this->enemyList.erase(enemyList.begin() + i);
+            }
+        }
+        else {//当前不是倒数第二个点, 那么就要判断是否要换方向
+            switch (dir) {
+            case 1:
+                if(ret.y() <= nxtPoint.row * sideLen) {
+                    //纠正坐标
+                    curEnemy->setPos(QPointF(sideLen * nxtPoint.col, sideLen * nxtPoint.row));
+                    curEnemy->getNodeIdx()++;
+                }
+                break;
+            case 2:
+                if(ret.y() >= nxtPoint.row * sideLen) {
+                    //纠正坐标
+                    curEnemy->setPos(QPointF(sideLen * nxtPoint.col, sideLen * nxtPoint.row));
+                    curEnemy->getNodeIdx()++;
+                }
+                break;
+            case 3:
+                if(ret.x() <= nxtPoint.col * sideLen) {
+                    //纠正坐标
+                    curEnemy->setPos(QPointF(sideLen * nxtPoint.col, sideLen * nxtPoint.row));
+                    curEnemy->getNodeIdx()++;
+                }
+                break;
+            case 4:
+                if(ret.x() >= nxtPoint.col * sideLen) {
+                    //纠正坐标
+                    curEnemy->setPos(QPointF(sideLen * nxtPoint.col, sideLen * nxtPoint.row));
+                    curEnemy->getNodeIdx()++;
+                }
+                break;
+            default:
+                qDebug() << "error! wrong dir!";
+            }
+        }
+    }
+}
+
 GameWindow::GameWindow(int level, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::GameWindow)
@@ -218,6 +306,9 @@ GameWindow::GameWindow(int level, QWidget *parent) :
     this->life = 30;
     this->stop = false;
     this->maxLife = 30;
+    this->maxEnemyCnt = 20;
+    this->timeCntForMakingEnemy = 0;
+    this->enemyCnt = 0;
     ui->l_hp->setText(QString::number(this->life));
     ui->l_money->setText(QString::number(this->money));
     QString curLevel = "第" + QString::number(this->curLevel+1) + "关";
@@ -232,9 +323,32 @@ GameWindow::GameWindow(int level, QWidget *parent) :
     for(int i = 0; i < lineNum; i++) {
         isGrid[i].resize(this->colNum);
     }
+    connect(&globalTimer, &QTimer::timeout, [=](){
+//        qDebug() << "Timer Out!";
+        globalTimer.start(50);
+        makeEnemy();//创建怪物
+        //怪物移动
+        EnemyMove();
+        this->scene->update();
+//        this->scene->advance();
+    });
+    connect(ui->pb_stop, &QPushButton::clicked, [=](){
+        if(isStopped) {
+            this->isStopped = false;
+            globalTimer.start(50);
+            qDebug() << "restart!";
+        }
+        else {
+            this->isStopped = true;
+            globalTimer.stop();
+            qDebug() << "stop";
+        }
+    });
     getGridStatus();
     renderMap();
     renderSpecialPoints();
+    this->globalTimer.start(50);
+    ui->graphicsView->show();
 }
 
 GameWindow::~GameWindow()
@@ -255,5 +369,25 @@ void GameWindow::closeEvent(QCloseEvent * e)
         qDebug()<<"ok";
     }
     else
-      e->ignore();
+        e->ignore();
+}
+
+void GameWindow::makeEnemy()
+{
+    if(this->enemyCnt >= this->maxEnemyCnt) return ;
+    if(this->timeCntForMakingEnemy != 40) {
+        timeCntForMakingEnemy++;
+        return ;
+    }
+    else {
+        timeCntForMakingEnemy = 1;
+        //创建怪物
+        for(int i = 0; i < this->pathList.size() && enemyCnt < maxEnemyCnt; i++) {
+            Enemy* curEnemy = new Enemy(i, this->sideLen, pathList[i][0].col * sideLen, pathList[i][0].row * sideLen);
+            this->enemyCnt++;
+            this->scene->addItem(curEnemy);
+            curEnemy->setPos(pathList[i][0].col * sideLen, pathList[i][0].row * sideLen);
+            enemyList.push_back(curEnemy);
+        }
+    }
 }

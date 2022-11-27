@@ -53,6 +53,7 @@ MainWindow::MainWindow(QWidget *parent)
         this->game = new GameWindow(ui->comboBox->currentIndex());
         connect(game, &GameWindow::returnSignal, [=](){
             this->show();
+            delete game;
         });
         this->hide();
         game->show();

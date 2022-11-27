@@ -19,5 +19,6 @@
         <file>assets/map/slot.png</file>
         <file>assets/map/startPoint.png</file>
         <file>assets/map/endPoint.png</file>
+        <file>assets/enemy/01.gif</file>
     </qresource>
 </RCC>
