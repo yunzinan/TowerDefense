@@ -17,17 +17,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     enemy.cpp \
+    gamescene.cpp \
     gamewindow.cpp \
     main.cpp \
     mainwindow.cpp \
-    makemap.cpp
+    makemap.cpp \
+    mapgrid.cpp
 
 HEADERS += \
     config.h \
     enemy.h \
+    gamescene.h \
     gamewindow.h \
     mainwindow.h \
-    makemap.h
+    makemap.h \
+    mapgrid.h
 
 FORMS += \
     gamewindow.ui \

@@ -1,6 +1,7 @@
 #include "enemy.h"
 #include <QPainter>
 #include "config.h"
+#include <QGraphicsSceneMouseEvent>
 
 Enemy::Enemy(int pathIdx, float sideLen, float posX, float posY, QGraphicsItem *parent): QGraphicsPixmapItem(parent)
 {
@@ -12,6 +13,8 @@ Enemy::Enemy(int pathIdx, float sideLen, float posX, float posY, QGraphicsItem *
     movie.start();
     this->curNodeIdx = 0;
     this->moveSpeed = sideLen / 10;
+    setFlag(QGraphicsItem::ItemIsSelectable);
+    setFlag(QGraphicsItem::ItemIsFocusable);
 }
 
 QRectF Enemy::boundingRect() const
@@ -48,4 +51,18 @@ QPointF Enemy::moveBy(int direction)
     qDebug() << "posx: " << this->pos().x();
     return pos();
 }
+
+void Enemy::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    qDebug() << "enemy: press!";
+    QGraphicsItem::mouseReleaseEvent(event);
+}
+
+QPainterPath Enemy::shape() const
+{
+    QPainterPath path;
+    path.addRect(boundingRect());
+    return path;
+}
+
 

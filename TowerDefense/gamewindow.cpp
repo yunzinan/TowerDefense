@@ -5,6 +5,8 @@
 #include <QFile>
 #include <QTextStream>
 #include <QTimer>
+#include "gamescene.h"
+#include "mapgrid.h"
 
 void GameWindow::loadMap()
 {
@@ -120,10 +122,10 @@ void GameWindow::renderMap()
             qDebug() << type;
             switch (type) {//左右上下 二进制编码
 
-            case -1://非路径
+            case -1://非路径且不可放置远程塔
                 pixPath = ":/new/prefix1/assets/map/cp.png";
                 break;
-            case 0:
+            case 0://可放置远程塔, 会在上面加一个插槽
                 pixPath = ":/new/prefix1/assets/map/cp.png";
                 break;
             case 1:
@@ -176,15 +178,21 @@ void GameWindow::renderMap()
                 break;
 
             }
-            QGraphicsPixmapItem *cur = this->scene->addPixmap(QPixmap(pixPath));
+            QGraphicsItem *cur = new MapGrid(i, j, sideLen, pixPath);
+            this->scene->addItem(cur);
             cur->setPos(j*sideLen, i*sideLen);
+            if(type > 0 && type < 16) {
+                //路径, 设定可被选中
+                cur->setFlag(QGraphicsItem::ItemIsSelectable);
+            }
             qDebug() << j << " " << i << " " << j *sideLen;
-            cur->setScale(sideLen / 32);
+
             if(type == 0) {//添加槽图像
                 QPixmap pix = QPixmap(":/new/prefix1/assets/map/slot.png");
                 cur = this->scene->addPixmap(pix);
                 cur->setPos(j*sideLen, i*sideLen);
                 cur->setScale(sideLen / pix.width());
+                cur->setFlag(QGraphicsItem::ItemIsSelectable);//设置槽Item可以被选中
             }
         }
     }
@@ -228,7 +236,7 @@ void GameWindow::EnemyMove()
             else dir = 2;
         }
         QPointF ret = curEnemy->moveBy(dir);
-        qDebug() << ret.x() << " " << ret.y();
+        qDebug() << "enemy--->" << curEnemy->scenePos();
         //判断是否超出终点
         if(curEnemy->getNodeIdx() == pathList[curEnemy->getPathIdx()].size()-2) {
             bool isDead = false;
@@ -314,7 +322,7 @@ GameWindow::GameWindow(int level, QWidget *parent) :
     QString curLevel = "第" + QString::number(this->curLevel+1) + "关";
     ui->l_level->setText(curLevel);
     ui->l_progress->setText(QString("第1波"));
-    this->scene = new QGraphicsScene;
+    this->scene = new GameScene;
     ui->graphicsView->setScene(scene);
     //加载和预览地图
     loadMap();

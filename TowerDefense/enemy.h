@@ -24,7 +24,8 @@ class Enemy: public QObject, public QGraphicsPixmapItem
 //    void attack(Tower *t); //对t**尝试**攻击
     void move(int d); //尝试朝着d(1234表示上下左右)移动
     QPixmap pix; //当前的图像
-    float sideLen; //地图的大小, 也是物体的最大范围
+    float sideLen; //地图的大小, 也是物体的最大范围\]
+    
 public:
     Enemy(int pathIdx, float sideLen, float posX, float posY, QGraphicsItem *parent = nullptr);
     QRectF boundingRect() const override;
@@ -34,6 +35,8 @@ public:
     int& getNodeIdx() {return this->curNodeIdx;}
 
     QPointF moveBy(int direction); //上下左右=1234, 其余不移动
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    QPainterPath shape() const override;
 };
 
 #endif // ENEMY_H
