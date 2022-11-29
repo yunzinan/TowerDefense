@@ -20,5 +20,9 @@
         <file>assets/map/startPoint.png</file>
         <file>assets/map/endPoint.png</file>
         <file>assets/enemy/01.gif</file>
+        <file>assets/tower/1.gif</file>
+        <file>assets/tower/2.gif</file>
+        <file>assets/tower/3.gif</file>
+        <file>assets/tower/4.gif</file>
     </qresource>
 </RCC>

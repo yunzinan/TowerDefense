@@ -94,48 +94,10 @@
       <item>
        <widget class="QWidget" name="widget_3" native="true">
         <layout class="QGridLayout" name="gridLayout_4">
-         <item row="3" column="0">
-          <widget class="QRadioButton" name="radioButton_2">
-           <property name="text">
-            <string>塔2</string>
-           </property>
-          </widget>
-         </item>
          <item row="2" column="0">
-          <widget class="QRadioButton" name="radioButton">
+          <widget class="QRadioButton" name="radioButton_1">
            <property name="text">
-            <string>塔1</string>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="0">
-          <widget class="QRadioButton" name="radioButton_5">
-           <property name="text">
-            <string>摧毁</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="0">
-          <widget class="QRadioButton" name="radioButton_3">
-           <property name="text">
-            <string>塔3</string>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="0">
-          <widget class="QRadioButton" name="radioButton_4">
-           <property name="text">
-            <string>塔4</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_5">
-           <property name="text">
-            <string>放置塔</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
+            <string>塔1: 近战机甲</string>
            </property>
           </widget>
          </item>
@@ -176,6 +138,37 @@
              </spacer>
             </item>
            </layout>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QRadioButton" name="radioButton_2">
+           <property name="text">
+            <string>塔2: 超级近战机甲</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>放置面板</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QRadioButton" name="radioButton_3">
+           <property name="text">
+            <string>塔3: 远程机甲</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <widget class="QRadioButton" name="radioButton_4">
+           <property name="text">
+            <string>塔4: 超级远程机甲</string>
+           </property>
           </widget>
          </item>
         </layout>

@@ -17,6 +17,7 @@ typedef struct ps{
     friend bool operator != (const ps&a, const ps&b) {
         return !(a == b);
     }
+    ps(int row = 0, int col = 0) {this->row = row; this->col = col;}
 }ps;
 
 #define MAPMAXWIDTH 20

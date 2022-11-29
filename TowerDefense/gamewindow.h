@@ -10,6 +10,8 @@
 #include <QGraphicsItem>
 #include "config.h"
 #include <enemy.h>
+#include "tower.h"
+#include "mapgrid.h"
 
 namespace Ui {
 class GameWindow;
@@ -29,7 +31,7 @@ class GameWindow : public QWidget
     QTimer globalTimer;//全局时钟
     bool isStopped = false;
     QGraphicsScene *scene = nullptr; //游戏场景
-    //vector<Tower *> towerList; //当前在场的塔
+    vector<Tower *> towerList; //当前在场的塔
     vector<Enemy *> enemyList; //当前在场的敌人
     //地图信息
     int lineNum;
@@ -44,6 +46,7 @@ class GameWindow : public QWidget
     int getGridType(int row, int col); //左右上下编码, 0表示可以放置远程塔, -1表示没用的点
     void renderMap(); //将地图信息加载到场景里, 加上起点终点标志, 加上槽
     void renderSpecialPoints();//绘制起点和终点
+    vector<vector<MapGrid *>> slotList;//用于存放所有的槽的指针
     int timeCntForMakingEnemy;
     void EnemyMove();//为在场的怪物确定移动方向, 并传递给怪物对应的移动接口
 public:
@@ -51,6 +54,8 @@ public:
     ~GameWindow();
     void closeEvent(QCloseEvent *ev);
     void makeEnemy(); //出怪
+    void createTower(int row, int col, int type = 0);//在(row, col)考虑建造一座塔(还需要判定能否建造), type=0为近战塔, 1为远程塔
+    void deleteTower(int row, int col, int type = 0);
     void endGame(); //判断游戏状态: 胜利/失败/进行中, 给出相应反馈.
 private:
     Ui::GameWindow *ui;

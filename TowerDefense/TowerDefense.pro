@@ -22,7 +22,9 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     makemap.cpp \
-    mapgrid.cpp
+    mapgrid.cpp \
+    remotetower.cpp \
+    tower.cpp
 
 HEADERS += \
     config.h \
@@ -31,7 +33,9 @@ HEADERS += \
     gamewindow.h \
     mainwindow.h \
     makemap.h \
-    mapgrid.h
+    mapgrid.h \
+    remotetower.h \
+    tower.h
 
 FORMS += \
     gamewindow.ui \

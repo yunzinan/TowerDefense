@@ -13,7 +13,7 @@ class Enemy: public QObject, public QGraphicsPixmapItem
     int hp;
     int maxHp;
     int atk;
-    int atkRange;
+    float atkRange;
     float atkSpeed;
     float moveSpeed;
     int pathIdx;//记录属于哪一条路径

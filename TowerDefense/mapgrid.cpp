@@ -15,7 +15,9 @@ QRectF MapGrid::boundingRect() const
 
 void MapGrid::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug() << "Item mouseDoubleClickEvent!";
+    if(this->isGrid && event->button() == Qt::LeftButton) {
+        emit createTowerSignal(this->row, this->col);
+    }
     QGraphicsItem::mouseDoubleClickEvent(event);
 }
 
@@ -30,4 +32,9 @@ QPainterPath MapGrid::shape() const
     QPainterPath path;
     path.addRect(boundingRect());
     return path;
+}
+
+void MapGrid::setVacancy(bool isVacant)
+{
+    this->isVacant = isVacant;
 }

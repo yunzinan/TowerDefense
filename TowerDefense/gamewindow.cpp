@@ -7,6 +7,8 @@
 #include <QTimer>
 #include "gamescene.h"
 #include "mapgrid.h"
+#include "tower.h"
+#include "remotetower.h"
 
 void GameWindow::loadMap()
 {
@@ -33,7 +35,7 @@ void GameWindow::loadMap()
         for(int j = 1; j <= k; j++) {
             QString substr = path[j].mid(1, path[j].length()-2);
             QStringList psStr = substr.split(",");
-            struct ps curps;
+            ps curps;
             curps.row = psStr[0].toInt();
             curps.col = psStr[1].toInt();
             cur.push_back(curps);
@@ -183,16 +185,22 @@ void GameWindow::renderMap()
             cur->setPos(j*sideLen, i*sideLen);
             if(type > 0 && type < 16) {
                 //路径, 设定可被选中
-                cur->setFlag(QGraphicsItem::ItemIsSelectable);
+                dynamic_cast<MapGrid *>(cur)->setGrid(true);
+                connect(dynamic_cast<MapGrid *>(cur), &MapGrid::createTowerSignal, [=](int row, int col){
+                    this->createTower(row, col, 0);
+                });
             }
-            qDebug() << j << " " << i << " " << j *sideLen;
+//            qDebug() << j << " " << i << " " << j *sideLen;
 
             if(type == 0) {//添加槽图像
-                QPixmap pix = QPixmap(":/new/prefix1/assets/map/slot.png");
-                cur = this->scene->addPixmap(pix);
+                QGraphicsItem *cur = new MapGrid(i, j, sideLen, ":/new/prefix1/assets/map/slot.png");
+                this->scene->addItem(cur);
                 cur->setPos(j*sideLen, i*sideLen);
-                cur->setScale(sideLen / pix.width());
-                cur->setFlag(QGraphicsItem::ItemIsSelectable);//设置槽Item可以被选中
+                dynamic_cast<MapGrid *>(cur)->setGrid(true);
+                connect(dynamic_cast<MapGrid *>(cur), &MapGrid::createTowerSignal, [=](int row, int col){
+                    this->createTower(row, col, 1);//创建远程塔
+                });
+                slotList[i][j] = dynamic_cast<MapGrid *>(cur);
             }
         }
     }
@@ -210,8 +218,8 @@ void GameWindow::renderSpecialPoints()
         cur->setScale(sideLen / sp.height() * 0.7);
         QPixmap ep = QPixmap(":/new/prefix1/assets/map/endPoint.png");
         cur = scene->addPixmap(ep);
-        cur->setPos(((float)endPoint.col + 0.3)* sideLen, endPoint.row * sideLen);
-        cur->setScale(sideLen / ep.height() * 0.7);
+        cur->setPos(((float)endPoint.col)* sideLen, endPoint.row * sideLen);
+        cur->setScale(sideLen / ep.height());
     }
 }
 
@@ -353,6 +361,10 @@ GameWindow::GameWindow(int level, QWidget *parent) :
         }
     });
     getGridStatus();
+    slotList.resize(this->lineNum);
+    for(int i = 0; i < this->lineNum; i++) {
+        slotList[i].assign(this->colNum, nullptr);
+    }
     renderMap();
     renderSpecialPoints();
     this->globalTimer.start(50);
@@ -398,4 +410,107 @@ void GameWindow::makeEnemy()
             enemyList.push_back(curEnemy);
         }
     }
+}
+
+void GameWindow::createTower(int row, int col, int type)
+{
+    qDebug() << "TowerCreated at row " << row << ", col " << col;
+    //获取当前要建设的塔的类型
+    if(type == 0) {
+        if(ui->radioButton_1->isChecked()) {
+            if(this->money >= 100) {
+                this->money -= 100;
+                ui->l_money->setText(QString::number(money));
+                QGraphicsItem *cur = new Tower(row, col, this->sideLen);
+                connect(dynamic_cast<Tower *>(cur), &Tower::deleteSignal, [=](int row, int col){
+                    deleteTower(row, col);
+                });
+                cur->setPos(col * sideLen, row * sideLen);
+                this->scene->addItem(cur);
+                this->towerList.push_back(dynamic_cast<Tower *>(cur));
+            }
+            else {
+                qDebug() << "not enough money!";
+            }
+        }
+        else if(ui->radioButton_2->isChecked()) {//创建特殊近战塔
+//            if(this->money >= 500) {
+//                this->money -= 500;
+//                ui->l_money->setText(QString::number(money));
+//                QGraphicsItem *cur = new Tower(row, col, this->sideLen);
+//                connect(dynamic_cast<Tower *>(cur), &Tower::deleteSignal, [=](int row, int col){
+//                    deleteTower(row, col);
+//                });
+//                cur->setPos(col * sideLen, row * sideLen);
+//                this->scene->addItem(cur);
+//                this->towerList.push_back(dynamic_cast<Tower *>(cur));
+//            }
+//            else {
+//                qDebug() << "not enough money!";
+//            }
+        }
+    }
+    else {
+        if(ui->radioButton_3->isChecked()) {
+            if(this->money >= 200) {
+                this->money -= 200;
+                ui->l_money->setText(QString::number(money));
+                QGraphicsItem *cur = new RemoteTower(row, col, this->sideLen);
+                connect(dynamic_cast<RemoteTower *>(cur), &RemoteTower::deleteRemoteSignal, [=](int row, int col){
+                    deleteTower(row, col, 1);
+                });
+                cur->setPos(col * sideLen, row * sideLen);
+                this->scene->addItem(cur);
+                this->towerList.push_back(dynamic_cast<Tower *>(cur));
+                //隐藏SLOT
+                if(slotList[row][col] != nullptr) slotList[row][col]->hide();
+            }
+            else {
+                qDebug() << "not enough money!";
+            }
+        }
+        else if(ui->radioButton_4->isChecked()) {//创建特殊远程塔
+
+        }
+    }
+}
+
+void GameWindow::deleteTower(int row, int col, int type)
+{
+    //合法性判断
+    //先判断这个地方有没有塔
+    auto it = towerList.begin();
+    for(; it != towerList.end(); it++) {
+        if((*it)->getPos().row == row && (*it)->getPos().col == col) break;
+    }
+    if(it != towerList.end()) {
+        if(type == 0) {
+            //说明存在, 需要被摧毁
+            //首先从Scene删除对象
+            this->scene->removeItem(dynamic_cast<QGraphicsItem *>(*it));
+            //恢复金币
+            this->money += 100;
+            ui->l_money->setText(QString::number(this->money));
+            //删除对象
+            delete *it;
+            towerList.erase(it);
+            //然后在TowerList中删除
+            qDebug() << "TowerDeleted!";
+        }
+        else {//远程塔
+            //说明存在, 需要被摧毁
+            //首先从Scene删除对象
+            this->scene->removeItem(dynamic_cast<QGraphicsItem *>(*it));
+            //恢复金币
+            this->money += 200;
+            ui->l_money->setText(QString::number(this->money));
+            //删除对象
+            delete *it;
+            towerList.erase(it);
+            //然后在TowerList中删除
+            if(slotList[row][col] != nullptr) slotList[row][col]->show();
+            qDebug() << "TowerDeleted!";
+        }
+    }
+
 }
