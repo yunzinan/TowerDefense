@@ -34,6 +34,14 @@ void Enemy::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
     if(movie.state() == QMovie::Running) {
         painter->drawImage(this->boundingRect(), movie.currentImage());
     }
+    //绘制血条
+    float rate = (float)this->hp / (float)this->maxHp;
+    QBrush green_brush(QColor("#12FF08"));
+    QBrush red_brush(QColor("#E70000"));
+    painter->setBrush(green_brush);
+    painter->drawRect(0, 0, (float)sideLen * rate, 20);
+    painter->setBrush(red_brush);
+    painter->drawRect(sideLen * rate, 0, (1-rate) * sideLen, 20);
 }
 
 QPointF Enemy::moveBy(int direction)
