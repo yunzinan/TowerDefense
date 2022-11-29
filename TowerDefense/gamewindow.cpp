@@ -322,7 +322,7 @@ GameWindow::GameWindow(int level, QWidget *parent) :
     this->life = 30;
     this->stop = false;
     this->maxLife = 30;
-    this->maxEnemyCnt = 20;
+    this->maxEnemyCnt = 40;
     this->timeCntForMakingEnemy = 0;
     this->enemyCnt = 0;
     ui->l_hp->setText(QString::number(this->life));
@@ -345,7 +345,11 @@ GameWindow::GameWindow(int level, QWidget *parent) :
         makeEnemy();//创建怪物
         //怪物移动
         EnemyMove();
+        //怪物和塔的攻击
+        atk();
         this->scene->update();
+        //游戏的终局判断
+        endGame();
 //        this->scene->advance();
     });
     connect(ui->pb_stop, &QPushButton::clicked, [=](){
@@ -513,4 +517,72 @@ void GameWindow::deleteTower(int row, int col, int type)
         }
     }
 
+}
+
+void GameWindow::endGame()
+{
+    if(this->life <= 0) {
+        qDebug() << "YOU LOSE THE GAME!";
+        //后面做一个动画
+        globalTimer.stop();
+        isStopped = true;
+    }
+    else {
+        if(enemyCnt == maxEnemyCnt && this->enemyList.size() == 0) {
+            qDebug() << "YOU WIN THE GAME!";
+            globalTimer.stop();
+            isStopped = true;
+        }
+    }
+}
+
+void GameWindow::atk()
+{
+    for(int i = 0; i < this->towerList.size(); i++) {
+        //计算与所有在场怪物的最近的距离
+        Enemy *target = nullptr;
+        qreal minDis = 1000000000;
+        for(int j = 0; j < this->enemyList.size(); j++) {
+            qreal curDis = calcDis(towerList[i], enemyList[j]);
+            if(curDis < minDis) {
+                minDis = curDis;
+                target = enemyList[j];
+            }
+        }
+        towerList[i]->attack(target);
+    }
+    for(int i = 0; i < this->enemyList.size(); i++) {
+        //计算与所有在场怪物的最近的距离
+        Tower *target = nullptr;
+        qreal minDis = 1000000000;
+        for(int j = 0; j < this->towerList.size(); j++) {
+            qreal curDis = calcDis(enemyList[i], towerList[j]);
+            if(curDis < minDis) {
+                minDis = curDis;
+                target = towerList[j];
+            }
+        }
+        enemyList[i]->attack(target);
+    }
+    //清除尸体
+    for(auto it = towerList.begin(); it != towerList.end(); it++) {
+        if((*it)->getHp() <= 0) {
+            qDebug() << "tower destroyed!";
+            this->scene->removeItem(*it);
+            ps state = (*it)->getPos();
+            if(slotList[state.row][state.col] != nullptr) slotList[state.row][state.col]->show();
+            delete *it;
+            towerList.erase(it);
+            it--;
+        }
+    }
+    for(auto it = enemyList.begin(); it != enemyList.end(); it++) {
+        if((*it)->getHp() <= 0) {
+            qDebug() << "enemy destroyed!";
+            this->scene->removeItem(*it);
+            delete *it;
+            enemyList.erase(it);
+            it--;
+        }
+    }
 }

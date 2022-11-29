@@ -7,11 +7,12 @@ class RemoteTower : public Tower
 {
     Q_OBJECT
     QString gifPath;
-    float atkRange;
+    float atkRangeScale = 4;
 public:
     RemoteTower(int row, int col, float sideLen, QGraphicsItem *parent = nullptr): Tower(row, col, sideLen, parent) {
         this->gifPath = ":/new/prefix1/assets/tower/3.gif";
         Tower::resetGif(gifPath);
+        setAtkRange(this->atkRangeScale);
     }
 //    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;

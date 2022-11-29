@@ -13,6 +13,12 @@ Enemy::Enemy(int pathIdx, float sideLen, float posX, float posY, QGraphicsItem *
     movie.start();
     this->curNodeIdx = 0;
     this->moveSpeed = sideLen / 10;
+    this->atk = 10;
+    this->atkRange = sideLen;
+    this->maxHp = 100;
+    this->hp = maxHp;
+    this->isMovable = true;
+    this->atkCycle = 10;
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsFocusable);
 }
@@ -32,21 +38,23 @@ void Enemy::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
 
 QPointF Enemy::moveBy(int direction)
 {
-    switch (direction) {
-    case 1://上
-        this->setPos(pos() - QPointF(0, this->moveSpeed));
-        break;
-    case 2:
-        this->setPos(pos() + QPointF(0, this->moveSpeed));
-        break;
-    case 3:
-        this->setPos(pos() - QPointF(this->moveSpeed, 0));
-        break;
-    case 4:
-        this->setPos(pos() + QPointF(this->moveSpeed, 0));
-        break;
-    default:
-        qDebug() << "wrong direction!";
+    if(this->isMovable) {
+        switch (direction) {
+        case 1://上
+            this->setPos(pos() - QPointF(0, this->moveSpeed));
+            break;
+        case 2:
+            this->setPos(pos() + QPointF(0, this->moveSpeed));
+            break;
+        case 3:
+            this->setPos(pos() - QPointF(this->moveSpeed, 0));
+            break;
+        case 4:
+            this->setPos(pos() + QPointF(this->moveSpeed, 0));
+            break;
+        default:
+            qDebug() << "wrong direction!";
+        }
     }
     qDebug() << "posx: " << this->pos().x();
     return pos();
@@ -63,6 +71,32 @@ QPainterPath Enemy::shape() const
     QPainterPath path;
     path.addRect(boundingRect());
     return path;
+}
+
+void Enemy::attack(Tower *target)
+{
+    if(target == nullptr) return ;
+    if(this->hp <= 0) return ;
+    if(this->curCnt < this->atkCycle) {
+        curCnt++;
+        return ;
+    }
+    //判定是否在一个的距离内
+    qreal dis = calcDis(target);
+    if(dis <= this->atkRange * this->atkRange) {
+        qDebug() << "atk success!";
+        target->beAttacked(this);
+    }
+}
+
+void Enemy::beAttacked(Tower *target)
+{
+    this->hp -= target->getAtk();
+    if(hp < 0) hp = 0;
+}
+qreal Enemy::calcDis(QGraphicsItem *target)
+{
+    return (this->pos().x() - target->pos().x()) * (this->pos().x() - target->pos().x()) + (this->pos().y() - target->pos().y()) * (this->pos().y() - target->pos().y());
 }
 
 

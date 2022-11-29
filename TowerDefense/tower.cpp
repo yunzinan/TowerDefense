@@ -34,3 +34,29 @@ void Tower::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     }
     return QGraphicsItem::mouseDoubleClickEvent(event);
 }
+
+qreal Tower::calcDis(QGraphicsItem *target)
+{
+    return (this->pos().x() - target->pos().x()) * (this->pos().x() - target->pos().x()) + (this->pos().y() - target->pos().y()) * (this->pos().y() - target->pos().y());
+}
+
+void Tower::attack(Enemy *target)
+{
+    if(target == nullptr) return ;
+    if(this->hp <= 0) return ;
+    if(this->curCnt < this->atkCycle) {
+        curCnt++;
+        return ;
+    }
+    qreal dis = calcDis(target);
+    if(dis <= this->atkRange * this->atkRange) {
+        qDebug() << "tower atk success!";
+        target->beAttacked(this);
+    }
+}
+
+void Tower::beAttacked(Enemy *target)
+{
+    this->hp -= target->getAtk();
+    if(hp < 0) hp = 0;
+}
