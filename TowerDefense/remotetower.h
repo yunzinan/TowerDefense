@@ -9,6 +9,7 @@ class RemoteTower : public Tower
     QString gifPath;
     float atkRangeScale = 4;
 public:
+    enum {Type = UserType + 3};
     RemoteTower(int row, int col, float sideLen, QGraphicsItem *parent = nullptr): Tower(row, col, sideLen, parent) {
         this->gifPath = ":/new/prefix1/assets/tower/3.gif";
         Tower::resetGif(gifPath);
@@ -16,6 +17,9 @@ public:
     }
 //    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
+    int type() const override{
+        return Type;
+    }
 signals:
     void deleteRemoteSignal(int row, int col);
 };

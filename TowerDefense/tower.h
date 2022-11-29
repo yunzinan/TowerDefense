@@ -30,6 +30,7 @@ protected:
         this->atkRange *= scale;
     }
 public:
+    enum {Type = UserType + 2};
     Tower(int row, int col, float sideLen, QGraphicsItem *parent = nullptr): row(row), col(col), sideLen(sideLen) {
         this->maxHp = 100;
         this->hp = maxHp;
@@ -58,6 +59,9 @@ public:
     void attack(Enemy *target);
     void beAttacked(Enemy *target);
     int& getCurCnt() {return this->curCnt;}
+    int type() const override {
+        return Type;
+    }
 signals:
     void deleteSignal(int row, int col);//删除该对象的信号
 };

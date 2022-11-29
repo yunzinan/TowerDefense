@@ -30,6 +30,7 @@ class Enemy: public QObject, public QGraphicsPixmapItem
     float sideLen; //地图的大小, 也是物体的最大范围\]
     
 public:
+    enum {Type = UserType + 1};
     Enemy(int pathIdx, float sideLen, float posX, float posY, QGraphicsItem *parent = nullptr);
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
@@ -46,6 +47,7 @@ public:
     int getHp() const {return this->hp;}
     qreal calcDis(QGraphicsItem *target);
     int& getCurCnt() {return this->curCnt;} //用于攻击频率设置
+    int type() const override {return Type;}
 };
 
 #endif // ENEMY_H

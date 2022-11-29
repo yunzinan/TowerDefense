@@ -225,6 +225,15 @@ void GameWindow::renderSpecialPoints()
 
 void GameWindow::EnemyMove()
 {
+    //先判断能否移动
+    for(int i = 0; i < this->enemyList.size(); i++) {
+        enemyList[i]->setMovable(true);
+        for(auto j = 0; j < enemyList[i]->collidingItems().size(); j++) {
+            if(enemyList[i]->collidingItems().at(j)->type() == Tower::Type) {
+               enemyList[i]->setMovable(false);
+            }
+        }
+    }
     for(int i = 0; i < this->enemyList.size(); i++) {
         Enemy * curEnemy = enemyList[i];
         //既然能够移动, 那么必然是在终点以以前, 因此必然有下一个关键节点
