@@ -1,0 +1,17 @@
+debug/enemy.o
+debug/gamescene.o
+debug/gamewindow.o
+debug/main.o
+debug/mainwindow.o
+debug/makemap.o
+debug/mapgrid.o
+debug/remotetower.o
+debug/tower.o
+debug/qrc_res.o
+debug/moc_enemy.o
+debug/moc_gamewindow.o
+debug/moc_mainwindow.o
+debug/moc_makemap.o
+debug/moc_mapgrid.o
+debug/moc_remotetower.o
+debug/moc_tower.o

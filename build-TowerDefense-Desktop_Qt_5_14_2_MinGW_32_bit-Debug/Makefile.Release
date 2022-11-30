@@ -284,6 +284,31 @@ release/moc_enemy.cpp: ../TowerDefense/enemy.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qjsonobject.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qjsonvalue.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qfactoryinterface.h \
+		../TowerDefense/tower.h \
+		../TowerDefense/config.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QDebug \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QPushButton \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qpushbutton.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qicon.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qkeysequence.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qwidget.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qpalette.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qbrush.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qfont.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qfontmetrics.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qfontinfo.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qsizepolicy.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qcursor.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qevent.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qurl.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qurlquery.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qfile.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qfiledevice.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qvector2d.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtouchdevice.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QString \
+		../TowerDefense/enemy.h \
 		release/moc_predefs.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/bin/moc.exe
 	'C:\Qt\Qt5.14.2\5.14.2\mingw73_32\bin\moc.exe' $(DEFINES) --include C:/Users/Jack_shen/Desktop/TowerDefense/build-TowerDefense-Desktop_Qt_5_14_2_MinGW_32_bit-Debug/release/moc_predefs.h -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/mkspecs/win32-g++ -IC:/Users/Jack_shen/Desktop/TowerDefense/TowerDefense -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtANGLE -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore -I. -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++ -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/backward -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include-fixed -IC:/Qt/Qt5.14.2/Tools/mingw730_32/i686-w64-mingw32/include ../TowerDefense/enemy.h -o release/moc_enemy.cpp
@@ -1005,6 +1030,7 @@ release/moc_remotetower.cpp: ../TowerDefense/remotetower.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QString \
+		../TowerDefense/enemy.h \
 		release/moc_predefs.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/bin/moc.exe
 	'C:\Qt\Qt5.14.2\5.14.2\mingw73_32\bin\moc.exe' $(DEFINES) --include C:/Users/Jack_shen/Desktop/TowerDefense/build-TowerDefense-Desktop_Qt_5_14_2_MinGW_32_bit-Debug/release/moc_predefs.h -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/mkspecs/win32-g++ -IC:/Users/Jack_shen/Desktop/TowerDefense/TowerDefense -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtANGLE -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore -I. -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++ -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/backward -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include-fixed -IC:/Qt/Qt5.14.2/Tools/mingw730_32/i686-w64-mingw32/include ../TowerDefense/remotetower.h -o release/moc_remotetower.cpp
@@ -1136,6 +1162,8 @@ release/moc_tower.cpp: ../TowerDefense/tower.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QString \
+		../TowerDefense/enemy.h \
+		../TowerDefense/tower.h \
 		release/moc_predefs.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/bin/moc.exe
 	'C:\Qt\Qt5.14.2\5.14.2\mingw73_32\bin\moc.exe' $(DEFINES) --include C:/Users/Jack_shen/Desktop/TowerDefense/build-TowerDefense-Desktop_Qt_5_14_2_MinGW_32_bit-Debug/release/moc_predefs.h -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/mkspecs/win32-g++ -IC:/Users/Jack_shen/Desktop/TowerDefense/TowerDefense -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtANGLE -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore -I. -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++ -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/backward -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include-fixed -IC:/Qt/Qt5.14.2/Tools/mingw730_32/i686-w64-mingw32/include ../TowerDefense/tower.h -o release/moc_tower.cpp
@@ -1275,14 +1303,7 @@ release/enemy.o: ../TowerDefense/enemy.cpp ../TowerDefense/enemy.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qjsonobject.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qjsonvalue.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qfactoryinterface.h \
-		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/QPainter \
-		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qpainter.h \
-		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtextoption.h \
-		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qpen.h \
-		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qbrush.h \
-		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qfontinfo.h \
-		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qfont.h \
-		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qfontmetrics.h \
+		../TowerDefense/tower.h \
 		../TowerDefense/config.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QDebug \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QPushButton \
@@ -1292,6 +1313,10 @@ release/enemy.o: ../TowerDefense/enemy.cpp ../TowerDefense/enemy.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qkeysequence.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qwidget.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qpalette.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qbrush.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qfont.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qfontmetrics.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qfontinfo.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qsizepolicy.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qcursor.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qevent.h \
@@ -1302,6 +1327,10 @@ release/enemy.o: ../TowerDefense/enemy.cpp ../TowerDefense/enemy.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QString \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/QPainter \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qpainter.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtextoption.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qpen.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QGraphicsSceneMouseEvent \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qgraphicssceneevent.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/enemy.o ../TowerDefense/enemy.cpp
@@ -2397,6 +2426,7 @@ release/remotetower.o: ../TowerDefense/remotetower.cpp ../TowerDefense/remotetow
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QString \
+		../TowerDefense/enemy.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QGraphicsSceneEvent \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qgraphicssceneevent.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/remotetower.o ../TowerDefense/remotetower.cpp
@@ -2528,6 +2558,7 @@ release/tower.o: ../TowerDefense/tower.cpp ../TowerDefense/tower.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QString \
+		../TowerDefense/enemy.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/QPainter \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qpainter.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtextoption.h \

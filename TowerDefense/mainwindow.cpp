@@ -8,7 +8,7 @@ void MainWindow::loadInfo()
 {
     QString curPath = QDir::currentPath();
     QString fp_config = curPath + "/info/config.txt";
-//    qDebug() << fp_config;
+    qDebug() << fp_config;
     QFile file(fp_config);
     if(!file.open(QIODevice::ReadOnly)) {
         qDebug() << "error! file not exists!";

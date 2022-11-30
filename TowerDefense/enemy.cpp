@@ -95,6 +95,7 @@ void Enemy::attack(Tower *target)
         qDebug() << "atk success!";
         target->beAttacked(this);
     }
+        curCnt = 0;
 }
 
 void Enemy::beAttacked(Tower *target)

@@ -1,0 +1,17 @@
+release/enemy.o
+release/gamescene.o
+release/gamewindow.o
+release/main.o
+release/mainwindow.o
+release/makemap.o
+release/mapgrid.o
+release/remotetower.o
+release/tower.o
+release/qrc_res.o
+release/moc_enemy.o
+release/moc_gamewindow.o
+release/moc_mainwindow.o
+release/moc_makemap.o
+release/moc_mapgrid.o
+release/moc_remotetower.o
+release/moc_tower.o
