@@ -236,7 +236,7 @@ void GameWindow::EnemyMove()
             if(enemyList[i]->collidingItems().at(j)->type() == Tower::Type) {
                enemyList[i]->setMovable(false);
                //如果类型是Wizard && isValid, 就发动闪现
-               if(enemyList[i]->type() == Wizard::Type && dynamic_cast<Wizard *>(enemyList[i])->getValid()) {
+               if((enemyList[i]->type() == Wizard::Type && dynamic_cast<Wizard *>(enemyList[i])->getValid()) || (enemyList[i]->type() == DragonMaster::Type && dynamic_cast<DragonMaster *>(enemyList[i])->getValid())) {
                    bool IsDead = false;
                    enemyList[i]->setMovable(true);
                    //闪现, 就是迅速移动多次
@@ -513,7 +513,7 @@ void GameWindow::makeEnemy()
         timeCntForMakingEnemy = 1;
         //创建怪物
         for(int i = 0; i < this->pathList.size() && enemyCnt < maxEnemyCnt; i++) {
-            Wizard* curEnemy = new Wizard(i, this->sideLen);
+            DragonMaster* curEnemy = new DragonMaster(i, this->sideLen);
             this->enemyCnt++;
             this->scene->addItem(curEnemy);
             curEnemy->setPos(pathList[i][0].col * sideLen, pathList[i][0].row * sideLen);
