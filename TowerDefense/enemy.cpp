@@ -3,22 +3,29 @@
 #include "config.h"
 #include <QGraphicsSceneMouseEvent>
 
-Enemy::Enemy(int pathIdx, float sideLen, float posX, float posY, QGraphicsItem *parent): QGraphicsPixmapItem(parent)
+void Enemy::setConfig()
 {
+    movie.stop();
     movie.setFileName(":/new/prefix1/assets/enemy/01.gif");
-    this->sideLen = sideLen;
-    movie.setScaledSize(QSize(this->sideLen * 0.8, this->sideLen * 0.8)); //稍微小一点
-    this->pathIdx = pathIdx;
-    this->setFlags(QGraphicsItem::ItemIsMovable);
+    movie.setScaledSize(QSize(this->sideLen, this->sideLen));
     movie.start();
-    this->curNodeIdx = 0;
-    this->moveSpeed = sideLen / 10;
+
+    this->moveSpeed = sideLen / 20;
     this->atk = 10;
     this->atkRange = sideLen;
     this->maxHp = 100;
+    this->atkCycle = 10;
+}
+
+Enemy::Enemy(int pathIdx, float sideLen, QGraphicsItem *parent): QGraphicsPixmapItem(parent)
+{
+    this->sideLen = sideLen;
+    this->curNodeIdx = 0;
+    setConfig();
     this->hp = maxHp;
     this->isMovable = true;
-    this->atkCycle = 10;
+    this->pathIdx = pathIdx;
+//    this->setFlags(QGraphicsItem::ItemIsMovable);
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsFocusable);
 }
@@ -26,7 +33,7 @@ Enemy::Enemy(int pathIdx, float sideLen, float posX, float posY, QGraphicsItem *
 QRectF Enemy::boundingRect() const
 {
     //注意: 为了美观, 调整了x轴上的偏移量
-    return QRectF(0.2*sideLen, 0, this->sideLen * 0.8, this->sideLen * 0.8);//血的教训, stackOverflow YYDS
+    return QRectF(0, 0, this->sideLen * 0.8, this->sideLen * 0.8);//血的教训, stackOverflow YYDS
 }
 
 void Enemy::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)

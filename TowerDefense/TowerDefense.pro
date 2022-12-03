@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    dragonmaster.cpp \
     enemy.cpp \
     gamescene.cpp \
     gamewindow.cpp \
@@ -24,10 +25,13 @@ SOURCES += \
     makemap.cpp \
     mapgrid.cpp \
     remotetower.cpp \
-    tower.cpp
+    tower.cpp \
+    vanguard.cpp \
+    wizard.cpp
 
 HEADERS += \
     config.h \
+    dragonmaster.h \
     enemy.h \
     gamescene.h \
     gamewindow.h \
@@ -35,7 +39,9 @@ HEADERS += \
     makemap.h \
     mapgrid.h \
     remotetower.h \
-    tower.h
+    tower.h \
+    vanguard.h \
+    wizard.h
 
 FORMS += \
     gamewindow.ui \

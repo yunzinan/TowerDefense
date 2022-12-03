@@ -24,5 +24,10 @@
         <file>assets/tower/2.gif</file>
         <file>assets/tower/3.gif</file>
         <file>assets/tower/4.gif</file>
+        <file>assets/enemy/02.gif</file>
+        <file>assets/enemy/03.gif</file>
+        <file>assets/enemy/04.gif</file>
+        <file>assets/enemy/05.gif</file>
+        <file>assets/enemy/09.gif</file>
     </qresource>
 </RCC>

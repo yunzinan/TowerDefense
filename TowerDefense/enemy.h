@@ -13,6 +13,8 @@ class Tower;
 class Enemy: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
+
+protected:
     int hp;
     int maxHp;
     int atk;
@@ -31,14 +33,15 @@ class Enemy: public QObject, public QGraphicsPixmapItem
     
 public:
     enum {Type = UserType + 1};
-    Enemy(int pathIdx, float sideLen, float posX, float posY, QGraphicsItem *parent = nullptr);
+    virtual void setConfig();//虚函数, 用于对不同的敌人的属性和gif进行初始化
+    Enemy(int pathIdx, float sideLen, QGraphicsItem *parent = nullptr);
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 //    void advance(int phase) override; //好像没必要写了
     int getPathIdx() {return this->pathIdx;}
     int& getNodeIdx() {return this->curNodeIdx;}
     void setMovable(bool isMovable) {this->isMovable = isMovable;}
-    QPointF moveBy(int direction); //上下左右=1234, 其余不移动
+    virtual QPointF moveBy(int direction); //上下左右=1234, 其余不移动
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     QPainterPath shape() const override;
     void attack(Tower *target); //尝试对某个塔进行攻击
