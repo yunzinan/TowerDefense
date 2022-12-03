@@ -9,6 +9,7 @@
 #include "mapgrid.h"
 #include "tower.h"
 #include "remotetower.h"
+#include <QCheckBox>
 
 void GameWindow::loadMap()
 {
@@ -87,7 +88,7 @@ int GameWindow::getGridType(int row, int col)
         if(row-1 >= 0 && isGrid[row-1][col]) return 0;
         if(row+1 < this->lineNum && isGrid[row+1][col]) return 0;
         if(col-1 >= 0 && isGrid[row][col-1]) return 0;
-        if(col < this->colNum && isGrid[row][col+1]) return 0;
+        if(col+1 < this->colNum && isGrid[row][col+1]) return 0;
         return -1;
     }
     else {
