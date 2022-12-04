@@ -9,7 +9,6 @@ void Enemy::setConfig()
     movie.setFileName(":/new/prefix1/assets/enemy/01.gif");
     movie.setScaledSize(QSize(this->sideLen, this->sideLen));
     movie.start();
-    this->isFreezed = false;
     this->moveSpeed = sideLen / 20;
     this->atk = 10;
     this->atkRange = sideLen;
@@ -22,6 +21,8 @@ Enemy::Enemy(int pathIdx, float sideLen, QGraphicsItem *parent): QGraphicsPixmap
     this->sideLen = sideLen;
     this->curNodeIdx = 0;
     setConfig();
+    this->isFreezed = false;
+    this->isBleeding = false;
     this->hp = maxHp;
     this->isMovable = true;
     this->pathIdx = pathIdx;
