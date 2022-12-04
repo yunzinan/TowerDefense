@@ -315,7 +315,7 @@ public:
         QTableWidgetItem *___qtablewidgetitem5 = tableWidget->verticalHeaderItem(4);
         ___qtablewidgetitem5->setText(QCoreApplication::translate("GameWindow", "\346\224\273\345\207\273\351\200\237\345\272\246", nullptr));
         QTableWidgetItem *___qtablewidgetitem6 = tableWidget->verticalHeaderItem(5);
-        ___qtablewidgetitem6->setText(QCoreApplication::translate("GameWindow", "\346\226\260\345\273\272\350\241\214", nullptr));
+        ___qtablewidgetitem6->setText(QCoreApplication::translate("GameWindow", "\347\247\273\345\212\250\351\200\237\345\272\246", nullptr));
         QTableWidgetItem *___qtablewidgetitem7 = tableWidget->verticalHeaderItem(6);
         ___qtablewidgetitem7->setText(QCoreApplication::translate("GameWindow", "\350\257\215\347\274\2001", nullptr));
         QTableWidgetItem *___qtablewidgetitem8 = tableWidget->verticalHeaderItem(7);

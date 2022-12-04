@@ -8,5 +8,4 @@ void RemoteTower::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
         ps state = getPos();
         emit this->deleteRemoteSignal(state.row, state.col);
     }
-    return QGraphicsItem::mouseDoubleClickEvent(event);
 }

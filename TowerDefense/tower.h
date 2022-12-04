@@ -55,6 +55,9 @@ public:
     }
     int getAtk() const {return this->atk;}
     int getHp() const {return this->hp;}
+    int getMaxHP() const {return this->maxHp;}
+    float getAtkRange() const {return this->atkRange;}
+    float getAtkSpeed() const {return (float)20/(float)this->atkCycle;}
     qreal calcDis(QGraphicsItem *target);
     void attack(Enemy *target);
     void beAttacked(Enemy *target);
@@ -62,8 +65,10 @@ public:
     int type() const override {
         return Type;
     }
+
 signals:
     void deleteSignal(int row, int col);//删除该对象的信号
+    void getFocus(QGraphicsItem *p);
 };
 
 #endif // TOWER_H

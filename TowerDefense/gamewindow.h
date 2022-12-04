@@ -49,6 +49,9 @@ class GameWindow : public QWidget
     vector<vector<MapGrid *>> slotList;//用于存放所有的槽的指针
     int timeCntForMakingEnemy;
     void EnemyMove();//为在场的怪物确定移动方向, 并传递给怪物对应的移动接口
+    QGraphicsItem *focusItem = nullptr;
+    void getFocusItem(QGraphicsItem *p);
+    void showFocusItem();//在属性栏详细展示信息, 如果是防御塔的话, 还会在下方显示词缀信息
 public:
     explicit GameWindow(int level, QWidget *parent = nullptr);
     ~GameWindow();

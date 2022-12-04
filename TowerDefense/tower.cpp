@@ -24,7 +24,9 @@ QPainterPath Tower::shape() const
 
 void Tower::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug() << "tower pressed!";
+    if(event->button() == Qt::LeftButton) {
+        emit getFocus(this);
+    }
 }
 
 void Tower::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
@@ -32,7 +34,6 @@ void Tower::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     if(event->button() == Qt::RightButton) {
         emit deleteSignal(row, col);
     }
-    return QGraphicsItem::mouseDoubleClickEvent(event);
 }
 
 qreal Tower::calcDis(QGraphicsItem *target)

@@ -48,9 +48,19 @@ public:
     void beAttacked(Tower *target);//被某个塔攻击
     int getAtk() const {return this->atk;}
     int getHp() const {return this->hp;}
+    int getMaxHP() const {return this->maxHp;}
+    float getAtkRange() const {return this->atkRange;}
+    float getAtkSpeed() const {return (float)20/(float)atkCycle;}
+    float getMoveSpeed() const {return this->moveSpeed;}
     qreal calcDis(QGraphicsItem *target);
     int& getCurCnt() {return this->curCnt;} //用于攻击频率设置
     int type() const override {return Type;}
+    bool bleedAffix = false;//流血词缀
+    bool rageAffix = false;//狂暴词缀
+    bool freezeAffix = false;//冰冻词缀
+    bool areaDamageAffix = false;//群伤词缀
+signals:
+    void getFocus(QGraphicsItem *p);
 };
 
 #endif // ENEMY_H

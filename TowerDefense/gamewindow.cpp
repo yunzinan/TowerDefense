@@ -433,6 +433,143 @@ void GameWindow::EnemyMove()
     }
 }
 
+void GameWindow::getFocusItem(QGraphicsItem *p)
+{
+    this->focusItem = p;
+}
+
+void GameWindow::showFocusItem()
+{
+    QGraphicsItem *p = this->focusItem;
+    if(p == nullptr) return ;
+    qDebug() << "get Focus Item!";
+    switch (p->type()) {
+    case Enemy::Type:{
+        QTableWidgetItem *name = new QTableWidgetItem("皇家企鹅");
+        ui->tableWidget->setItem(0, 0, name);
+        Enemy *target = dynamic_cast<Enemy *>(p);
+        QTableWidgetItem *hp = new QTableWidgetItem(QString::number(target->getHp()) + "/" + QString::number(target->getMaxHP()));
+        ui->tableWidget->setItem(1, 0, hp);
+        QTableWidgetItem *atk = new QTableWidgetItem(QString::number(target->getAtk()));
+        ui->tableWidget->setItem(2, 0, atk);
+        QTableWidgetItem *atkRange = new QTableWidgetItem(QString::number(target->getAtkRange()));
+        ui->tableWidget->setItem(3, 0, atkRange);
+        QTableWidgetItem *atkSpeed = new QTableWidgetItem(QString::number(target->getAtkSpeed()));
+        ui->tableWidget->setItem(4, 0, atkSpeed);
+        QTableWidgetItem *moveSpeed = new QTableWidgetItem(QString::number(target->getMoveSpeed()));
+        ui->tableWidget->setItem(5, 0, moveSpeed);
+        QTableWidgetItem *effect1 = new QTableWidgetItem("");
+        ui->tableWidget->setItem(6, 0, effect1);
+        QTableWidgetItem *effect2 = new QTableWidgetItem("");
+        ui->tableWidget->setItem(7, 0, effect2);
+        break;
+    }
+    case Wizard::Type:{
+        QTableWidgetItem *name = new QTableWidgetItem("圣灵法师");
+        ui->tableWidget->setItem(0, 0, name);
+        Enemy *target = dynamic_cast<Enemy *>(p);
+        QTableWidgetItem *hp = new QTableWidgetItem(QString::number(target->getHp()) + "/" + QString::number(target->getMaxHP()));
+        ui->tableWidget->setItem(1, 0, hp);
+        QTableWidgetItem *atk = new QTableWidgetItem(QString::number(target->getAtk()));
+        ui->tableWidget->setItem(2, 0, atk);
+        QTableWidgetItem *atkRange = new QTableWidgetItem(QString::number(target->getAtkRange()));
+        ui->tableWidget->setItem(3, 0, atkRange);
+        QTableWidgetItem *atkSpeed = new QTableWidgetItem(QString::number(target->getAtkSpeed()));
+        ui->tableWidget->setItem(4, 0, atkSpeed);
+        QTableWidgetItem *moveSpeed = new QTableWidgetItem(QString::number(target->getMoveSpeed()));
+        ui->tableWidget->setItem(5, 0, moveSpeed);
+        QTableWidgetItem *effect1 = new QTableWidgetItem("闪现");
+        ui->tableWidget->setItem(6, 0, effect1);
+        QTableWidgetItem *effect2 = new QTableWidgetItem("");
+        ui->tableWidget->setItem(7, 0, effect2);
+        break;
+    }
+    case Vanguard::Type: {
+        QTableWidgetItem *name = new QTableWidgetItem("急先锋");
+        ui->tableWidget->setItem(0, 0, name);
+        Enemy *target = dynamic_cast<Enemy *>(p);
+        QTableWidgetItem *hp = new QTableWidgetItem(QString::number(target->getHp()) + "/" + QString::number(target->getMaxHP()));
+        ui->tableWidget->setItem(1, 0, hp);
+        QTableWidgetItem *atk = new QTableWidgetItem(QString::number(target->getAtk()));
+        ui->tableWidget->setItem(2, 0, atk);
+        QTableWidgetItem *atkRange = new QTableWidgetItem(QString::number(target->getAtkRange()));
+        ui->tableWidget->setItem(3, 0, atkRange);
+        QTableWidgetItem *atkSpeed = new QTableWidgetItem(QString::number(target->getAtkSpeed()));
+        ui->tableWidget->setItem(4, 0, atkSpeed);
+        QTableWidgetItem *moveSpeed = new QTableWidgetItem(QString::number(target->getMoveSpeed()));
+        ui->tableWidget->setItem(5, 0, moveSpeed);
+        QTableWidgetItem *effect1 = new QTableWidgetItem("");
+        ui->tableWidget->setItem(7, 0, effect1);
+        QTableWidgetItem *effect2 = new QTableWidgetItem("急速");
+        ui->tableWidget->setItem(6, 0, effect2);
+        break;
+    }
+    case DragonMaster::Type:{
+        QTableWidgetItem *name = new QTableWidgetItem("驯龙法师");
+        ui->tableWidget->setItem(0, 0, name);
+        Enemy *target = dynamic_cast<Enemy *>(p);
+        QTableWidgetItem *hp = new QTableWidgetItem(QString::number(target->getHp()) + "/" + QString::number(target->getMaxHP()));
+        ui->tableWidget->setItem(1, 0, hp);
+        QTableWidgetItem *atk = new QTableWidgetItem(QString::number(target->getAtk()));
+        ui->tableWidget->setItem(2, 0, atk);
+        QTableWidgetItem *atkRange = new QTableWidgetItem(QString::number(target->getAtkRange()));
+        ui->tableWidget->setItem(3, 0, atkRange);
+        QTableWidgetItem *atkSpeed = new QTableWidgetItem(QString::number(target->getAtkSpeed()));
+        ui->tableWidget->setItem(4, 0, atkSpeed);
+        QTableWidgetItem *moveSpeed = new QTableWidgetItem(QString::number(target->getMoveSpeed()));
+        ui->tableWidget->setItem(5, 0, moveSpeed);
+        QTableWidgetItem *effect1 = new QTableWidgetItem("闪现");
+        ui->tableWidget->setItem(6, 0, effect1);
+        QTableWidgetItem *effect2 = new QTableWidgetItem("急速");
+        ui->tableWidget->setItem(7, 0, effect2);
+        break;
+    }
+    case Tower::Type:{
+        QTableWidgetItem *name = new QTableWidgetItem("近战塔");
+        ui->tableWidget->setItem(0, 0, name);
+        Tower *target = dynamic_cast<Tower *>(p);
+        QTableWidgetItem *hp = new QTableWidgetItem(QString::number(target->getHp()) + "/" + QString::number(target->getMaxHP()));
+        ui->tableWidget->setItem(1, 0, hp);
+        QTableWidgetItem *atk = new QTableWidgetItem(QString::number(target->getAtk()));
+        ui->tableWidget->setItem(2, 0, atk);
+        QTableWidgetItem *atkRange = new QTableWidgetItem(QString::number(target->getAtkRange()));
+        ui->tableWidget->setItem(3, 0, atkRange);
+        QTableWidgetItem *atkSpeed = new QTableWidgetItem(QString::number(target->getAtkSpeed()));
+        ui->tableWidget->setItem(4, 0, atkSpeed);
+        QTableWidgetItem *moveSpeed = new QTableWidgetItem(QString(""));
+        ui->tableWidget->setItem(5, 0, moveSpeed);
+        QTableWidgetItem *effect1 = new QTableWidgetItem("");
+        ui->tableWidget->setItem(6, 0, effect1);
+        QTableWidgetItem *effect2 = new QTableWidgetItem("");
+        ui->tableWidget->setItem(7, 0, effect2);
+        break;
+    }
+    case RemoteTower::Type:{
+        QTableWidgetItem *name = new QTableWidgetItem("远程塔");
+        ui->tableWidget->setItem(0, 0, name);
+        Tower *target = dynamic_cast<Tower *>(p);
+        QTableWidgetItem *hp = new QTableWidgetItem(QString::number(target->getHp()) + "/" + QString::number(target->getMaxHP()));
+        ui->tableWidget->setItem(1, 0, hp);
+        QTableWidgetItem *atk = new QTableWidgetItem(QString::number(target->getAtk()));
+        ui->tableWidget->setItem(2, 0, atk);
+        QTableWidgetItem *atkRange = new QTableWidgetItem(QString::number(target->getAtkRange()));
+        ui->tableWidget->setItem(3, 0, atkRange);
+        QTableWidgetItem *atkSpeed = new QTableWidgetItem(QString::number(target->getAtkSpeed()));
+        ui->tableWidget->setItem(4, 0, atkSpeed);
+        QTableWidgetItem *moveSpeed = new QTableWidgetItem(QString(""));
+        ui->tableWidget->setItem(5, 0, moveSpeed);
+        QTableWidgetItem *effect1 = new QTableWidgetItem("");
+        ui->tableWidget->setItem(6, 0, effect1);
+        QTableWidgetItem *effect2 = new QTableWidgetItem("");
+        ui->tableWidget->setItem(7, 0, effect2);
+        break;
+    }
+    default: {
+        return;
+    }
+    }
+}
+
 GameWindow::GameWindow(int level, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::GameWindow)
@@ -476,6 +613,8 @@ GameWindow::GameWindow(int level, QWidget *parent) :
         //游戏的终局判断
         endGame();
 //        this->scene->advance();
+        //显示关注信息
+        showFocusItem();
     });
     connect(ui->pb_stop, &QPushButton::clicked, [=](){
         if(isStopped) {
@@ -547,6 +686,9 @@ void GameWindow::makeEnemy()
                 switch (cur.type) {
                 case 1: {
                     Enemy* curEnemy = new Enemy(i, this->sideLen);
+                    connect(curEnemy, &Enemy::getFocus, [=](QGraphicsItem *p){
+                        getFocusItem(p);
+                    });
                     this->scene->addItem(curEnemy);
                     curEnemy->setPos(pathList[i][0].col * sideLen, pathList[i][0].row * sideLen);
                     enemyList.push_back(curEnemy);
@@ -555,6 +697,9 @@ void GameWindow::makeEnemy()
 
                 case 2:{
                     Wizard* curEnemy = new Wizard(i, this->sideLen);
+                    connect(curEnemy, &Enemy::getFocus, [=](QGraphicsItem *p){
+                        getFocusItem(p);
+                    });
                     this->scene->addItem(curEnemy);
                     curEnemy->setPos(pathList[i][0].col * sideLen, pathList[i][0].row * sideLen);
                     enemyList.push_back(curEnemy);
@@ -563,6 +708,9 @@ void GameWindow::makeEnemy()
 
                 case 3:{
                     Vanguard* curEnemy = new Vanguard(i, this->sideLen);
+                    connect(curEnemy, &Enemy::getFocus, [=](QGraphicsItem *p){
+                        getFocusItem(p);
+                    });
                     this->scene->addItem(curEnemy);
                     curEnemy->setPos(pathList[i][0].col * sideLen, pathList[i][0].row * sideLen);
                     enemyList.push_back(curEnemy);
@@ -570,6 +718,9 @@ void GameWindow::makeEnemy()
                 }
                 case 4:{
                     DragonMaster* curEnemy = new DragonMaster(i, this->sideLen);
+                    connect(curEnemy, &Enemy::getFocus, [=](QGraphicsItem *p){
+                        getFocusItem(p);
+                    });
                     this->scene->addItem(curEnemy);
                     curEnemy->setPos(pathList[i][0].col * sideLen, pathList[i][0].row * sideLen);
                     enemyList.push_back(curEnemy);
@@ -592,13 +743,16 @@ void GameWindow::createTower(int row, int col, int type)
             if(this->money >= 100) {
                 this->money -= 100;
                 ui->l_money->setText(QString::number(money));
-                QGraphicsItem *cur = new Tower(row, col, this->sideLen);
-                connect(dynamic_cast<Tower *>(cur), &Tower::deleteSignal, [=](int row, int col){
+                Tower *cur = new Tower(row, col, this->sideLen);
+                connect(cur, &Tower::deleteSignal, [=](int row, int col){
                     deleteTower(row, col);
+                });
+                connect(cur, &Tower::getFocus, [=](QGraphicsItem *p){
+                    getFocusItem(p);
                 });
                 cur->setPos(col * sideLen, row * sideLen);
                 this->scene->addItem(cur);
-                this->towerList.push_back(dynamic_cast<Tower *>(cur));
+                this->towerList.push_back(cur);
             }
             else {
                 qDebug() << "not enough money!";
@@ -626,13 +780,16 @@ void GameWindow::createTower(int row, int col, int type)
             if(this->money >= 200) {
                 this->money -= 200;
                 ui->l_money->setText(QString::number(money));
-                QGraphicsItem *cur = new RemoteTower(row, col, this->sideLen);
-                connect(dynamic_cast<RemoteTower *>(cur), &RemoteTower::deleteRemoteSignal, [=](int row, int col){
+                RemoteTower *cur = new RemoteTower(row, col, this->sideLen);
+                connect(cur, &RemoteTower::deleteRemoteSignal, [=](int row, int col){
                     deleteTower(row, col, 1);
+                });
+                connect(cur, &Tower::getFocus, [=](QGraphicsItem *p){
+                    getFocusItem(p);
                 });
                 cur->setPos(col * sideLen, row * sideLen);
                 this->scene->addItem(cur);
-                this->towerList.push_back(dynamic_cast<Tower *>(cur));
+                this->towerList.push_back(cur);
                 //隐藏SLOT
                 if(slotList[row][col] != nullptr) slotList[row][col]->hide();
             }
@@ -663,6 +820,7 @@ void GameWindow::deleteTower(int row, int col, int type)
             this->money += 100;
             ui->l_money->setText(QString::number(this->money));
             //删除对象
+            if(focusItem == *it) focusItem = nullptr;
             delete *it;
             towerList.erase(it);
             //然后在TowerList中删除
@@ -676,6 +834,7 @@ void GameWindow::deleteTower(int row, int col, int type)
             this->money += 200;
             ui->l_money->setText(QString::number(this->money));
             //删除对象
+            if(focusItem == *it) focusItem = nullptr;
             delete *it;
             towerList.erase(it);
             //然后在TowerList中删除
@@ -735,6 +894,7 @@ void GameWindow::atk()
     for(auto it = towerList.begin(); it != towerList.end(); it++) {
         if((*it)->getHp() <= 0) {
             qDebug() << "tower destroyed!";
+            if(*it == this->focusItem) focusItem = nullptr;
             this->scene->removeItem(*it);
             ps state = (*it)->getPos();
             if(slotList[state.row][state.col] != nullptr) slotList[state.row][state.col]->show();
@@ -746,6 +906,7 @@ void GameWindow::atk()
     for(auto it = enemyList.begin(); it != enemyList.end(); it++) {
         if((*it)->getHp() <= 0) {
             qDebug() << "enemy destroyed!";
+            if(*it == this->focusItem) focusItem = nullptr;
             this->scene->removeItem(*it);
             delete *it;
             enemyList.erase(it);

@@ -77,8 +77,12 @@ QPointF Enemy::moveBy(int direction)
 
 void Enemy::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug() << "enemy: press!";
-    QGraphicsItem::mouseReleaseEvent(event);
+//    qDebug() << "enemy: press!";
+//    QGraphicsItem::mouseReleaseEvent(event);
+    //左键单击显示详细信息
+    if(event->button() == Qt::LeftButton) {
+        emit getFocus(this);
+    }
 }
 
 QPainterPath Enemy::shape() const
