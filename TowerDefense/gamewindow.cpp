@@ -16,7 +16,7 @@
 
 void GameWindow::loadMap()
 {
-    QString fp = QDir::currentPath() + "./info/map" + QString::number(this->curLevel) + ".txt";
+    QString fp = QDir::currentPath() + "./info/level" + QString::number(this->curLevel) + ".txt";
     qDebug() << fp;
     QFile file(fp);
     if(!file.open(QIODevice::ReadOnly)) {
@@ -46,8 +46,26 @@ void GameWindow::loadMap()
         }
         this->pathList.push_back(cur);
     }
+    //下面读取敌人信息
+    for(int i = 0; i < n; i++) {
+        buffer = file.readLine();
+        QStringList path = buffer.split(" ");
+        int k = path[0].toInt();
+        vector<struct enemyInfo> cur;
+        for(int j = 1; j <= k; j++) {
+            QString substr = path[j].mid(1, path[j].length()-2);
+            QStringList psStr = substr.split(",");
+            enemyInfo info;
+            info.type = psStr[0].toInt();
+            info.num = psStr[1].toInt();
+            this->maxEnemyCnt += info.num;
+            cur.push_back(info);
+        }
+        this->enemyInfoList.push_back(cur);
+    }
     file.close();
     qDebug() << this->pathList.size() << " " << this->pathList[0].size();
+    qDebug() << this->enemyInfoList.size() << " " << this->enemyInfoList[0].size();
 }
 
 void GameWindow::getGridStatus()
@@ -428,14 +446,14 @@ GameWindow::GameWindow(int level, QWidget *parent) :
     this->life = 30;
     this->stop = false;
     this->maxLife = 30;
-    this->maxEnemyCnt = 40;
+    this->maxEnemyCnt = 0;
     this->timeCntForMakingEnemy = 0;
     this->enemyCnt = 0;
     ui->l_hp->setText(QString::number(this->life));
     ui->l_money->setText(QString::number(this->money));
     QString curLevel = "第" + QString::number(this->curLevel+1) + "关";
     ui->l_level->setText(curLevel);
-    ui->l_progress->setText(QString("第1波"));
+    ui->l_progress->setText(QString::number(this->enemyCnt) + "/" + QString::number(this->maxEnemyCnt));
     this->scene = new GameScene;
     ui->graphicsView->setScene(scene);
     //加载和预览地图
@@ -449,6 +467,7 @@ GameWindow::GameWindow(int level, QWidget *parent) :
 //        qDebug() << "Timer Out!";
         globalTimer.start(50);
         makeEnemy();//创建怪物
+        ui->l_progress->setText(QString::number(this->enemyCnt) + "/" + QString::number(this->maxEnemyCnt));
         //怪物移动
         EnemyMove();
         //怪物和塔的攻击
@@ -512,12 +531,54 @@ void GameWindow::makeEnemy()
     else {
         timeCntForMakingEnemy = 1;
         //创建怪物
-        for(int i = 0; i < this->pathList.size() && enemyCnt < maxEnemyCnt; i++) {
-            DragonMaster* curEnemy = new DragonMaster(i, this->sideLen);
-            this->enemyCnt++;
-            this->scene->addItem(curEnemy);
-            curEnemy->setPos(pathList[i][0].col * sideLen, pathList[i][0].row * sideLen);
-            enemyList.push_back(curEnemy);
+//        for(int i = 0; i < this->pathList.size() && enemyCnt < maxEnemyCnt; i++) {
+//            DragonMaster* curEnemy = new DragonMaster(i, this->sideLen);
+//            this->enemyCnt++;
+//            this->scene->addItem(curEnemy);
+//            curEnemy->setPos(pathList[i][0].col * sideLen, pathList[i][0].row * sideLen);
+//            enemyList.push_back(curEnemy);
+//        }
+        for(int i = 0; i < pathList.size(); i++) {
+            if(!this->enemyInfoList[i].empty()) {
+                enemyInfo cur = enemyInfoList[i][0];
+                if(--cur.num == 0) enemyInfoList[i].erase(enemyInfoList[i].begin());
+                else enemyInfoList[i][0] = cur;
+                this->enemyCnt++;
+                switch (cur.type) {
+                case 1: {
+                    Enemy* curEnemy = new Enemy(i, this->sideLen);
+                    this->scene->addItem(curEnemy);
+                    curEnemy->setPos(pathList[i][0].col * sideLen, pathList[i][0].row * sideLen);
+                    enemyList.push_back(curEnemy);
+                    break;
+                }
+
+                case 2:{
+                    Wizard* curEnemy = new Wizard(i, this->sideLen);
+                    this->scene->addItem(curEnemy);
+                    curEnemy->setPos(pathList[i][0].col * sideLen, pathList[i][0].row * sideLen);
+                    enemyList.push_back(curEnemy);
+                    break;
+                }
+
+                case 3:{
+                    Vanguard* curEnemy = new Vanguard(i, this->sideLen);
+                    this->scene->addItem(curEnemy);
+                    curEnemy->setPos(pathList[i][0].col * sideLen, pathList[i][0].row * sideLen);
+                    enemyList.push_back(curEnemy);
+                    break;
+                }
+                case 4:{
+                    DragonMaster* curEnemy = new DragonMaster(i, this->sideLen);
+                    this->scene->addItem(curEnemy);
+                    curEnemy->setPos(pathList[i][0].col * sideLen, pathList[i][0].row * sideLen);
+                    enemyList.push_back(curEnemy);
+                    break;
+                }
+                default:
+                    qDebug() << "wrong";
+                }
+            }
         }
     }
 }
@@ -689,6 +750,9 @@ void GameWindow::atk()
             delete *it;
             enemyList.erase(it);
             it--;
+            //击杀敌人增加金币
+            this->money += 50;
+            ui->l_money->setText(QString::number(money));
         }
     }
 }

@@ -24,9 +24,8 @@ class GameWindow : public QWidget
     int life; //还有几条命, 是游戏失败的充要条件
     int maxLife;
     int money;
-    int curProgress;
     int enemyCnt;//记录已经创造出多少个怪物
-    int maxEnemyCnt;//最多有多少个怪物, 同样是游戏判断胜利的条件之一
+    int maxEnemyCnt = 0;//最多有多少个怪物, 同样是游戏判断胜利的条件之一
     bool stop; //记录当前游戏是否暂停
     QTimer globalTimer;//全局时钟
     bool isStopped = false;
@@ -41,6 +40,7 @@ class GameWindow : public QWidget
     float hMargin;//水平页边距, 位于上下两侧
     vector<vector<bool>> isGrid;
     vector<vector<ps>> pathList;
+    vector<vector<enemyInfo>> enemyInfoList;//记录本场所有的怪物, 按照线路记录, 对应pathList;
     void loadMap(); //从文件读取地图
     void getGridStatus();//获取这个格子是否为路径节点
     int getGridType(int row, int col); //左右上下编码, 0表示可以放置远程塔, -1表示没用的点

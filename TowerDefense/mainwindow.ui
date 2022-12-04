@@ -37,14 +37,14 @@
        <item>
         <widget class="QPushButton" name="pb_makemap">
          <property name="text">
-          <string>地图测试模块</string>
+          <string>关卡制作</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pb_loadMap">
+        <widget class="QPushButton" name="pushButton">
          <property name="text">
-          <string>导入地图</string>
+          <string>游戏图鉴</string>
          </property>
         </widget>
        </item>

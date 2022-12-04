@@ -26,6 +26,7 @@ class MakeMap : public QWidget
     int lineNum = 0;// 4 <= line <= 10
     int colNum = 0; // 10 <= col <= 20
     vector<vector<QPushButton *>> pbList;
+    vector<vector<enemyInfo>> enemyInfoList;
     vector<vector<struct ps>> pathList;
     vector<vector<bool>> isGrid;//存储地图中所有点的状态.
     void createGrids(); //用于在widge中创建网格
@@ -42,7 +43,7 @@ public:
 
     QGraphicsScene *getMapScene() const;
     void setMapScene(QGraphicsScene *value);
-
+    void showEnemyInfo();
 private:
     Ui::MakeMap *ui;
 signals:

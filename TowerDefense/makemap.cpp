@@ -2,6 +2,7 @@
 #include "ui_makemap.h"
 #include <QFileDialog>
 
+
 void MakeMap::createGrids()
 {
     if(this->pbList.size() != 0 || this->pathList.size() != 0) {
@@ -245,6 +246,25 @@ void MakeMap::setMapScene(QGraphicsScene *value)
     mapScene = value;
 }
 
+void MakeMap::showEnemyInfo()
+{
+    ui->comboBox_2->clear();
+    for(int i = 0; i < enemyInfoList.size(); i++) {
+        ui->comboBox_2->addItem(QString::number(i+1));
+    }
+    ui->treeWidget->clear();
+    for(int i = 0; i< this->pathList.size(); i++) {
+        QTreeWidgetItem *cur = new QTreeWidgetItem(ui->treeWidget);
+        cur->setText(0, QString("线路"+ QString::number(i+1)));
+        for(int j = 0; j < this->enemyInfoList[i].size(); j++) {
+            QTreeWidgetItem *subItem = new QTreeWidgetItem(cur);
+            subItem->setText(0, QString::number(enemyInfoList[i][j].type));
+            subItem->setText(1, QString::number(enemyInfoList[i][j].num));
+        }
+        ui->treeWidget->addTopLevelItem(cur);
+    }
+}
+
 MakeMap::MakeMap(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MakeMap)
@@ -268,6 +288,8 @@ MakeMap::MakeMap(QWidget *parent) :
             this->pbList.clear();
             this->pathList.clear();
             ui->comboBox->clear();
+            ui->treeWidget->clear();
+            this->enemyInfoList.clear();
         }
         QString filePath = QFileDialog::getOpenFileName(this,QStringLiteral("打开文件"),"C:",QStringLiteral("文本文件(*txt)"));
         ui->l_fp->setText(filePath);
@@ -306,6 +328,22 @@ MakeMap::MakeMap(QWidget *parent) :
             }
             this->pathList.push_back(cur);
         }
+        //接下来读怪物信息
+        for(int i = 0; i < n; i++) {
+            buffer = file.readLine();
+            QStringList path = buffer.split(" ");
+            int k = path[0].toInt();
+            vector<struct enemyInfo> cur;
+            for(int j = 1; j <= k; j++) {
+                QString substr = path[j].mid(1, path[j].length()-2);
+                QStringList psStr = substr.split(",");
+                enemyInfo info;
+                info.type = psStr[0].toInt();
+                info.num = psStr[1].toInt();
+                cur.push_back(info);
+            }
+            this->enemyInfoList.push_back(cur);
+        }
         file.close();
         //调用createGrids, 创建网格
         createGrids();
@@ -317,6 +355,14 @@ MakeMap::MakeMap(QWidget *parent) :
         if(this->pathList.size() > 0) {
             showPath(0);
         }
+        //显示当前的怪物信息
+        showEnemyInfo();
+        //怪物信息按钮的初始化
+        for(int i = 0; i < this->enemyInfoList.size(); i++) {
+            ui->comboBox_2->addItem(QString::number(i+1));
+        }
+        ui->spinBox_num->setMinimum(1);
+        ui->spinBox_type->setRange(1,4);
     });
     connect(ui->comboBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), [=](int idx){
          this->showPath(idx);
@@ -356,6 +402,9 @@ MakeMap::MakeMap(QWidget *parent) :
         newPath.push_back(curPoint);
         this->pathList[idx] = newPath;
         QMessageBox::information(this, "提示", "保存当前路径成功!");
+        //一旦添加Path, EnemyInfoList也要跟着改
+        this->enemyInfoList.resize(pathList.size());
+        this->showEnemyInfo();
     });
     connect(ui->pb_addPath, &QPushButton::clicked, [=](){//添加新的路径
         vector<ps> newPath;
@@ -383,6 +432,13 @@ MakeMap::MakeMap(QWidget *parent) :
             }
             out << endl;
         }
+        for(int i = 0; i < this->enemyInfoList.size(); i++) {
+            out << this->enemyInfoList[i].size() << " ";
+            for(int j = 0; j < enemyInfoList[i].size(); j++) {
+                out << "(" << enemyInfoList[i][j].type << "," <<enemyInfoList[i][j].num << ") ";
+            }
+            out << endl;
+        }
         //文件写
         file.close();
         QMessageBox::information(this, "提示", "保存成功!");
@@ -400,6 +456,10 @@ MakeMap::MakeMap(QWidget *parent) :
             this->pbList.clear();
             this->pathList.clear();
             ui->comboBox->clear();
+            this->enemyInfoList.clear();
+            showEnemyInfo();
+            ui->spinBox_num->setMinimum(1);
+            ui->spinBox_type->setRange(1,4);
         }
         QString dirPath = QFileDialog::getExistingDirectory(this,"请选择文件保存路径","./");
         if(dirPath.isEmpty()) return ;
@@ -450,8 +510,34 @@ MakeMap::MakeMap(QWidget *parent) :
         createGrids();
     });
     connect(ui->tabWidget, &QTabWidget::tabBarClicked, [=](int idx){
-        if(idx == 1) {
+        if(idx == 2) {
             this->drawPreview();
+        }
+        if(idx == 1) {
+            this->showEnemyInfo();
+        }
+    });
+    connect(ui->pb_addItem, &QPushButton::clicked, [=](){
+        int pathIdx = ui->comboBox_2->currentIndex();
+        int type = ui->spinBox_type->value();
+        int num = ui->spinBox_num->value();
+        QTreeWidgetItem *cur = new QTreeWidgetItem(ui->treeWidget->topLevelItem(pathIdx));
+        cur->setText(0, QString::number(type));
+        cur->setText(1, QString::number(num));
+        ui->treeWidget->insertTopLevelItem(pathIdx, cur);
+        enemyInfo info;
+        info.num = num;
+        info.type = type;
+        this->enemyInfoList[pathIdx].push_back(info);
+    });
+    connect(ui->pb_clear, &QPushButton::clicked, [=](){
+        if(QMessageBox::warning(this, "确认", "您确定要删除所有的敌人信息吗?", QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
+            for(int i = 0; i < enemyInfoList.size(); i++) {
+                enemyInfoList[i].clear();
+            }
+            ui->treeWidget->clear();
+            //但是要恢复Top
+            showEnemyInfo();
         }
     });
 }

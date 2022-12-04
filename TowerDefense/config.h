@@ -20,6 +20,11 @@ typedef struct ps{
     ps(int row = 0, int col = 0) {this->row = row; this->col = col;}
 }ps;
 
+typedef struct enemyInfo{
+    int type;//[1,5]
+    int num;//记录这种怪物连续出现多少次
+}enemyInfo;
+
 #define MAPMAXWIDTH 20
 #define MAPMAXHEIGHT 10
 #define MAPMINWIDTH 10

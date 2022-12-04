@@ -31,7 +31,7 @@ public:
     QWidget *widget;
     QVBoxLayout *verticalLayout_2;
     QPushButton *pb_makemap;
-    QPushButton *pb_loadMap;
+    QPushButton *pushButton;
     QWidget *widget_2;
     QHBoxLayout *horizontalLayout;
     QLabel *label_2;
@@ -67,10 +67,10 @@ public:
 
         verticalLayout_2->addWidget(pb_makemap);
 
-        pb_loadMap = new QPushButton(widget);
-        pb_loadMap->setObjectName(QString::fromUtf8("pb_loadMap"));
+        pushButton = new QPushButton(widget);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
 
-        verticalLayout_2->addWidget(pb_loadMap);
+        verticalLayout_2->addWidget(pushButton);
 
         widget_2 = new QWidget(widget);
         widget_2->setObjectName(QString::fromUtf8("widget_2"));
@@ -111,8 +111,8 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "Tower Defense", nullptr));
-        pb_makemap->setText(QCoreApplication::translate("MainWindow", "\345\234\260\345\233\276\346\265\213\350\257\225\346\250\241\345\235\227", nullptr));
-        pb_loadMap->setText(QCoreApplication::translate("MainWindow", "\345\257\274\345\205\245\345\234\260\345\233\276", nullptr));
+        pb_makemap->setText(QCoreApplication::translate("MainWindow", "\345\205\263\345\215\241\345\210\266\344\275\234", nullptr));
+        pushButton->setText(QCoreApplication::translate("MainWindow", "\346\270\270\346\210\217\345\233\276\351\211\264", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "\345\205\263\345\215\241\351\200\211\346\213\251", nullptr));
         comboBox->setCurrentText(QString());
         pb_start->setText(QCoreApplication::translate("MainWindow", "\345\274\200\345\247\213\346\270\270\346\210\217", nullptr));
