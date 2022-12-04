@@ -9,7 +9,7 @@ void Enemy::setConfig()
     movie.setFileName(":/new/prefix1/assets/enemy/01.gif");
     movie.setScaledSize(QSize(this->sideLen, this->sideLen));
     movie.start();
-
+    this->isFreezed = false;
     this->moveSpeed = sideLen / 20;
     this->atk = 10;
     this->atkRange = sideLen;
@@ -28,6 +28,12 @@ Enemy::Enemy(int pathIdx, float sideLen, QGraphicsItem *parent): QGraphicsPixmap
 //    this->setFlags(QGraphicsItem::ItemIsMovable);
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsFocusable);
+    connect(&timer, &QTimer::timeout, [=](){
+        this->isFreezed = false;
+    });
+    connect(&bleedTimer, &QTimer::timeout, [=](){
+        this->isBleeding = false;
+    });
 }
 
 QRectF Enemy::boundingRect() const
@@ -49,11 +55,21 @@ void Enemy::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
     painter->drawRect(0, 0, (float)sideLen * rate, 20);
     painter->setBrush(red_brush);
     painter->drawRect(sideLen * rate, 0, (1-rate) * sideLen, 20);
+    if(this->isFreezed) {
+        QPixmap ice(":/new/prefix1/assets/effect/1.png");
+        ice = ice.scaledToHeight(sideLen * 0.4);
+        painter->drawPixmap(0.1 * this->sideLen, this->sideLen * 0.4, ice);
+    }
+    if(this->isBleeding) {
+        QPixmap blood(":/new/prefix1/assets/effect/2.png");
+        blood = blood.scaledToHeight(sideLen * 0.4);
+        painter->drawPixmap(0.1 * this->sideLen, this->sideLen * 0.6, blood);
+    }
 }
 
 QPointF Enemy::moveBy(int direction)
 {
-    if(this->isMovable) {
+    if(this->isMovable && !isFreezed) {
         switch (direction) {
         case 1://上
             this->setPos(pos() - QPointF(0, this->moveSpeed));
@@ -71,7 +87,7 @@ QPointF Enemy::moveBy(int direction)
             qDebug() << "wrong direction!";
         }
     }
-    qDebug() << "posx: " << this->pos().x();
+//    qDebug() << "posx: " << this->pos().x();
     return pos();
 }
 
@@ -94,6 +110,8 @@ QPainterPath Enemy::shape() const
 
 void Enemy::attack(Tower *target)
 {
+    //流血状态扣血
+    if(isBleeding) this->hp -= 1;
     if(target == nullptr) return ;
     if(this->hp <= 0) return ;
     if(this->curCnt < this->atkCycle) {
@@ -113,6 +131,20 @@ void Enemy::beAttacked(Tower *target)
 {
     this->hp -= target->getAtk();
     if(hp < 0) hp = 0;
+}
+
+void Enemy::beFreezed(int t)
+{
+    qDebug() << "Enemy Freezed!";
+    this->isFreezed = true;
+    timer.start(t*1000);
+}
+
+void Enemy::bleeding(int t)
+{
+    qDebug() << "Enemy Bleeding!";
+    this->isBleeding = true;
+    bleedTimer.start(t*1000);
 }
 qreal Enemy::calcDis(QGraphicsItem *target)
 {

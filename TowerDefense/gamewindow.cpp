@@ -277,7 +277,7 @@ void GameWindow::EnemyMove()
                            else dir = 2;
                        }
                        QPointF ret = curEnemy->moveBy(dir);
-                       qDebug() << "enemy--->" << curEnemy->scenePos();
+//                       qDebug() << "enemy--->" << curEnemy->scenePos();
                        //判断是否超出终点
                        if(curEnemy->getNodeIdx() == pathList[curEnemy->getPathIdx()].size()-2) {
                            bool isDead = false;
@@ -368,7 +368,7 @@ void GameWindow::EnemyMove()
             else dir = 2;
         }
         QPointF ret = curEnemy->moveBy(dir);
-        qDebug() << "enemy--->" << curEnemy->scenePos();
+//        qDebug() << "enemy--->" << curEnemy->scenePos();
         //判断是否超出终点
         if(curEnemy->getNodeIdx() == pathList[curEnemy->getPathIdx()].size()-2) {
             bool isDead = false;
@@ -538,9 +538,33 @@ void GameWindow::showFocusItem()
         ui->tableWidget->setItem(4, 0, atkSpeed);
         QTableWidgetItem *moveSpeed = new QTableWidgetItem(QString(""));
         ui->tableWidget->setItem(5, 0, moveSpeed);
-        QTableWidgetItem *effect1 = new QTableWidgetItem("");
+        //获取词缀
+        QString affix1;
+        QString affix2;
+        if(target->rageAffix) {
+            if(!affix1.isEmpty()) affix2 = "狂暴";
+            else affix1 = "狂暴";
+            //设置checkBox
+            ui->checkBox->setChecked(true);
+        } else ui->checkBox->setChecked(false);
+        if(target->freezeAffix) {
+            if(!affix1.isEmpty()) affix2 = "冰冻";
+            else affix1 = "冰冻";
+            ui->checkBox_2->setChecked(true);
+        } else ui->checkBox_2->setChecked(false);
+        if(target->bleedAffix) {
+            if(!affix1.isEmpty()) affix2 = "流血";
+            else affix1 = "流血";
+            ui->checkBox_3->setChecked(true);
+        } else ui->checkBox_3->setChecked(false);
+        if(target->areaDamageAffix) {
+            if(!affix1.isEmpty()) affix2 = "群伤";
+            else affix1 = "群伤";
+            ui->checkBox_4->setChecked(true);
+        } else ui->checkBox_4->setChecked(false);
+        QTableWidgetItem *effect1 = new QTableWidgetItem(affix1);
         ui->tableWidget->setItem(6, 0, effect1);
-        QTableWidgetItem *effect2 = new QTableWidgetItem("");
+        QTableWidgetItem *effect2 = new QTableWidgetItem(affix2);
         ui->tableWidget->setItem(7, 0, effect2);
         break;
     }
@@ -558,9 +582,33 @@ void GameWindow::showFocusItem()
         ui->tableWidget->setItem(4, 0, atkSpeed);
         QTableWidgetItem *moveSpeed = new QTableWidgetItem(QString(""));
         ui->tableWidget->setItem(5, 0, moveSpeed);
-        QTableWidgetItem *effect1 = new QTableWidgetItem("");
+        //获取词缀
+        QString affix1;
+        QString affix2;
+        if(target->rageAffix) {
+            if(!affix1.isEmpty()) affix2 = "狂暴";
+            else affix1 = "狂暴";
+            //设置checkBox
+            ui->checkBox->setChecked(true);
+        } else ui->checkBox->setChecked(false);
+        if(target->freezeAffix) {
+            if(!affix1.isEmpty()) affix2 = "冰冻";
+            else affix1 = "冰冻";
+            ui->checkBox_2->setChecked(true);
+        } else ui->checkBox_2->setChecked(false);
+        if(target->bleedAffix) {
+            if(!affix1.isEmpty()) affix2 = "流血";
+            else affix1 = "流血";
+            ui->checkBox_3->setChecked(true);
+        } else ui->checkBox_3->setChecked(false);
+        if(target->areaDamageAffix) {
+            if(!affix1.isEmpty()) affix2 = "群伤";
+            else affix1 = "群伤";
+            ui->checkBox_4->setChecked(true);
+        } else ui->checkBox_4->setChecked(false);
+        QTableWidgetItem *effect1 = new QTableWidgetItem(affix1);
         ui->tableWidget->setItem(6, 0, effect1);
-        QTableWidgetItem *effect2 = new QTableWidgetItem("");
+        QTableWidgetItem *effect2 = new QTableWidgetItem(affix2);
         ui->tableWidget->setItem(7, 0, effect2);
         break;
     }
@@ -626,6 +674,98 @@ GameWindow::GameWindow(int level, QWidget *parent) :
             this->isStopped = true;
             globalTimer.stop();
             qDebug() << "stop";
+        }
+    });
+    connect(ui->checkBox, &QCheckBox::stateChanged, [=](int state){
+        //先判断当前有没有获得防御塔类型的focus
+        if(focusItem == nullptr) return ;
+        if(focusItem->type() == Tower::Type || focusItem->type() == RemoteTower::Type) {
+            Tower *target = dynamic_cast<Tower*>(focusItem);
+            if(state == Qt::Unchecked) {//卸下词缀
+                qDebug() << "卸下词缀";
+                if(!target->rageAffix) return ;
+                if(target->affixCnt > 0) {
+                    target->setRage(false);
+                    target->affixCnt--;
+                }
+            }
+            else if(state == Qt::Checked) {//安装词缀
+                qDebug() << "安装词缀";
+                if(target->rageAffix) return ;
+                if(target->affixCnt < 2) {
+                    target->setRage(true);
+                    target->affixCnt++;
+                }
+            }
+        }
+    });
+    connect(ui->checkBox_2, &QCheckBox::stateChanged, [=](int state){
+        //先判断当前有没有获得防御塔类型的focus
+        if(focusItem == nullptr) return ;
+        if(focusItem->type() == Tower::Type || focusItem->type() == RemoteTower::Type) {
+            Tower *target = dynamic_cast<Tower*>(focusItem);
+            if(state == Qt::Unchecked) {//卸下词缀
+                qDebug() << "卸下词缀";
+                if(!target->freezeAffix) return ;
+                if(target->affixCnt > 0) {
+                    target->freezeAffix = false;
+                    target->affixCnt--;
+                }
+            }
+            else if(state == Qt::Checked) {//安装词缀
+                qDebug() << "安装词缀";
+                if(target->freezeAffix) return ;
+                if(target->affixCnt < 2) {
+                    target->freezeAffix = true;
+                    target->affixCnt++;
+                }
+            }
+        }
+    });
+    connect(ui->checkBox_3, &QCheckBox::stateChanged, [=](int state){
+        //先判断当前有没有获得防御塔类型的focus
+        if(focusItem == nullptr) return ;
+        if(focusItem->type() == Tower::Type || focusItem->type() == RemoteTower::Type) {
+            Tower *target = dynamic_cast<Tower*>(focusItem);
+            if(state == Qt::Unchecked) {//卸下词缀
+                qDebug() << "卸下词缀";
+                if(!target->bleedAffix) return ;
+                if(target->affixCnt > 0) {
+                    target->bleedAffix = false;
+                    target->affixCnt--;
+                }
+            }
+            else if(state == Qt::Checked) {//安装词缀
+                qDebug() << "安装词缀";
+                if(target->bleedAffix) return ;
+                if(target->affixCnt < 2) {
+                    target->bleedAffix = true;
+                    target->affixCnt++;
+                }
+            }
+        }
+    });
+    connect(ui->checkBox_4, &QCheckBox::stateChanged, [=](int state){
+        //先判断当前有没有获得防御塔类型的focus
+        if(focusItem == nullptr) return ;
+        if(focusItem->type() == Tower::Type || focusItem->type() == RemoteTower::Type) {
+            Tower *target = dynamic_cast<Tower*>(focusItem);
+            if(state == Qt::Unchecked) {//卸下词缀
+                qDebug() << "卸下词缀";
+                if(!target->areaDamageAffix) return ;
+                if(target->affixCnt > 0) {
+                    target->areaDamageAffix = false;
+                    target->affixCnt--;
+                }
+            }
+            else if(state == Qt::Checked) {//安装词缀
+                qDebug() << "安装词缀";
+                if(target->areaDamageAffix) return ;
+                if(target->affixCnt < 2) {
+                    target->areaDamageAffix = true;
+                    target->affixCnt++;
+                }
+            }
         }
     });
     getGridStatus();
@@ -865,17 +1005,23 @@ void GameWindow::endGame()
 void GameWindow::atk()
 {
     for(int i = 0; i < this->towerList.size(); i++) {
-        //计算与所有在场怪物的最近的距离
-        Enemy *target = nullptr;
-        qreal minDis = 1000000000;
-        for(int j = 0; j < this->enemyList.size(); j++) {
-            qreal curDis = calcDis(towerList[i], enemyList[j]);
-            if(curDis < minDis) {
-                minDis = curDis;
-                target = enemyList[j];
-            }
+        //如果是群伤塔, 直接将整个enemyList 传入, 不走下面的流程
+        if(towerList[i]->areaDamageAffix) {
+            towerList[i]->rangeAttack(this->enemyList);
         }
-        towerList[i]->attack(target);
+        else {
+            //计算与所有在场怪物的最近的距离
+            Enemy *target = nullptr;
+            qreal minDis = 1000000000;
+            for(int j = 0; j < this->enemyList.size(); j++) {
+                qreal curDis = calcDis(towerList[i], enemyList[j]);
+                if(curDis < minDis) {
+                    minDis = curDis;
+                    target = enemyList[j];
+                }
+            }
+            towerList[i]->attack(target);
+        }
     }
     for(int i = 0; i < this->enemyList.size(); i++) {
         //计算与所有在场怪物的最近的距离

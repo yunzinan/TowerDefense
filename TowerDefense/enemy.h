@@ -7,7 +7,7 @@
 #include <QPixmap>
 #include <QMovie>
 #include "tower.h"
-
+#include <QTimer>
 class Tower;
 
 class Enemy: public QObject, public QGraphicsPixmapItem
@@ -24,13 +24,16 @@ protected:
     float moveSpeed;
     int pathIdx;//记录属于哪一条路径
     bool isMovable; //置1表示能移动, 0表示不能移动
+    bool isFreezed;
+    bool isBleeding;
     int curNodeIdx;//当前已经经过了第几个路径关键节点, 范围[0, pathList[pathIdx].size()-2], 否则就已经到达终点了
     QMovie movie;//敌人运动的动画
     void destroy(); //当怪物生命值等于0或者到达终点时, 摧毁该敌人
 //    void attack(Tower *t); //对t**尝试**攻击
     QPixmap pix; //当前的图像
     float sideLen; //地图的大小, 也是物体的最大范围\]
-    
+    QTimer timer;
+    QTimer bleedTimer;
 public:
     enum {Type = UserType + 1};
     virtual void setConfig();//虚函数, 用于对不同的敌人的属性和gif进行初始化
@@ -46,6 +49,8 @@ public:
     QPainterPath shape() const override;
     void attack(Tower *target); //尝试对某个塔进行攻击
     void beAttacked(Tower *target);//被某个塔攻击
+    void beFreezed(int t);//冰冻效果
+    void bleeding(int t);//流血效果
     int getAtk() const {return this->atk;}
     int getHp() const {return this->hp;}
     int getMaxHP() const {return this->maxHp;}
@@ -55,10 +60,7 @@ public:
     qreal calcDis(QGraphicsItem *target);
     int& getCurCnt() {return this->curCnt;} //用于攻击频率设置
     int type() const override {return Type;}
-    bool bleedAffix = false;//流血词缀
-    bool rageAffix = false;//狂暴词缀
-    bool freezeAffix = false;//冰冻词缀
-    bool areaDamageAffix = false;//群伤词缀
+
 signals:
     void getFocus(QGraphicsItem *p);
 };

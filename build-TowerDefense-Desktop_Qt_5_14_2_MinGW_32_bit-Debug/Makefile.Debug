@@ -185,7 +185,9 @@ debug/qrc_res.cpp: ../TowerDefense/res.qrc \
 		../TowerDefense/assets/map/sclx.png \
 		../TowerDefense/assets/map/gdzs.png \
 		../TowerDefense/assets/map/scly.png \
-		../TowerDefense/assets/map/sclz.png
+		../TowerDefense/assets/map/sclz.png \
+		../TowerDefense/assets/effect/2.png \
+		../TowerDefense/assets/effect/1.png
 	'C:\Qt\Qt5.14.2\5.14.2\mingw73_32\bin\rcc.exe' -name res ../TowerDefense/res.qrc -o debug/qrc_res.cpp
 
 compiler_moc_predefs_make_all: debug/moc_predefs.h
@@ -326,6 +328,9 @@ debug/moc_enemy.cpp: ../TowerDefense/enemy.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QString \
 		../TowerDefense/enemy.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QTimer \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qtimer.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qbasictimer.h \
 		debug/moc_predefs.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/bin/moc.exe
 	'C:\Qt\Qt5.14.2\5.14.2\mingw73_32\bin\moc.exe' $(DEFINES) --include C:/Users/Jack_shen/Desktop/TowerDefense/build-TowerDefense-Desktop_Qt_5_14_2_MinGW_32_bit-Debug/debug/moc_predefs.h -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/mkspecs/win32-g++ -IC:/Users/Jack_shen/Desktop/TowerDefense/TowerDefense -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtANGLE -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore -I. -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++ -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/backward -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include-fixed -IC:/Qt/Qt5.14.2/Tools/mingw730_32/i686-w64-mingw32/include ../TowerDefense/enemy.h -o debug/moc_enemy.cpp
@@ -1048,6 +1053,9 @@ debug/moc_remotetower.cpp: ../TowerDefense/remotetower.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QString \
 		../TowerDefense/enemy.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QTimer \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qtimer.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qbasictimer.h \
 		debug/moc_predefs.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/bin/moc.exe
 	'C:\Qt\Qt5.14.2\5.14.2\mingw73_32\bin\moc.exe' $(DEFINES) --include C:/Users/Jack_shen/Desktop/TowerDefense/build-TowerDefense-Desktop_Qt_5_14_2_MinGW_32_bit-Debug/debug/moc_predefs.h -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/mkspecs/win32-g++ -IC:/Users/Jack_shen/Desktop/TowerDefense/TowerDefense -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtANGLE -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore -I. -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++ -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/backward -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include-fixed -IC:/Qt/Qt5.14.2/Tools/mingw730_32/i686-w64-mingw32/include ../TowerDefense/remotetower.h -o debug/moc_remotetower.cpp
@@ -1181,6 +1189,9 @@ debug/moc_tower.cpp: ../TowerDefense/tower.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QString \
 		../TowerDefense/enemy.h \
 		../TowerDefense/tower.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QTimer \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qtimer.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qbasictimer.h \
 		debug/moc_predefs.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/bin/moc.exe
 	'C:\Qt\Qt5.14.2\5.14.2\mingw73_32\bin\moc.exe' $(DEFINES) --include C:/Users/Jack_shen/Desktop/TowerDefense/build-TowerDefense-Desktop_Qt_5_14_2_MinGW_32_bit-Debug/debug/moc_predefs.h -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/mkspecs/win32-g++ -IC:/Users/Jack_shen/Desktop/TowerDefense/TowerDefense -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtANGLE -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore -I. -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++ -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/backward -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include -IC:/Qt/Qt5.14.2/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include-fixed -IC:/Qt/Qt5.14.2/Tools/mingw730_32/i686-w64-mingw32/include ../TowerDefense/tower.h -o debug/moc_tower.cpp
@@ -1217,6 +1228,7 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 ####### Compile
 
 debug/dragonmaster.o: ../TowerDefense/dragonmaster.cpp ../TowerDefense/dragonmaster.h \
+		../TowerDefense/wizard.h \
 		../TowerDefense/enemy.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QGraphicsPixmapItem \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qgraphicsitem.h \
@@ -1344,7 +1356,10 @@ debug/dragonmaster.o: ../TowerDefense/dragonmaster.cpp ../TowerDefense/dragonmas
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qfiledevice.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtouchdevice.h \
-		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QString
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QString \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QTimer \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qtimer.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qbasictimer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/dragonmaster.o ../TowerDefense/dragonmaster.cpp
 
 debug/enemy.o: ../TowerDefense/enemy.cpp ../TowerDefense/enemy.h \
@@ -1475,6 +1490,9 @@ debug/enemy.o: ../TowerDefense/enemy.cpp ../TowerDefense/enemy.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QString \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QTimer \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qtimer.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qbasictimer.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/QPainter \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qpainter.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtextoption.h \
@@ -2337,8 +2355,16 @@ debug/makemap.o: ../TowerDefense/makemap.cpp ../TowerDefense/makemap.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qlayoutitem.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qboxlayout.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QHBoxLayout \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QHeaderView \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qheaderview.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qitemselectionmodel.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QLabel \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qlabel.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QTreeWidget \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qtreewidget.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qtreeview.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qtreewidgetitemiterator.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QVBoxLayout \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QFileDialog \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qfiledialog.h \
@@ -2599,6 +2625,9 @@ debug/remotetower.o: ../TowerDefense/remotetower.cpp ../TowerDefense/remotetower
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QString \
 		../TowerDefense/enemy.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QTimer \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qtimer.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qbasictimer.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QGraphicsSceneEvent \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qgraphicssceneevent.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/remotetower.o ../TowerDefense/remotetower.cpp
@@ -2731,6 +2760,9 @@ debug/tower.o: ../TowerDefense/tower.cpp ../TowerDefense/tower.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QString \
 		../TowerDefense/enemy.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QTimer \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qtimer.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qbasictimer.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/QPainter \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qpainter.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtextoption.h \
@@ -2868,7 +2900,10 @@ debug/vanguard.o: ../TowerDefense/vanguard.cpp ../TowerDefense/vanguard.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qfiledevice.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtouchdevice.h \
-		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QString
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QString \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QTimer \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qtimer.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qbasictimer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/vanguard.o ../TowerDefense/vanguard.cpp
 
 debug/wizard.o: ../TowerDefense/wizard.cpp ../TowerDefense/wizard.h \
@@ -2999,7 +3034,10 @@ debug/wizard.o: ../TowerDefense/wizard.cpp ../TowerDefense/wizard.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qfiledevice.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtouchdevice.h \
-		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QString
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QString \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QTimer \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qtimer.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qbasictimer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/wizard.o ../TowerDefense/wizard.cpp
 
 debug/qrc_res.o: debug/qrc_res.cpp 

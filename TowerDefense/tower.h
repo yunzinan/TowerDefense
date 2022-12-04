@@ -60,12 +60,29 @@ public:
     float getAtkSpeed() const {return (float)20/(float)this->atkCycle;}
     qreal calcDis(QGraphicsItem *target);
     void attack(Enemy *target);
+    void rangeAttack(vector<Enemy *> target);//范围攻击
     void beAttacked(Enemy *target);
     int& getCurCnt() {return this->curCnt;}
     int type() const override {
         return Type;
     }
-
+    bool bleedAffix = false;//流血词缀
+    bool rageAffix = false;//狂暴词缀
+    void setRage(bool state) {
+        if(state) {
+            this->rageAffix = true;
+            this->atk *= 2;
+            this->atkCycle /= 2;
+        }
+        else {
+            this->rageAffix = false;
+            this->atk /= 2;
+            this->atkCycle *= 2;
+        }
+    }
+    bool freezeAffix = false;//冰冻词缀
+    bool areaDamageAffix = false;//群伤词缀
+    int affixCnt = 0;
 signals:
     void deleteSignal(int row, int col);//删除该对象的信号
     void getFocus(QGraphicsItem *p);
