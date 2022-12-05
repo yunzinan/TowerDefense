@@ -362,7 +362,7 @@ MakeMap::MakeMap(QWidget *parent) :
             ui->comboBox_2->addItem(QString::number(i+1));
         }
         ui->spinBox_num->setMinimum(1);
-        ui->spinBox_type->setRange(1,4);
+        ui->spinBox_type->setRange(1,5);
     });
     connect(ui->comboBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), [=](int idx){
          this->showPath(idx);
@@ -459,7 +459,7 @@ MakeMap::MakeMap(QWidget *parent) :
             this->enemyInfoList.clear();
             showEnemyInfo();
             ui->spinBox_num->setMinimum(1);
-            ui->spinBox_type->setRange(1,4);
+            ui->spinBox_type->setRange(1,5);
         }
         QString dirPath = QFileDialog::getExistingDirectory(this,"请选择文件保存路径","./");
         if(dirPath.isEmpty()) return ;

@@ -13,6 +13,8 @@
 #include "wizard.h"
 #include "vanguard.h"
 #include "dragonmaster.h"
+#include "cloudcat.h"
+#include <QTime>
 
 void GameWindow::loadMap()
 {
@@ -440,6 +442,12 @@ void GameWindow::getFocusItem(QGraphicsItem *p)
 
 void GameWindow::showFocusItem()
 {
+//    //控制checkBox能否被选中
+//    //先设置均不可被选中
+//    ui->checkBox->setEnabled(false);
+//    ui->checkBox_2->setEnabled(false);
+//    ui->checkBox_3->setEnabled(false);
+//    ui->checkBox_4->setEnabled(false);
     QGraphicsItem *p = this->focusItem;
     if(p == nullptr) return ;
     qDebug() << "get Focus Item!";
@@ -524,7 +532,32 @@ void GameWindow::showFocusItem()
         ui->tableWidget->setItem(7, 0, effect2);
         break;
     }
+    case CloudCat::Type: {
+        QTableWidgetItem *name = new QTableWidgetItem("祥云喵喵");
+        ui->tableWidget->setItem(0, 0, name);
+        Enemy *target = dynamic_cast<Enemy *>(p);
+        QTableWidgetItem *hp = new QTableWidgetItem(QString::number(target->getHp()) + "/" + QString::number(target->getMaxHP()));
+        ui->tableWidget->setItem(1, 0, hp);
+        QTableWidgetItem *atk = new QTableWidgetItem(QString::number(target->getAtk()));
+        ui->tableWidget->setItem(2, 0, atk);
+        QTableWidgetItem *atkRange = new QTableWidgetItem(QString::number(target->getAtkRange()));
+        ui->tableWidget->setItem(3, 0, atkRange);
+        QTableWidgetItem *atkSpeed = new QTableWidgetItem(QString::number(target->getAtkSpeed()));
+        ui->tableWidget->setItem(4, 0, atkSpeed);
+        QTableWidgetItem *moveSpeed = new QTableWidgetItem(QString::number(target->getMoveSpeed()));
+        ui->tableWidget->setItem(5, 0, moveSpeed);
+        QTableWidgetItem *effect1 = new QTableWidgetItem("");
+        ui->tableWidget->setItem(6, 0, effect1);
+        QTableWidgetItem *effect2 = new QTableWidgetItem("");
+        ui->tableWidget->setItem(7, 0, effect2);
+        break;
+    }
     case Tower::Type:{
+//        //设置checkBox的状态
+//        if(rageUnlocked) ui->checkBox->setEnabled(true);
+//        if(freezeUnlocked) ui->checkBox_2->setEnabled(true);
+//        if(bleedUnlocked) ui->checkBox_3->setEnabled(true);
+//        if(areaDamageUnlocked) ui->checkBox_4->setEnabled(true);
         QTableWidgetItem *name = new QTableWidgetItem("近战塔");
         ui->tableWidget->setItem(0, 0, name);
         Tower *target = dynamic_cast<Tower *>(p);
@@ -569,6 +602,11 @@ void GameWindow::showFocusItem()
         break;
     }
     case RemoteTower::Type:{
+//        //设置checkBox的状态
+//        if(rageUnlocked) ui->checkBox->setEnabled(true);
+//        if(freezeUnlocked) ui->checkBox_2->setEnabled(true);
+//        if(bleedUnlocked) ui->checkBox_3->setEnabled(true);
+//        if(areaDamageUnlocked) ui->checkBox_4->setEnabled(true);
         QTableWidgetItem *name = new QTableWidgetItem("远程塔");
         ui->tableWidget->setItem(0, 0, name);
         Tower *target = dynamic_cast<Tower *>(p);
@@ -615,6 +653,53 @@ void GameWindow::showFocusItem()
     default: {
         return;
     }
+    }
+}
+
+void GameWindow::UnlockAffix()
+{
+    //先判断是否已经全部解锁
+    if(rageUnlocked && freezeUnlocked && bleedUnlocked && areaDamageUnlocked) return ;
+    //获取1-4之间的一个随机数
+    bool flag = false;
+    while(!flag) {
+        qsrand(QTime::currentTime().msec());	//设置种子，该种子作为qrand生成随机数的起始值，RAND_MAX为32767，即随机数在种子值到32767之间
+        int idx = qrand()%4;
+        switch (idx) {
+        case 0:{//rage
+            if(!rageUnlocked) {
+                rageUnlocked = true;
+                ui->checkBox->setStyleSheet("QCheckBox{color:red}");
+                flag = true;
+            }
+            break;
+        }
+        case 1:{//冰冻
+            if(!freezeUnlocked) {
+                freezeUnlocked = true;
+                ui->checkBox_2->setStyleSheet("QCheckBox{color:red}");
+                flag = true;
+            }
+            break;
+        }
+        case 2:{//bleed
+            if(!bleedUnlocked) {
+                bleedUnlocked = true;
+                ui->checkBox_3->setStyleSheet("QCheckBox{color:red}");
+                flag = true;
+            }
+            break;
+        case 3:{//areaDamage
+                if(!areaDamageUnlocked) {
+                    areaDamageUnlocked = true;
+                    ui->checkBox_4->setStyleSheet("QCheckBox{color:red}");
+                    flag = true;
+                }
+                break;
+            }
+            default: return ;
+        }
+        }
     }
 }
 
@@ -687,14 +772,20 @@ GameWindow::GameWindow(int level, QWidget *parent) :
                 if(target->affixCnt > 0) {
                     target->setRage(false);
                     target->affixCnt--;
+                    //返还金币
+                    money += 50;
+                    ui->l_money->setText(QString::number(money));
                 }
             }
             else if(state == Qt::Checked) {//安装词缀
                 qDebug() << "安装词缀";
                 if(target->rageAffix) return ;
-                if(target->affixCnt < 2) {
+                if(target->affixCnt < 2 && rageUnlocked && money >= 100) {
                     target->setRage(true);
                     target->affixCnt++;
+                    // 扣除金币
+                    money -= 100;
+                    ui->l_money->setText(QString::number(money));
                 }
             }
         }
@@ -710,14 +801,18 @@ GameWindow::GameWindow(int level, QWidget *parent) :
                 if(target->affixCnt > 0) {
                     target->freezeAffix = false;
                     target->affixCnt--;
+                    money += 100;
+                    ui->l_money->setText(QString::number(money));
                 }
             }
             else if(state == Qt::Checked) {//安装词缀
                 qDebug() << "安装词缀";
                 if(target->freezeAffix) return ;
-                if(target->affixCnt < 2) {
+                if(target->affixCnt < 2 && freezeUnlocked && money >= 200) {
                     target->freezeAffix = true;
                     target->affixCnt++;
+                    money -= 200;
+                    ui->l_money->setText(QString::number(money));
                 }
             }
         }
@@ -733,14 +828,18 @@ GameWindow::GameWindow(int level, QWidget *parent) :
                 if(target->affixCnt > 0) {
                     target->bleedAffix = false;
                     target->affixCnt--;
+                    money += 100;
+                    ui->l_money->setText(QString::number(money));
                 }
             }
             else if(state == Qt::Checked) {//安装词缀
                 qDebug() << "安装词缀";
                 if(target->bleedAffix) return ;
-                if(target->affixCnt < 2) {
+                if(target->affixCnt < 2 && bleedUnlocked && money >= 200) {
                     target->bleedAffix = true;
                     target->affixCnt++;
+                    money -= 200;
+                    ui->l_money->setText(QString::number(money));
                 }
             }
         }
@@ -756,14 +855,18 @@ GameWindow::GameWindow(int level, QWidget *parent) :
                 if(target->affixCnt > 0) {
                     target->areaDamageAffix = false;
                     target->affixCnt--;
+                    money += 200;
+                    ui->l_money->setText(QString::number(money));
                 }
             }
             else if(state == Qt::Checked) {//安装词缀
                 qDebug() << "安装词缀";
                 if(target->areaDamageAffix) return ;
-                if(target->affixCnt < 2) {
+                if(target->affixCnt < 2 && areaDamageUnlocked && money >= 400) {
                     target->areaDamageAffix = true;
                     target->affixCnt++;
+                    money -= 400;
+                    ui->l_money->setText(QString::number(money));
                 }
             }
         }
@@ -858,6 +961,16 @@ void GameWindow::makeEnemy()
                 }
                 case 4:{
                     DragonMaster* curEnemy = new DragonMaster(i, this->sideLen);
+                    connect(curEnemy, &Enemy::getFocus, [=](QGraphicsItem *p){
+                        getFocusItem(p);
+                    });
+                    this->scene->addItem(curEnemy);
+                    curEnemy->setPos(pathList[i][0].col * sideLen, pathList[i][0].row * sideLen);
+                    enemyList.push_back(curEnemy);
+                    break;
+                }
+                case 5:{
+                    CloudCat *curEnemy = new CloudCat(i, this->sideLen);
                     connect(curEnemy, &Enemy::getFocus, [=](QGraphicsItem *p){
                         getFocusItem(p);
                     });
@@ -1052,6 +1165,8 @@ void GameWindow::atk()
     for(auto it = enemyList.begin(); it != enemyList.end(); it++) {
         if((*it)->getHp() <= 0) {
             qDebug() << "enemy destroyed!";
+            //如果是BOSS, 解锁一个词缀
+            if((*it)->type() == CloudCat::Type) this->UnlockAffix();
             if(*it == this->focusItem) focusItem = nullptr;
             this->scene->removeItem(*it);
             delete *it;

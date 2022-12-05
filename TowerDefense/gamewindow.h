@@ -52,6 +52,11 @@ class GameWindow : public QWidget
     QGraphicsItem *focusItem = nullptr;
     void getFocusItem(QGraphicsItem *p);
     void showFocusItem();//在属性栏详细展示信息, 如果是防御塔的话, 还会在下方显示词缀信息
+    bool rageUnlocked = false;//狂暴词缀是否解锁
+    bool freezeUnlocked = false;//冰冻词缀是否解锁
+    bool bleedUnlocked = false;//流血词缀是否解锁
+    bool areaDamageUnlocked = false;//群伤词缀是否解锁
+    void UnlockAffix();//随机解锁一种我方防御塔词缀
 public:
     explicit GameWindow(int level, QWidget *parent = nullptr);
     ~GameWindow();

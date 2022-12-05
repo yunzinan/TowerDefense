@@ -1,3 +1,4 @@
+debug/cloudcat.o
 debug/dragonmaster.o
 debug/enemy.o
 debug/gamescene.o
