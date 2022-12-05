@@ -744,10 +744,10 @@ GameWindow::GameWindow(int level, QWidget *parent) :
         atk();
         this->scene->update();
         //游戏的终局判断
-        endGame();
-//        this->scene->advance();
         //显示关注信息
         showFocusItem();
+        endGame();
+//        this->scene->advance();
     });
     connect(ui->pb_stop, &QPushButton::clicked, [=](){
         if(isStopped) {
@@ -1102,15 +1102,20 @@ void GameWindow::endGame()
 {
     if(this->life <= 0) {
         qDebug() << "YOU LOSE THE GAME!";
-        //后面做一个动画
         globalTimer.stop();
         isStopped = true;
+        if(QMessageBox::information(this, "游戏结束", "胜败乃兵家尝试, 再来一局吧!", QMessageBox::Yes) == QMessageBox::Yes) {
+            emit returnSignal();
+        }
     }
     else {
         if(enemyCnt == maxEnemyCnt && this->enemyList.size() == 0) {
             qDebug() << "YOU WIN THE GAME!";
             globalTimer.stop();
             isStopped = true;
+            if(QMessageBox::information(this, "游戏结束", "恭喜你, 游戏胜利!", QMessageBox::Yes) == QMessageBox::Yes) {
+                emit winSinal(this->curLevel);
+            }
         }
     }
 }

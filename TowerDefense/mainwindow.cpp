@@ -55,6 +55,20 @@ MainWindow::MainWindow(QWidget *parent)
             this->show();
             delete game;
         });
+        connect(game, &GameWindow::winSinal, [=](int level){
+            this->show();
+            delete game;
+            //解锁level+1关, 如果存在并且没有解锁的话
+            if(level+1 < totLevel && level+1 > curLevel) {
+                curLevel = level + 1;
+                QVariant v(0);
+                ui->comboBox->clear();
+                for(int i = 0; i < this->totLevel; i++) {
+                    ui->comboBox->addItem(QString::number(i+1));
+                    if(i > curLevel) ui->comboBox->setItemData(i, v, Qt::UserRole-1);
+                }
+            }
+        });
         this->hide();
         game->show();
     });
@@ -66,5 +80,18 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    //保存进度
+    QString curPath = QDir::currentPath();
+    QString fp_config = curPath + "/info/config.txt";
+    qDebug() << fp_config;
+    QFile file(fp_config);
+    if(!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        qDebug() << "error!file not exists!";
+        return ;
+    }
+    QTextStream out(&file);
+    out.setCodec("UTF-8");
+    out << this->totLevel << " " << this->curLevel;
+    file.close();
 }
 

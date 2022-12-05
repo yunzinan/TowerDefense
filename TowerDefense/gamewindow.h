@@ -20,7 +20,7 @@ class GameWindow;
 class GameWindow : public QWidget
 {
     Q_OBJECT
-    int curLevel;
+    int curLevel;//当前关卡数
     int life; //还有几条命, 是游戏失败的充要条件
     int maxLife;
     int money;
@@ -71,6 +71,7 @@ private:
     Ui::GameWindow *ui;
 signals:
     void returnSignal();
+    void winSinal(int idx);//胜利返回
 };
 
 #endif // GAMEWINDOW_H
