@@ -15,10 +15,12 @@
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QTabWidget>
+#include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -51,6 +53,19 @@ public:
     QPushButton *pb_savePath;
     QLabel *label_4;
     QLabel *label_3;
+    QWidget *tab_3;
+    QVBoxLayout *verticalLayout_4;
+    QTreeWidget *treeWidget;
+    QWidget *widget;
+    QHBoxLayout *horizontalLayout;
+    QLabel *label_2;
+    QComboBox *comboBox_2;
+    QLabel *label;
+    QSpinBox *spinBox_type;
+    QLabel *label_6;
+    QSpinBox *spinBox_num;
+    QPushButton *pb_addItem;
+    QPushButton *pb_clear;
     QWidget *tab;
     QVBoxLayout *verticalLayout_2;
     QGraphicsView *graphicsView;
@@ -59,7 +74,7 @@ public:
     {
         if (MakeMap->objectName().isEmpty())
             MakeMap->setObjectName(QString::fromUtf8("MakeMap"));
-        MakeMap->resize(589, 406);
+        MakeMap->resize(594, 406);
         verticalLayout = new QVBoxLayout(MakeMap);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         tabWidget = new QTabWidget(MakeMap);
@@ -166,6 +181,67 @@ public:
         gridLayout->addWidget(widget_4, 1, 1, 1, 1);
 
         tabWidget->addTab(tab_2, QString());
+        tab_3 = new QWidget();
+        tab_3->setObjectName(QString::fromUtf8("tab_3"));
+        verticalLayout_4 = new QVBoxLayout(tab_3);
+        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
+        treeWidget = new QTreeWidget(tab_3);
+        treeWidget->setObjectName(QString::fromUtf8("treeWidget"));
+
+        verticalLayout_4->addWidget(treeWidget);
+
+        widget = new QWidget(tab_3);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        widget->setMinimumSize(QSize(0, 100));
+        horizontalLayout = new QHBoxLayout(widget);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        label_2 = new QLabel(widget);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout->addWidget(label_2);
+
+        comboBox_2 = new QComboBox(widget);
+        comboBox_2->setObjectName(QString::fromUtf8("comboBox_2"));
+
+        horizontalLayout->addWidget(comboBox_2);
+
+        label = new QLabel(widget);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout->addWidget(label);
+
+        spinBox_type = new QSpinBox(widget);
+        spinBox_type->setObjectName(QString::fromUtf8("spinBox_type"));
+
+        horizontalLayout->addWidget(spinBox_type);
+
+        label_6 = new QLabel(widget);
+        label_6->setObjectName(QString::fromUtf8("label_6"));
+        label_6->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout->addWidget(label_6);
+
+        spinBox_num = new QSpinBox(widget);
+        spinBox_num->setObjectName(QString::fromUtf8("spinBox_num"));
+
+        horizontalLayout->addWidget(spinBox_num);
+
+        pb_addItem = new QPushButton(widget);
+        pb_addItem->setObjectName(QString::fromUtf8("pb_addItem"));
+
+        horizontalLayout->addWidget(pb_addItem);
+
+        pb_clear = new QPushButton(widget);
+        pb_clear->setObjectName(QString::fromUtf8("pb_clear"));
+
+        horizontalLayout->addWidget(pb_clear);
+
+
+        verticalLayout_4->addWidget(widget);
+
+        tabWidget->addTab(tab_3, QString());
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
         verticalLayout_2 = new QVBoxLayout(tab);
@@ -182,7 +258,7 @@ public:
 
         retranslateUi(MakeMap);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MakeMap);
@@ -202,6 +278,15 @@ public:
         label_4->setText(QCoreApplication::translate("MakeMap", " \350\241\214\346\225\260", nullptr));
         label_3->setText(QCoreApplication::translate("MakeMap", "\345\275\223\345\211\215\350\267\257\345\276\204", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MakeMap", "\345\234\260\345\233\276\345\210\266\344\275\234", nullptr));
+        QTreeWidgetItem *___qtreewidgetitem = treeWidget->headerItem();
+        ___qtreewidgetitem->setText(1, QCoreApplication::translate("MakeMap", "\346\225\260\351\207\217", nullptr));
+        ___qtreewidgetitem->setText(0, QCoreApplication::translate("MakeMap", "\345\220\215\347\247\260", nullptr));
+        label_2->setText(QCoreApplication::translate("MakeMap", "\347\272\277\350\267\257", nullptr));
+        label->setText(QCoreApplication::translate("MakeMap", "\346\225\214\344\272\272\347\261\273\345\236\213", nullptr));
+        label_6->setText(QCoreApplication::translate("MakeMap", "\346\225\260\351\207\217", nullptr));
+        pb_addItem->setText(QCoreApplication::translate("MakeMap", "\346\267\273\345\212\240", nullptr));
+        pb_clear->setText(QCoreApplication::translate("MakeMap", "\346\270\205\351\231\244\345\205\250\351\203\250", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_3), QCoreApplication::translate("MakeMap", "\346\225\214\344\272\272\351\203\250\347\275\262", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MakeMap", "\345\234\260\345\233\276\351\242\204\350\247\210", nullptr));
     } // retranslateUi
 
