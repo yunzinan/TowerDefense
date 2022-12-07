@@ -12,6 +12,12 @@ void MainWindow::loadInfo()
     QFile file(fp_config);
     if(!file.open(QIODevice::ReadOnly)) {
         qDebug() << "error! file not exists!";
+        //如果不存在config文件, 那就创建文件
+        file.open(QFile::WriteOnly|QFile::Text|QIODevice::Append);
+        QTextStream out(&file);
+        out.setCodec("UTF-8");
+        out << 0 << " " << 0;//关卡数; 当前游戏解锁到第几关.
+        file.close();
         return ;
     }
     QString buffer;
@@ -45,6 +51,37 @@ MainWindow::MainWindow(QWidget *parent)
             m->hide();
             delete m;
         });
+        connect(m, &MakeMap::mapUpdated, [=](){
+           //尝试更新当前的comboBox;
+           //先获取文件数量
+            QDir *dir=new QDir(QDir::currentPath() + "/info");
+               QStringList filter;
+               filter<<"*.txt";
+               dir->setNameFilters(filter);
+               QFileInfoList fileInfoList=dir->entryInfoList(filter);
+            if(fileInfoList.size()-1 > this->totLevel) {//说明产生了新的地图
+                this->totLevel = fileInfoList.size() - 1;//更新totLevel
+                QVariant v(0);
+                ui->comboBox->clear();
+                for(int i = 0; i < this->totLevel; i++) {
+                    ui->comboBox->addItem(QString::number(i+1));
+                    if(i > curLevel) ui->comboBox->setItemData(i, v, Qt::UserRole-1);
+                }
+                //重新写入config文件
+                QString curPath = QDir::currentPath();
+                QString fp_config = curPath + "/info/config.txt";
+                qDebug() << fp_config;
+                QFile file(fp_config);
+                if(!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                    qDebug() << "error!file not exists!";
+                    return ;
+                }
+                QTextStream out(&file);
+                out.setCodec("UTF-8");
+                out << this->totLevel << " " << this->curLevel;
+                file.close();
+            }
+        });
         m->show();
         qDebug() << "m: show!";
         this->hide();
@@ -67,11 +104,34 @@ MainWindow::MainWindow(QWidget *parent)
                     ui->comboBox->addItem(QString::number(i+1));
                     if(i > curLevel) ui->comboBox->setItemData(i, v, Qt::UserRole-1);
                 }
+                //保存进度
+                QString curPath = QDir::currentPath();
+                QString fp_config = curPath + "/info/config.txt";
+                qDebug() << fp_config;
+                QFile file(fp_config);
+                if(!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                    qDebug() << "error!file not exists!";
+                    return ;
+                }
+                QTextStream out(&file);
+                out.setCodec("UTF-8");
+                out << this->totLevel << " " << this->curLevel;
+                qDebug() << this->curLevel << "curLevel";
+                file.close();
             }
         });
         this->hide();
         game->show();
     });
+    //若info子文件夹不存在, 则创建
+    QString folder_name("info");
+    QDir dir(QDir::currentPath());    //初始化dir为当前目录
+    if(!dir.exists(folder_name))    //如果info文件夹不存在
+    {
+        dir.mkdir(folder_name);    //创建文件夹（名为Images）
+
+        qDebug()<<QString("文件夹%1创建成功！").arg(folder_name);
+    }
 //    qDebug() << QDir::currentPath();
     loadInfo();
 
@@ -92,6 +152,7 @@ MainWindow::~MainWindow()
     QTextStream out(&file);
     out.setCodec("UTF-8");
     out << this->totLevel << " " << this->curLevel;
+    qDebug() << this->curLevel << "curLevel";
     file.close();
 }
 

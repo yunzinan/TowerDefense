@@ -13,8 +13,8 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-    int totLevel; //总关卡数
-    int curLevel; //当前关卡数
+    int totLevel = 0; //总关卡数
+    int curLevel = 0; //当前关卡数
     void loadInfo(); //获取地图信息和当前进度
     GameWindow *game = nullptr;//游戏界面
 public:

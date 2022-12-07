@@ -393,6 +393,12 @@ void GameWindow::EnemyMove()
             if(isDead) {
                 qDebug() << "curEnemy out of map range! destroy!";
                 this->life--;
+                if(enemyList[i] == this->focusItem) {
+                    focusItem = nullptr;
+                    ui->tableWidget->removeColumn(0);
+                    ui->tableWidget->setColumnCount(1);
+                    ui->tableWidget->horizontalHeader()->setHidden(true);
+                }
                 ui->l_hp->setText(QString::number(life));
                 delete enemyList[i];
                 this->enemyList.erase(enemyList.begin() + i);
@@ -1104,7 +1110,7 @@ void GameWindow::endGame()
         qDebug() << "YOU LOSE THE GAME!";
         globalTimer.stop();
         isStopped = true;
-        if(QMessageBox::information(this, "游戏结束", "胜败乃兵家尝试, 再来一局吧!", QMessageBox::Yes) == QMessageBox::Yes) {
+        if(QMessageBox::information(this, "游戏结束", "胜败乃兵家常事, 再来一局吧!", QMessageBox::Yes) == QMessageBox::Yes) {
             emit returnSignal();
         }
     }
@@ -1172,7 +1178,12 @@ void GameWindow::atk()
             qDebug() << "enemy destroyed!";
             //如果是BOSS, 解锁一个词缀
             if((*it)->type() == CloudCat::Type) this->UnlockAffix();
-            if(*it == this->focusItem) focusItem = nullptr;
+            if(*it == this->focusItem) {
+                focusItem = nullptr;
+                ui->tableWidget->removeColumn(0);
+                ui->tableWidget->setColumnCount(1);
+                ui->tableWidget->horizontalHeader()->setHidden(true);
+            }
             this->scene->removeItem(*it);
             delete *it;
             enemyList.erase(it);

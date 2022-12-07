@@ -40,7 +40,7 @@ class MakeMap : public QWidget
 public:
     explicit MakeMap(QWidget *parent = nullptr);
     ~MakeMap();
-
+    QString getNewFilePath();//返回此时创建的新文件的文件名
     QGraphicsScene *getMapScene() const;
     void setMapScene(QGraphicsScene *value);
     void showEnemyInfo();
@@ -48,6 +48,7 @@ private:
     Ui::MakeMap *ui;
 signals:
     void returnSignal();
+    void mapUpdated();
 };
 
 #endif // MAKEMAP_H

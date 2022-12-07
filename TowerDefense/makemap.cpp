@@ -442,6 +442,7 @@ MakeMap::MakeMap(QWidget *parent) :
         //文件写
         file.close();
         QMessageBox::information(this, "提示", "保存成功!");
+        emit mapUpdated();
     });
     connect(ui->pb_new, &QPushButton::clicked, [=](){
         if(this->pbList.size() != 0 || this->pathList.size() != 0) {
@@ -458,12 +459,10 @@ MakeMap::MakeMap(QWidget *parent) :
             ui->comboBox->clear();
             this->enemyInfoList.clear();
             showEnemyInfo();
-            ui->spinBox_num->setMinimum(1);
-            ui->spinBox_type->setRange(1,5);
         }
-        QString dirPath = QFileDialog::getExistingDirectory(this,"请选择文件保存路径","./");
-        if(dirPath.isEmpty()) return ;
-        QString fp = dirPath + "/map.txt";
+        ui->spinBox_num->setMinimum(1);
+        ui->spinBox_type->setRange(1,5);
+        QString fp = getNewFilePath();
         QFile file(fp);
         if(file.exists()) {
             QMessageBox::warning(this, "失败", "该文件已经存在, 请选择打开!");
@@ -545,4 +544,23 @@ MakeMap::MakeMap(QWidget *parent) :
 MakeMap::~MakeMap()
 {
     delete ui;
+}
+
+QString MakeMap::getNewFilePath()
+{
+    QString curPath = QDir::currentPath();
+    QString fp_config = curPath + "/info/config.txt";
+    QFile config(fp_config);
+    config.open(QIODevice::ReadOnly);
+    int curLevel, totLevel;
+    QString buffer;
+    QTextStream fin(&config);
+    fin >> buffer;
+    totLevel = buffer.toInt();
+    fin >> buffer;
+    curLevel = buffer.toInt();
+    //那么创建的文件就是totLevel;
+    QString ret = curPath + "/info/level" + QString::number(totLevel) + ".txt";
+    qDebug() << ret;
+    return ret;
 }
