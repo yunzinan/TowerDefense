@@ -66,6 +66,7 @@ public:
     void deleteTower(int row, int col, int type = 0);
     void endGame(); //判断游戏状态: 胜利/失败/进行中, 给出相应反馈.
     void atk();//攻击判定
+    void freezeAllEnemy();
     qreal calcDis(QGraphicsItem *a, QGraphicsItem *b) {return (a->pos().x() - b->pos().x()) * (a->pos().x() - b->pos().x()) + (a->pos().y() - b->pos().y()) * (a->pos().y() - b->pos().y());}
 private:
     Ui::GameWindow *ui;

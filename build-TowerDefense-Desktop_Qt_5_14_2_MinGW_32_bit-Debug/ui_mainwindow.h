@@ -31,12 +31,13 @@ public:
     QWidget *widget;
     QVBoxLayout *verticalLayout_2;
     QPushButton *pb_makemap;
-    QPushButton *pushButton;
+    QPushButton *pb_doc;
     QWidget *widget_2;
     QHBoxLayout *horizontalLayout;
     QLabel *label_2;
     QComboBox *comboBox;
     QPushButton *pb_start;
+    QPushButton *pb_shop;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -67,10 +68,10 @@ public:
 
         verticalLayout_2->addWidget(pb_makemap);
 
-        pushButton = new QPushButton(widget);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pb_doc = new QPushButton(widget);
+        pb_doc->setObjectName(QString::fromUtf8("pb_doc"));
 
-        verticalLayout_2->addWidget(pushButton);
+        verticalLayout_2->addWidget(pb_doc);
 
         widget_2 = new QWidget(widget);
         widget_2->setObjectName(QString::fromUtf8("widget_2"));
@@ -94,6 +95,11 @@ public:
 
         verticalLayout_2->addWidget(pb_start);
 
+        pb_shop = new QPushButton(widget);
+        pb_shop->setObjectName(QString::fromUtf8("pb_shop"));
+
+        verticalLayout_2->addWidget(pb_shop);
+
 
         verticalLayout->addWidget(widget);
 
@@ -112,10 +118,11 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "Tower Defense", nullptr));
         pb_makemap->setText(QCoreApplication::translate("MainWindow", "\345\205\263\345\215\241\345\210\266\344\275\234", nullptr));
-        pushButton->setText(QCoreApplication::translate("MainWindow", "\346\270\270\346\210\217\345\233\276\351\211\264", nullptr));
+        pb_doc->setText(QCoreApplication::translate("MainWindow", "\350\257\264\346\230\216\346\226\207\346\241\243", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "\345\205\263\345\215\241\351\200\211\346\213\251", nullptr));
         comboBox->setCurrentText(QString());
         pb_start->setText(QCoreApplication::translate("MainWindow", "\345\274\200\345\247\213\346\270\270\346\210\217", nullptr));
+        pb_shop->setText(QCoreApplication::translate("MainWindow", "\345\225\206\345\272\227", nullptr));
     } // retranslateUi
 
 };

@@ -14,6 +14,7 @@
 #include "vanguard.h"
 #include "dragonmaster.h"
 #include "cloudcat.h"
+#include "supertower.h"
 #include <QTime>
 
 void GameWindow::loadMap()
@@ -253,7 +254,7 @@ void GameWindow::EnemyMove()
     for(int i = 0; i < this->enemyList.size(); i++) {
         enemyList[i]->setMovable(true);
         for(auto j = 0; j < enemyList[i]->collidingItems().size(); j++) {
-            if(enemyList[i]->collidingItems().at(j)->type() == Tower::Type) {
+            if(enemyList[i]->collidingItems().at(j)->type() == Tower::Type || enemyList[i]->collidingItems().at(j)->type() == SuperTower::Type) {
                enemyList[i]->setMovable(false);
                //如果类型是Wizard && isValid, 就发动闪现
                if((enemyList[i]->type() == Wizard::Type && dynamic_cast<Wizard *>(enemyList[i])->getValid()) || (enemyList[i]->type() == DragonMaster::Type && dynamic_cast<DragonMaster *>(enemyList[i])->getValid())) {
@@ -607,6 +608,50 @@ void GameWindow::showFocusItem()
         ui->tableWidget->setItem(7, 0, effect2);
         break;
     }
+    case SuperTower::Type: {
+        QTableWidgetItem *name = new QTableWidgetItem("超级近战塔");
+        ui->tableWidget->setItem(0, 0, name);
+        Tower *target = dynamic_cast<Tower *>(p);
+        QTableWidgetItem *hp = new QTableWidgetItem(QString::number(target->getHp()) + "/" + QString::number(target->getMaxHP()));
+        ui->tableWidget->setItem(1, 0, hp);
+        QTableWidgetItem *atk = new QTableWidgetItem(QString::number(target->getAtk()));
+        ui->tableWidget->setItem(2, 0, atk);
+        QTableWidgetItem *atkRange = new QTableWidgetItem(QString::number(target->getAtkRange()));
+        ui->tableWidget->setItem(3, 0, atkRange);
+        QTableWidgetItem *atkSpeed = new QTableWidgetItem(QString::number(target->getAtkSpeed()));
+        ui->tableWidget->setItem(4, 0, atkSpeed);
+        QTableWidgetItem *moveSpeed = new QTableWidgetItem(QString(""));
+        ui->tableWidget->setItem(5, 0, moveSpeed);
+        //获取词缀
+        QString affix1;
+        QString affix2;
+        if(target->rageAffix) {
+            if(!affix1.isEmpty()) affix2 = "狂暴";
+            else affix1 = "狂暴";
+            //设置checkBox
+            ui->checkBox->setChecked(true);
+        } else ui->checkBox->setChecked(false);
+        if(target->freezeAffix) {
+            if(!affix1.isEmpty()) affix2 = "冰冻";
+            else affix1 = "冰冻";
+            ui->checkBox_2->setChecked(true);
+        } else ui->checkBox_2->setChecked(false);
+        if(target->bleedAffix) {
+            if(!affix1.isEmpty()) affix2 = "流血";
+            else affix1 = "流血";
+            ui->checkBox_3->setChecked(true);
+        } else ui->checkBox_3->setChecked(false);
+        if(target->areaDamageAffix) {
+            if(!affix1.isEmpty()) affix2 = "群伤";
+            else affix1 = "群伤";
+            ui->checkBox_4->setChecked(true);
+        } else ui->checkBox_4->setChecked(false);
+        QTableWidgetItem *effect1 = new QTableWidgetItem(affix1);
+        ui->tableWidget->setItem(6, 0, effect1);
+        QTableWidgetItem *effect2 = new QTableWidgetItem(affix2);
+        ui->tableWidget->setItem(7, 0, effect2);
+        break;
+    }
     case RemoteTower::Type:{
 //        //设置checkBox的状态
 //        if(rageUnlocked) ui->checkBox->setEnabled(true);
@@ -770,7 +815,7 @@ GameWindow::GameWindow(int level, QWidget *parent) :
     connect(ui->checkBox, &QCheckBox::stateChanged, [=](int state){
         //先判断当前有没有获得防御塔类型的focus
         if(focusItem == nullptr) return ;
-        if(focusItem->type() == Tower::Type || focusItem->type() == RemoteTower::Type) {
+        if(focusItem->type() == Tower::Type || focusItem->type() == RemoteTower::Type || focusItem->type() == SuperTower::Type) {
             Tower *target = dynamic_cast<Tower*>(focusItem);
             if(state == Qt::Unchecked) {//卸下词缀
                 qDebug() << "卸下词缀";
@@ -799,7 +844,7 @@ GameWindow::GameWindow(int level, QWidget *parent) :
     connect(ui->checkBox_2, &QCheckBox::stateChanged, [=](int state){
         //先判断当前有没有获得防御塔类型的focus
         if(focusItem == nullptr) return ;
-        if(focusItem->type() == Tower::Type || focusItem->type() == RemoteTower::Type) {
+        if(focusItem->type() == Tower::Type || focusItem->type() == RemoteTower::Type || focusItem->type() == SuperTower::Type) {
             Tower *target = dynamic_cast<Tower*>(focusItem);
             if(state == Qt::Unchecked) {//卸下词缀
                 qDebug() << "卸下词缀";
@@ -826,7 +871,7 @@ GameWindow::GameWindow(int level, QWidget *parent) :
     connect(ui->checkBox_3, &QCheckBox::stateChanged, [=](int state){
         //先判断当前有没有获得防御塔类型的focus
         if(focusItem == nullptr) return ;
-        if(focusItem->type() == Tower::Type || focusItem->type() == RemoteTower::Type) {
+        if(focusItem->type() == Tower::Type || focusItem->type() == RemoteTower::Type || focusItem->type() == SuperTower::Type) {
             Tower *target = dynamic_cast<Tower*>(focusItem);
             if(state == Qt::Unchecked) {//卸下词缀
                 qDebug() << "卸下词缀";
@@ -853,7 +898,7 @@ GameWindow::GameWindow(int level, QWidget *parent) :
     connect(ui->checkBox_4, &QCheckBox::stateChanged, [=](int state){
         //先判断当前有没有获得防御塔类型的focus
         if(focusItem == nullptr) return ;
-        if(focusItem->type() == Tower::Type || focusItem->type() == RemoteTower::Type) {
+        if(focusItem->type() == Tower::Type || focusItem->type() == RemoteTower::Type || focusItem->type() == SuperTower::Type) {
             Tower *target = dynamic_cast<Tower*>(focusItem);
             if(state == Qt::Unchecked) {//卸下词缀
                 qDebug() << "卸下词缀";
@@ -1017,21 +1062,24 @@ void GameWindow::createTower(int row, int col, int type)
                 qDebug() << "not enough money!";
             }
         }
-        else if(ui->radioButton_2->isChecked()) {//创建特殊近战塔
-//            if(this->money >= 500) {
-//                this->money -= 500;
-//                ui->l_money->setText(QString::number(money));
-//                QGraphicsItem *cur = new Tower(row, col, this->sideLen);
-//                connect(dynamic_cast<Tower *>(cur), &Tower::deleteSignal, [=](int row, int col){
-//                    deleteTower(row, col);
-//                });
-//                cur->setPos(col * sideLen, row * sideLen);
-//                this->scene->addItem(cur);
-//                this->towerList.push_back(dynamic_cast<Tower *>(cur));
-//            }
-//            else {
-//                qDebug() << "not enough money!";
-//            }
+        else if(ui->radioButton_2->isChecked()) {//创建超级近战塔
+            if(this->money >= 300) {
+                this->money -= 300;
+                ui->l_money->setText(QString::number(money));
+                QGraphicsItem *cur = new SuperTower(row, col, this->sideLen);
+                connect(dynamic_cast<Tower *>(cur), &Tower::deleteSignal, [=](int row, int col){
+                    deleteTower(row, col);
+                });
+                connect(dynamic_cast<Tower *>(cur), &Tower::getFocus, [=](QGraphicsItem *p){
+                    getFocusItem(p);
+                });
+                cur->setPos(col * sideLen, row * sideLen);
+                this->scene->addItem(cur);
+                this->towerList.push_back(dynamic_cast<Tower *>(cur));
+            }
+            else {
+                qDebug() << "not enough money!";
+            }
         }
     }
     else {
@@ -1164,7 +1212,13 @@ void GameWindow::atk()
     for(auto it = towerList.begin(); it != towerList.end(); it++) {
         if((*it)->getHp() <= 0) {
             qDebug() << "tower destroyed!";
-            if(*it == this->focusItem) focusItem = nullptr;
+            if((*it)->type() == SuperTower::Type) this->freezeAllEnemy();
+            if(*it == this->focusItem) {
+                focusItem = nullptr;
+                ui->tableWidget->removeColumn(0);
+                ui->tableWidget->setColumnCount(1);
+                ui->tableWidget->horizontalHeader()->setHidden(true);
+            }
             this->scene->removeItem(*it);
             ps state = (*it)->getPos();
             if(slotList[state.row][state.col] != nullptr) slotList[state.row][state.col]->show();
@@ -1192,5 +1246,12 @@ void GameWindow::atk()
             this->money += 50;
             ui->l_money->setText(QString::number(money));
         }
+    }
+}
+
+void GameWindow::freezeAllEnemy()
+{
+    for(auto enemy : this->enemyList) {
+        enemy->beFreezed(3);
     }
 }
