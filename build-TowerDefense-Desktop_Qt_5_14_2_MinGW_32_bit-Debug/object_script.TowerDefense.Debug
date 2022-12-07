@@ -8,6 +8,7 @@ debug/mainwindow.o
 debug/makemap.o
 debug/mapgrid.o
 debug/remotetower.o
+debug/superremotetower.o
 debug/supertower.o
 debug/tower.o
 debug/vanguard.o
@@ -19,5 +20,6 @@ debug/moc_mainwindow.o
 debug/moc_makemap.o
 debug/moc_mapgrid.o
 debug/moc_remotetower.o
+debug/moc_superremotetower.o
 debug/moc_supertower.o
 debug/moc_tower.o

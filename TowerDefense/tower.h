@@ -8,6 +8,7 @@
 #include <QMovie>
 #include "config.h"
 #include "enemy.h"
+#include <QTimer>
 
 class Enemy;
 
@@ -21,8 +22,12 @@ class Tower: public QObject, public QGraphicsPixmapItem
     int atk;
     int atkCycle;
     int curCnt = 0;
+    int healCnt = 0;
+    int healCycle;
     float atkRange;
     QMovie movie;//动画
+    QMovie healgif;
+    QTimer healTimer;
     void destroy(); //当塔生命值等于0或者到达终点时, 摧毁该敌人
     float sideLen; //地图的大小, 也是物体的最大范围
 protected:
@@ -36,10 +41,14 @@ public:
         this->hp = maxHp;
         this->atk = 10;
         this->atkCycle = 5;
+        this->healCycle = 10;
         this->atkRange = sideLen;
         movie.setFileName(":/new/prefix1/assets/tower/1.gif");
+        healgif.setFileName(":/new/prefix1/assets/effect/5.gif");
+        healgif.setScaledSize(QSize(this->sideLen, this->sideLen));
         movie.setScaledSize(QSize(this->sideLen, this->sideLen));
         movie.start();
+        healgif.start();
     }
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
@@ -83,6 +92,8 @@ public:
     bool freezeAffix = false;//冰冻词缀
     bool areaDamageAffix = false;//群伤词缀
     int affixCnt = 0;
+    void heal(vector<Tower *> towerList);
+    void beHealed(int inc);
 signals:
     void deleteSignal(int row, int col);//删除该对象的信号
     void getFocus(QGraphicsItem *p);

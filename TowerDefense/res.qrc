@@ -31,5 +31,10 @@
         <file>assets/enemy/09.gif</file>
         <file>assets/effect/1.png</file>
         <file>assets/effect/2.png</file>
+        <file>assets/effect/3.gif</file>
+        <file>assets/effect/5.gif</file>
+        <file>assets/effect/1.gif</file>
+        <file>assets/effect/2.gif</file>
+        <file>assets/effect/4.gif</file>
     </qresource>
 </RCC>

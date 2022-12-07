@@ -12,7 +12,10 @@ QRectF Tower::boundingRect() const
 
 void Tower::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    painter->drawImage(this->boundingRect(), movie.currentImage());
+        painter->drawImage(this->boundingRect(), movie.currentImage());
+        if(healTimer.isActive()) {
+            painter->drawImage(QRectF(0, -0.5*this->sideLen, this->sideLen, this->sideLen), healgif.currentImage());
+        }
 }
 
 QPainterPath Tower::shape() const
@@ -85,4 +88,30 @@ void Tower::beAttacked(Enemy *target)
 {
     this->hp -= target->getAtk();
     if(hp < 0) hp = 0;
+}
+
+void Tower::heal(vector<Tower *> targetList)
+{
+    if(this->hp <= 0) return ;
+    if(this->healCnt < healCycle) {
+        healCnt++;
+        return ;
+    }
+    for(auto target : targetList) {
+        if(target == nullptr) return ;
+        qreal dis = calcDis(target);
+        if(dis <= this->atkRange * this->atkRange) {
+            qDebug() << "heal success!";
+            target->beHealed(5);
+        }
+    }
+    healCnt = 0;
+}
+
+void Tower::beHealed(int inc)
+{
+    this->hp += inc;
+    if(hp > maxHp) hp = maxHp;
+    healTimer.setSingleShot(true);
+    healTimer.start(18*90);
 }

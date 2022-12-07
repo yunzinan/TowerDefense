@@ -8,6 +8,8 @@
 #include <QMovie>
 #include "tower.h"
 #include <QTimer>
+#include <QMovie>
+
 class Tower;
 
 class Enemy: public QObject, public QGraphicsPixmapItem
@@ -26,6 +28,7 @@ protected:
     bool isMovable; //置1表示能移动, 0表示不能移动
     bool isFreezed;
     bool isBleeding;
+    QMovie hitGif;//被攻击的动画
     int curNodeIdx;//当前已经经过了第几个路径关键节点, 范围[0, pathList[pathIdx].size()-2], 否则就已经到达终点了
     QMovie movie;//敌人运动的动画
     void destroy(); //当怪物生命值等于0或者到达终点时, 摧毁该敌人
@@ -34,6 +37,7 @@ protected:
     float sideLen; //地图的大小, 也是物体的最大范围\]
     QTimer timer;
     QTimer bleedTimer;
+    QTimer hitTimer;//被攻击的计时器
 public:
     enum {Type = UserType + 1};
     virtual void setConfig();//虚函数, 用于对不同的敌人的属性和gif进行初始化

@@ -8,6 +8,7 @@ release/mainwindow.o
 release/makemap.o
 release/mapgrid.o
 release/remotetower.o
+release/superremotetower.o
 release/supertower.o
 release/tower.o
 release/vanguard.o
@@ -19,5 +20,6 @@ release/moc_mainwindow.o
 release/moc_makemap.o
 release/moc_mapgrid.o
 release/moc_remotetower.o
+release/moc_superremotetower.o
 release/moc_supertower.o
 release/moc_tower.o

@@ -26,6 +26,9 @@ Enemy::Enemy(int pathIdx, float sideLen, QGraphicsItem *parent): QGraphicsPixmap
     this->hp = maxHp;
     this->isMovable = true;
     this->pathIdx = pathIdx;
+    this->hitGif.setFileName(":/new/prefix1/assets/effect/4.gif");
+    hitGif.setScaledSize(QSize(this->sideLen, this->sideLen));
+    hitGif.start();
 //    this->setFlags(QGraphicsItem::ItemIsMovable);
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsFocusable);
@@ -65,6 +68,9 @@ void Enemy::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
         QPixmap blood(":/new/prefix1/assets/effect/2.png");
         blood = blood.scaledToHeight(sideLen * 0.4);
         painter->drawPixmap(0.1 * this->sideLen, this->sideLen * 0.6, blood);
+    }
+    if(hitTimer.isActive()) {
+        painter->drawImage(QRectF(-0.2 * this->sideLen, 0, this->sideLen, this->sideLen), hitGif.currentImage());
     }
 }
 
@@ -132,6 +138,8 @@ void Enemy::beAttacked(Tower *target)
 {
     this->hp -= target->getAtk();
     if(hp < 0) hp = 0;
+    hitTimer.setSingleShot(true);
+    hitTimer.start(12 * 90);
 }
 
 void Enemy::beFreezed(int t)

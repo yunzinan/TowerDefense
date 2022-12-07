@@ -26,6 +26,7 @@ SOURCES += \
     makemap.cpp \
     mapgrid.cpp \
     remotetower.cpp \
+    superremotetower.cpp \
     supertower.cpp \
     tower.cpp \
     vanguard.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
     makemap.h \
     mapgrid.h \
     remotetower.h \
+    superremotetower.h \
     supertower.h \
     tower.h \
     vanguard.h \
