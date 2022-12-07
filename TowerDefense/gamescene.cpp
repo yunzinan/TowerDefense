@@ -3,7 +3,6 @@
 #include <QGraphicsItem>
 GameScene::GameScene()
 {
-
 }
 
 void GameScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)

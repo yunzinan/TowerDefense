@@ -36,5 +36,7 @@
         <file>assets/effect/1.gif</file>
         <file>assets/effect/2.gif</file>
         <file>assets/effect/4.gif</file>
+        <file>assets/props/cursor.png</file>
+        <file>assets/bgm.wav</file>
     </qresource>
 </RCC>

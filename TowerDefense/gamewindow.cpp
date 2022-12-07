@@ -805,6 +805,20 @@ GameWindow::GameWindow(int level, QWidget *parent) :
 {
     ui->setupUi(this);
     //初始化信息
+    //添加bgm
+    QMediaPlayer *player = new QMediaPlayer(this);//设置背景音乐
+    player->setMedia(QUrl("qrc:/new/prefix1/assets/bgm.wav"));
+    player->setVolume(50);//音量
+    connect(ui->pb_music, &QPushButton::clicked, [=](){
+        if(musicIsOn) {
+            player->stop();
+            musicIsOn = false;
+        }
+        else {
+            player->play();
+            musicIsOn = true;
+        }
+    });
     this->curLevel = level;
     setWindowTitle("TowerDefense");
     setMinimumSize(QSize(2800, 1800));
@@ -815,6 +829,7 @@ GameWindow::GameWindow(int level, QWidget *parent) :
     this->maxEnemyCnt = 0;
     this->timeCntForMakingEnemy = 0;
     this->enemyCnt = 0;
+    ui->graphicsView->setCursor(QCursor(QPixmap(":/new/prefix1/assets/props/cursor.png").scaledToWidth(100)));
     ui->l_hp->setText(QString::number(this->life));
     ui->l_money->setText(QString::number(this->money));
     QString curLevel = "第" + QString::number(this->curLevel+1) + "关";

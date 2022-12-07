@@ -272,8 +272,10 @@ Makefile: ../TowerDefense/TowerDefense.pro C:/Qt/Qt5.14.2/5.14.2/mingw73_32/mksp
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/mkspecs/features/yacc.prf \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/mkspecs/features/lex.prf \
 		../TowerDefense/TowerDefense.pro \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/Qt5Multimedia.prl \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/Qt5Widgets.prl \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/Qt5Gui.prl \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/Qt5Network.prl \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/Qt5Core.prl \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/qtmain.prl \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/mkspecs/features/build_pass.prf \
@@ -481,8 +483,10 @@ C:/Qt/Qt5.14.2/5.14.2/mingw73_32/mkspecs/features/exceptions.prf:
 C:/Qt/Qt5.14.2/5.14.2/mingw73_32/mkspecs/features/yacc.prf:
 C:/Qt/Qt5.14.2/5.14.2/mingw73_32/mkspecs/features/lex.prf:
 ../TowerDefense/TowerDefense.pro:
+C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/Qt5Multimedia.prl:
 C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/Qt5Widgets.prl:
 C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/Qt5Gui.prl:
+C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/Qt5Network.prl:
 C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/Qt5Core.prl:
 C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/qtmain.prl:
 C:/Qt/Qt5.14.2/5.14.2/mingw73_32/mkspecs/features/build_pass.prf:

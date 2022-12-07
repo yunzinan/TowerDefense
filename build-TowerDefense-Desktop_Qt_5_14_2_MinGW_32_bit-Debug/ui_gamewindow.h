@@ -52,6 +52,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer;
     QPushButton *pb_stop;
+    QPushButton *pb_music;
     QSpacerItem *horizontalSpacer_2;
     QWidget *widget_5;
     QVBoxLayout *verticalLayout_4;
@@ -167,6 +168,11 @@ public:
         pb_stop->setObjectName(QString::fromUtf8("pb_stop"));
 
         horizontalLayout->addWidget(pb_stop);
+
+        pb_music = new QPushButton(widget_4);
+        pb_music->setObjectName(QString::fromUtf8("pb_music"));
+
+        horizontalLayout->addWidget(pb_music);
 
         horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -297,6 +303,7 @@ public:
         l_level->setText(QCoreApplication::translate("GameWindow", "\347\254\2540\345\205\263", nullptr));
         label_5->setText(QCoreApplication::translate("GameWindow", "\346\224\276\347\275\256\351\235\242\346\235\277", nullptr));
         pb_stop->setText(QCoreApplication::translate("GameWindow", "\346\232\202\345\201\234/\347\273\247\347\273\255", nullptr));
+        pb_music->setText(QCoreApplication::translate("GameWindow", "\350\203\214\346\231\257\351\237\263\344\271\220", nullptr));
         radioButton_1->setText(QCoreApplication::translate("GameWindow", "\345\241\2241: \350\277\221\346\210\230\346\234\272\347\224\262", nullptr));
         radioButton_2->setText(QCoreApplication::translate("GameWindow", "\345\241\2242: \350\266\205\347\272\247\350\277\221\346\210\230\346\234\272\347\224\262", nullptr));
         radioButton_3->setText(QCoreApplication::translate("GameWindow", "\345\241\2243: \350\277\234\347\250\213\346\234\272\347\224\262", nullptr));

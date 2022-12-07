@@ -12,6 +12,8 @@
 #include <enemy.h>
 #include "tower.h"
 #include "mapgrid.h"
+#include <QMediaPlayer>
+
 
 namespace Ui {
 class GameWindow;
@@ -57,6 +59,7 @@ class GameWindow : public QWidget
     bool bleedUnlocked = false;//流血词缀是否解锁
     bool areaDamageUnlocked = false;//群伤词缀是否解锁
     void UnlockAffix();//随机解锁一种我方防御塔词缀
+    bool musicIsOn = false;
 public:
     explicit GameWindow(int level, QWidget *parent = nullptr);
     ~GameWindow();
