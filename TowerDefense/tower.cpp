@@ -16,6 +16,9 @@ void Tower::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
         if(healTimer.isActive()) {
             painter->drawImage(QRectF(0, -0.5*this->sideLen, this->sideLen, this->sideLen), healgif.currentImage());
         }
+        if(this->rageAffix) {
+            painter->drawImage(QRectF(0, 0.5*this->sideLen, this->sideLen, this->sideLen), ragegif.currentImage());
+        }
 }
 
 QPainterPath Tower::shape() const

@@ -27,6 +27,7 @@ class Tower: public QObject, public QGraphicsPixmapItem
     float atkRange;
     QMovie movie;//动画
     QMovie healgif;
+    QMovie ragegif;//狂暴的特效
     QTimer healTimer;
     void destroy(); //当塔生命值等于0或者到达终点时, 摧毁该敌人
     float sideLen; //地图的大小, 也是物体的最大范围
@@ -47,6 +48,9 @@ public:
         healgif.setFileName(":/new/prefix1/assets/effect/5.gif");
         healgif.setScaledSize(QSize(this->sideLen, this->sideLen));
         movie.setScaledSize(QSize(this->sideLen, this->sideLen));
+        ragegif.setFileName(":/new/prefix1/assets/effect/3.gif");
+        ragegif.setScaledSize(QSize(this->sideLen, this->sideLen));
+        ragegif.start();
         movie.start();
         healgif.start();
     }
