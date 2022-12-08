@@ -54,6 +54,7 @@ public:
     void attack(Tower *target); //尝试对某个塔进行攻击
     void beAttacked(Tower *target);//被某个塔攻击
     void beFreezed(int t);//冰冻效果
+    void beDestroyed();//直接秒杀
     void bleeding(int t);//流血效果
     int getAtk() const {return this->atk;}
     int getHp() const {return this->hp;}

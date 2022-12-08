@@ -29,6 +29,8 @@ class GameWindow : public QWidget
     int enemyCnt;//记录已经创造出多少个怪物
     int maxEnemyCnt = 0;//最多有多少个怪物, 同样是游戏判断胜利的条件之一
     bool stop; //记录当前游戏是否暂停
+    bool freezeBombPlaced = false;
+    bool bombPlaced = false;
     QTimer globalTimer;//全局时钟
     bool isStopped = false;
     QGraphicsScene *scene = nullptr; //游戏场景
@@ -60,6 +62,7 @@ class GameWindow : public QWidget
     bool areaDamageUnlocked = false;//群伤词缀是否解锁
     void UnlockAffix();//随机解锁一种我方防御塔词缀
     bool musicIsOn = false;
+    void bombEffect();//炸弹效果
 public:
     explicit GameWindow(int level, QWidget *parent = nullptr);
     ~GameWindow();

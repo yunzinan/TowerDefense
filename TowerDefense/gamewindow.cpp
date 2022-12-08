@@ -799,6 +799,22 @@ void GameWindow::UnlockAffix()
     }
 }
 
+void GameWindow::bombEffect()
+{
+    if(freezeBombPlaced) {
+        for(auto enemy : enemyList) {
+            enemy->beFreezed(3);
+        }
+        freezeBombPlaced = false;
+    }
+    if(bombPlaced) {
+        for(auto enemy: enemyList) {
+            enemy->beDestroyed();
+        }
+        bombPlaced = false;
+    }
+}
+
 GameWindow::GameWindow(int level, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::GameWindow)
@@ -821,7 +837,7 @@ GameWindow::GameWindow(int level, QWidget *parent) :
     });
     this->curLevel = level;
     setWindowTitle("TowerDefense");
-    setMinimumSize(QSize(2800, 1800));
+    setMinimumSize(QSize(3200, 1800));
     this->money = 1000;
     this->life = 30;
     this->stop = false;
@@ -851,6 +867,8 @@ GameWindow::GameWindow(int level, QWidget *parent) :
         ui->l_progress->setText(QString::number(this->enemyCnt) + "/" + QString::number(this->maxEnemyCnt));
         //怪物移动
         EnemyMove();
+        //炸弹效果
+        bombEffect();
         //怪物和塔的攻击
         atk();
         this->scene->update();
@@ -871,6 +889,15 @@ GameWindow::GameWindow(int level, QWidget *parent) :
             globalTimer.stop();
             qDebug() << "stop";
         }
+    });
+    connect(ui->pb_freezeBomb, &QPushButton::clicked, [=](){
+        qDebug() << "freeze Bomb placed";
+        //QTimer延时, 此时播放动画
+        this->freezeBombPlaced = true;
+    });
+    connect(ui->pb_bomb, &QPushButton::clicked, [=](){
+        qDebug() << "bomb placed";
+        this->bombPlaced = true;
     });
     connect(ui->checkBox, &QCheckBox::stateChanged, [=](int state){
         //先判断当前有没有获得防御塔类型的focus

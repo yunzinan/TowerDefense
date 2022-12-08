@@ -149,6 +149,12 @@ void Enemy::beFreezed(int t)
     timer.start(t*1000);
 }
 
+void Enemy::beDestroyed()
+{
+    hp = 0;
+    //后期可以添加特效
+}
+
 void Enemy::bleeding(int t)
 {
     qDebug() << "Enemy Bleeding!";

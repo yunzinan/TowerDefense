@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>708</width>
-    <height>748</height>
+    <width>912</width>
+    <height>764</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,13 +27,13 @@
     <widget class="QWidget" name="widget_2" native="true">
      <property name="minimumSize">
       <size>
-       <width>500</width>
+       <width>800</width>
        <height>0</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>400</width>
+       <width>800</width>
        <height>16777215</height>
       </size>
      </property>
@@ -43,7 +43,7 @@
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>400</height>
+          <height>800</height>
          </size>
         </property>
         <layout class="QGridLayout" name="gridLayout">
@@ -109,6 +109,46 @@
       <item>
        <widget class="QWidget" name="widget_3" native="true">
         <layout class="QGridLayout" name="gridLayout_4">
+         <item row="2" column="0">
+          <widget class="QWidget" name="widget_5" native="true">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>400</height>
+            </size>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <item>
+             <widget class="QRadioButton" name="radioButton_1">
+              <property name="text">
+               <string>塔1: 近战机甲</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_2">
+              <property name="text">
+               <string>塔2: 超级近战机甲</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_3">
+              <property name="text">
+               <string>塔3: 远程机甲</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_4">
+              <property name="text">
+               <string>塔4: 超级远程机甲</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_5">
            <property name="maximumSize">
@@ -177,42 +217,75 @@
            </layout>
           </widget>
          </item>
-         <item row="2" column="0">
-          <widget class="QWidget" name="widget_5" native="true">
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>400</height>
-            </size>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item row="3" column="0">
+          <widget class="QWidget" name="widget_8" native="true">
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
-             <widget class="QRadioButton" name="radioButton_1">
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pb_freezeBomb">
               <property name="text">
-               <string>塔1: 近战机甲</string>
+               <string>冰封炸弹</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButton_2">
+             <widget class="QLabel" name="label_freezeBomb">
               <property name="text">
-               <string>塔2: 超级近战机甲</string>
+               <string>剩余0个</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButton_3">
+             <spacer name="horizontalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pb_bomb">
               <property name="text">
-               <string>塔3: 远程机甲</string>
+               <string>毁灭炸弹</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButton_4">
+             <widget class="QLabel" name="label_bomb">
               <property name="text">
-               <string>塔4: 超级远程机甲</string>
+               <string>剩余0个</string>
               </property>
              </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
            </layout>
           </widget>
