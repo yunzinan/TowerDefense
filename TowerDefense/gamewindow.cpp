@@ -815,6 +815,53 @@ void GameWindow::bombEffect()
     }
 }
 
+void GameWindow::loadBuff()
+{
+    QString fp = QDir::currentPath() + "./info/buff.txt";
+    qDebug() << fp;
+    QFile file(fp);
+    if(!file.open(QIODevice::ReadOnly)) {
+        qDebug() << "buff.txt not exists!";
+        file.open(QFile::WriteOnly|QFile::Text|QIODevice::Append);
+        QTextStream out(&file);
+        out.setCodec("UTF-8");
+        out << 0 << " " << 1.0 << " " << 1.0 << " " << 0 << " " << 0;
+        file.close();
+        return ;
+    }
+    QString buffer;
+    QTextStream fin(&file);
+    fin >> buffer;
+    this->pts = buffer.toInt();
+    fin >> buffer;
+    this->atkRate = buffer.toFloat();
+    fin >> buffer;
+    this->hpRate = buffer.toFloat();
+    fin >> buffer;
+    this->freezeBombNum = buffer.toInt();
+    fin >> buffer;
+    this->bombNum = buffer.toInt();
+    file.close();
+}
+
+void GameWindow::storeBuff()
+{
+    //写入数据
+    QString fp = QDir::currentPath() + "/info/buff.txt";
+    QFile file(fp);
+    if(!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        qDebug() << "error! buff.txt not exists!";
+        return ;
+    }
+    QTextStream out(&file);
+    out.setCodec("UTF-8");
+    out.setRealNumberPrecision(2);
+    out << this->pts << " ";
+    out << (qreal)this->atkRate << " " << (qreal)this->hpRate << " ";
+    out << this->freezeBombNum << " " << this->bombNum;
+    file.close();
+}
+
 GameWindow::GameWindow(int level, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::GameWindow)
@@ -825,6 +872,10 @@ GameWindow::GameWindow(int level, QWidget *parent) :
     QMediaPlayer *player = new QMediaPlayer(this);//设置背景音乐
     player->setMedia(QUrl("qrc:/new/prefix1/assets/bgm.wav"));
     player->setVolume(50);//音量
+    //读取buff.txt
+    loadBuff();
+    ui->label_freezeBomb->setText("剩余" + QString::number(this->freezeBombNum) + "个");
+    ui->label_bomb->setText("剩余" + QString::number(this->bombNum) + "个");
     connect(ui->pb_music, &QPushButton::clicked, [=](){
         if(musicIsOn) {
             player->stop();
@@ -891,13 +942,21 @@ GameWindow::GameWindow(int level, QWidget *parent) :
         }
     });
     connect(ui->pb_freezeBomb, &QPushButton::clicked, [=](){
-        qDebug() << "freeze Bomb placed";
-        //QTimer延时, 此时播放动画
-        this->freezeBombPlaced = true;
+        if(this->freezeBombNum > 0) {
+            qDebug() << "freeze Bomb placed";
+            //QTimer延时, 此时播放动画
+            this->freezeBombPlaced = true;
+            this->freezeBombNum--;
+            ui->label_freezeBomb->setText("剩余" + QString::number(this->freezeBombNum) + "个");
+        }
     });
     connect(ui->pb_bomb, &QPushButton::clicked, [=](){
-        qDebug() << "bomb placed";
-        this->bombPlaced = true;
+        if(this->bombNum > 0) {
+            qDebug() << "bomb placed";
+            this->bombPlaced = true;
+            this->bombNum--;
+            ui->label_bomb->setText("剩余" + QString::number(this->bombNum) + "个");
+        }
     });
     connect(ui->checkBox, &QCheckBox::stateChanged, [=](int state){
         //先判断当前有没有获得防御塔类型的focus
@@ -1023,6 +1082,7 @@ GameWindow::GameWindow(int level, QWidget *parent) :
 GameWindow::~GameWindow()
 {
     delete ui;
+    storeBuff();
 }
 
 
@@ -1142,6 +1202,8 @@ void GameWindow::createTower(int row, int col, int type)
                     getFocusItem(p);
                 });
                 cur->setPos(col * sideLen, row * sideLen);
+                cur->setAtk((float)cur->getAtk() * this->atkRate);
+                cur->setMapHp((float)cur->getHp() * this->hpRate);
                 this->scene->addItem(cur);
                 this->towerList.push_back(cur);
             }
@@ -1161,6 +1223,8 @@ void GameWindow::createTower(int row, int col, int type)
                     getFocusItem(p);
                 });
                 cur->setPos(col * sideLen, row * sideLen);
+                dynamic_cast<Tower *>(cur)->setAtk((float)dynamic_cast<Tower *>(cur)->getAtk() * this->atkRate);
+                dynamic_cast<Tower *>(cur)->setMapHp((float)dynamic_cast<Tower *>(cur)->getHp() * this->hpRate);
                 this->scene->addItem(cur);
                 this->towerList.push_back(dynamic_cast<Tower *>(cur));
             }
@@ -1182,6 +1246,8 @@ void GameWindow::createTower(int row, int col, int type)
                     getFocusItem(p);
                 });
                 cur->setPos(col * sideLen, row * sideLen);
+                cur->setAtk((float)cur->getAtk() * this->atkRate);
+                cur->setMapHp((float)cur->getHp() * this->hpRate);
                 this->scene->addItem(cur);
                 this->towerList.push_back(cur);
                 //隐藏SLOT
@@ -1203,6 +1269,8 @@ void GameWindow::createTower(int row, int col, int type)
                     getFocusItem(p);
                 });
                 cur->setPos(col * sideLen, row * sideLen);
+                cur->setAtk((float)cur->getAtk() * this->atkRate);
+                cur->setMapHp((float)cur->getHp() * this->hpRate);
                 this->scene->addItem(cur);
                 this->towerList.push_back(cur);
                 //隐藏SLOT

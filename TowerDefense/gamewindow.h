@@ -63,6 +63,13 @@ class GameWindow : public QWidget
     void UnlockAffix();//随机解锁一种我方防御塔词缀
     bool musicIsOn = false;
     void bombEffect();//炸弹效果
+    int bombNum = 0;
+    int freezeBombNum = 0;
+    float atkRate = 1.0;
+    float hpRate = 1.0;
+    int pts = 0;
+    void loadBuff();
+    void storeBuff();
 public:
     explicit GameWindow(int level, QWidget *parent = nullptr);
     ~GameWindow();

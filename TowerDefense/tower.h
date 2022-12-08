@@ -68,6 +68,13 @@ public:
     }
     int getAtk() const {return this->atk;}
     int getHp() const {return this->hp;}
+    void setAtk(int _atk) {
+        this->atk = _atk;
+    }
+    void setMapHp(int _hp) {
+        this->maxHp = _hp;
+        this->hp = maxHp;
+    }
     int getMaxHP() const {return this->maxHp;}
     float getAtkRange() const {return this->atkRange;}
     float getAtkSpeed() const {return (float)20/(float)this->atkCycle;}

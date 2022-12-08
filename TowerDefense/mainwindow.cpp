@@ -133,6 +133,16 @@ MainWindow::MainWindow(QWidget *parent)
         qDebug()<<QString("文件夹%1创建成功！").arg(folder_name);
     }
 //    qDebug() << QDir::currentPath();
+    connect(ui->pb_shop, &QPushButton::clicked, [=](){
+        this->store = new Store();
+        connect(store, &Store::returnSignal, [=](){
+            this->show();
+            delete store;
+            store = nullptr;
+        });
+        store->show();
+        this->hide();
+    });
     loadInfo();
 
 }

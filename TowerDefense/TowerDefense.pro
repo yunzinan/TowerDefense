@@ -26,6 +26,7 @@ SOURCES += \
     makemap.cpp \
     mapgrid.cpp \
     remotetower.cpp \
+    store.cpp \
     superremotetower.cpp \
     supertower.cpp \
     tower.cpp \
@@ -43,6 +44,7 @@ HEADERS += \
     makemap.h \
     mapgrid.h \
     remotetower.h \
+    store.h \
     superremotetower.h \
     supertower.h \
     tower.h \
@@ -52,7 +54,8 @@ HEADERS += \
 FORMS += \
     gamewindow.ui \
     mainwindow.ui \
-    makemap.ui
+    makemap.ui \
+    store.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
