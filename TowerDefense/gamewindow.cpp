@@ -68,8 +68,8 @@ void GameWindow::loadMap()
         this->enemyInfoList.push_back(cur);
     }
     file.close();
-    qDebug() << this->pathList.size() << " " << this->pathList[0].size();
-    qDebug() << this->enemyInfoList.size() << " " << this->enemyInfoList[0].size();
+//    qDebug() << this->pathList.size() << " " << this->pathList[0].size();
+//    qDebug() << this->enemyInfoList.size() << " " << this->enemyInfoList[0].size();
 }
 
 void GameWindow::getGridStatus()

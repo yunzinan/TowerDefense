@@ -54,13 +54,14 @@ MainWindow::MainWindow(QWidget *parent)
         connect(m, &MakeMap::mapUpdated, [=](){
            //尝试更新当前的comboBox;
            //先获取文件数量
+            qDebug() << "mapUpdated!";
             QDir *dir=new QDir(QDir::currentPath() + "/info");
                QStringList filter;
                filter<<"*.txt";
                dir->setNameFilters(filter);
                QFileInfoList fileInfoList=dir->entryInfoList(filter);
-            if(fileInfoList.size()-1 > this->totLevel) {//说明产生了新的地图
-                this->totLevel = fileInfoList.size() - 1;//更新totLevel
+            if(fileInfoList.size()-2 > this->totLevel) {//说明产生了新的地图
+                this->totLevel = fileInfoList.size() - 2;//更新totLevel
                 QVariant v(0);
                 ui->comboBox->clear();
                 for(int i = 0; i < this->totLevel; i++) {
