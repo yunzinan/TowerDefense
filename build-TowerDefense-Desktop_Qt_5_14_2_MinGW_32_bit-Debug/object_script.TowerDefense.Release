@@ -1,4 +1,5 @@
 release/cloudcat.o
+release/document.o
 release/dragonmaster.o
 release/enemy.o
 release/gamescene.o
@@ -15,6 +16,7 @@ release/tower.o
 release/vanguard.o
 release/wizard.o
 release/qrc_res.o
+release/moc_document.o
 release/moc_enemy.o
 release/moc_gamewindow.o
 release/moc_mainwindow.o

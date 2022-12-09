@@ -1,4 +1,5 @@
 debug/cloudcat.o
+debug/document.o
 debug/dragonmaster.o
 debug/enemy.o
 debug/gamescene.o
@@ -15,6 +16,7 @@ debug/tower.o
 debug/vanguard.o
 debug/wizard.o
 debug/qrc_res.o
+debug/moc_document.o
 debug/moc_enemy.o
 debug/moc_gamewindow.o
 debug/moc_mainwindow.o

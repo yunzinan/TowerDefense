@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     cloudcat.cpp \
+    document.cpp \
     dragonmaster.cpp \
     enemy.cpp \
     gamescene.cpp \
@@ -36,6 +37,7 @@ SOURCES += \
 HEADERS += \
     cloudcat.h \
     config.h \
+    document.h \
     dragonmaster.h \
     enemy.h \
     gamescene.h \
@@ -52,6 +54,7 @@ HEADERS += \
     wizard.h
 
 FORMS += \
+    document.ui \
     gamewindow.ui \
     mainwindow.ui \
     makemap.ui \

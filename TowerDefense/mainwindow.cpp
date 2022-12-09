@@ -87,6 +87,16 @@ MainWindow::MainWindow(QWidget *parent)
         qDebug() << "m: show!";
         this->hide();
     });
+    connect(ui->pb_doc, &QPushButton::clicked, [=](){
+        this->doc = new document();
+        connect(doc, &document::returnSignal, [=](){
+           this->show();
+            doc->hide();
+            delete doc;
+        });
+        doc->show();
+        this->hide();
+    });
     connect(ui->pb_start, &QPushButton::clicked, [=](){
         this->game = new GameWindow(ui->comboBox->currentIndex());
         connect(game, &GameWindow::returnSignal, [=](){

@@ -6,6 +6,7 @@
 #include "makemap.h"
 #include "gamewindow.h"
 #include "store.h"
+#include "document.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,6 +20,7 @@ class MainWindow : public QMainWindow
     void loadInfo(); //获取地图信息和当前进度
     GameWindow *game = nullptr;//游戏界面
     Store* store = nullptr;//商店界面
+    document *doc = nullptr;
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
