@@ -13,6 +13,13 @@
 ## Quick View of the Project
 
 - 实机演示: 见本仓库中的`demo.mp4`
+- 一些gif
+
+![1](./TowerDefense/demo/1.gif)
+
+![1](./TowerDefense/demo/2.gif)
+
+
 
 ## DevDoc && Wiki
 
