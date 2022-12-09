@@ -19,7 +19,7 @@ CXXFLAGS      = -fno-keep-inline-dllexport -g -std=gnu++11 -Wall -Wextra -Wextra
 INCPATH       = -I../TowerDefense -I. -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtMultimedia -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtANGLE -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtNetwork -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore -Idebug -I. -IC:/Qt/Qt5.14.2/5.14.2/mingw73_32/mkspecs/win32-g++ 
 LINKER      =        g++
 LFLAGS        =        -Wl,-subsystem,windows -mthreads
-LIBS        =        C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libQt5Multimedia.a C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libQt5Widgets.a C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libQt5Gui.a C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libQt5Network.a C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libQt5Core.a  -lmingw32 C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libqtmain.a -LC:/openssl/lib -LC:/Utils/my_sql/mysql-5.7.25-win32/lib -LC:/Utils/postgresql/pgsql/lib -lshell32 
+LIBS        =        C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libQt5Multimedia.a C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libQt5Widgets.a C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libQt5Gui.a C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libQt5Network.a C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libQt5Core.a debug/TowerDefense_resource_res.o  -lmingw32 C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libqtmain.a -LC:/openssl/lib -LC:/Utils/my_sql/mysql-5.7.25-win32/lib -LC:/Utils/postgresql/pgsql/lib -lshell32 
 QMAKE         = C:/Qt/Qt5.14.2/5.14.2/mingw73_32/bin/qmake.exe
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ IDC           = idc
 IDL           = midl
 ZIP           = 
 DEF_FILE      = 
-RES_FILE      = 
+RES_FILE      = debug/TowerDefense_resource_res.o
 SED           = sed
 MOVE          = mv -f
 
@@ -151,8 +151,11 @@ DESTDIR_TARGET = debug/TowerDefense.exe
 first: all
 all: Makefile.Debug  debug/TowerDefense.exe
 
-debug/TowerDefense.exe: C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libQt5Multimedia.a C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libQt5Widgets.a C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libQt5Gui.a C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libQt5Network.a C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libQt5Core.a C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libqtmain.a ui_document.h ui_gamewindow.h ui_mainwindow.h ui_makemap.h ui_store.h $(OBJECTS) 
+debug/TowerDefense.exe: C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libQt5Multimedia.a C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libQt5Widgets.a C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libQt5Gui.a C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libQt5Network.a C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libQt5Core.a C:/Qt/Qt5.14.2/5.14.2/mingw73_32/lib/libqtmain.a ui_document.h ui_gamewindow.h ui_mainwindow.h ui_makemap.h ui_store.h $(OBJECTS) debug/TowerDefense_resource_res.o
 	$(LINKER) $(LFLAGS) -o $(DESTDIR_TARGET) @object_script.TowerDefense.Debug  $(LIBS)
+
+debug/TowerDefense_resource_res.o: TowerDefense_resource.rc
+	windres -i TowerDefense_resource.rc -o debug/TowerDefense_resource_res.o --include-dir=. $(DEFINES)
 
 qmake: FORCE
 	@$(QMAKE) -o Makefile.Debug ../TowerDefense/TowerDefense.pro -spec win32-g++ CONFIG+=qtquickcompiler
@@ -164,6 +167,7 @@ dist:
 
 clean: compiler_clean 
 	-$(DEL_FILE) debug/cloudcat.o debug/document.o debug/dragonmaster.o debug/enemy.o debug/gamescene.o debug/gamewindow.o debug/main.o debug/mainwindow.o debug/makemap.o debug/mapgrid.o debug/remotetower.o debug/store.o debug/superremotetower.o debug/supertower.o debug/tower.o debug/vanguard.o debug/wizard.o debug/qrc_res.o debug/moc_document.o debug/moc_enemy.o debug/moc_gamewindow.o debug/moc_mainwindow.o debug/moc_makemap.o debug/moc_mapgrid.o debug/moc_remotetower.o debug/moc_store.o debug/moc_superremotetower.o debug/moc_supertower.o debug/moc_tower.o
+	-$(DEL_FILE) debug/TowerDefense_resource_res.o
 
 distclean: clean 
 	-$(DEL_FILE) .qmake.stash
@@ -2054,7 +2058,36 @@ debug/document.o: ../TowerDefense/document.cpp ../TowerDefense/document.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/QCloseEvent \
-		ui_document.h
+		ui_document.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QVariant \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QApplication \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qapplication.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qcoreapplication.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qeventloop.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qguiapplication.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qinputmethod.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QGridLayout \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qgridlayout.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qlayout.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qlayoutitem.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qboxlayout.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QLabel \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qlabel.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qframe.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QTabWidget \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qtabwidget.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qicon.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QTextBrowser \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qtextbrowser.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qtextedit.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtextdocument.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtextoption.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtextcursor.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtextformat.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qpen.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QVBoxLayout
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/document.o ../TowerDefense/document.cpp
 
 debug/dragonmaster.o: ../TowerDefense/dragonmaster.cpp ../TowerDefense/dragonmaster.h \
@@ -3638,6 +3671,25 @@ debug/store.o: ../TowerDefense/store.cpp ../TowerDefense/store.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qicon.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QString \
 		ui_store.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QVariant \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QApplication \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qapplication.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qcoreapplication.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qeventloop.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qguiapplication.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qinputmethod.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QGridLayout \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qgridlayout.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qlayout.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qlayoutitem.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qboxlayout.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QHBoxLayout \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QLabel \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qlabel.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qframe.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QSpacerItem \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QVBoxLayout \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/QCloseEvent \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/QDir \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtCore/qdir.h \
