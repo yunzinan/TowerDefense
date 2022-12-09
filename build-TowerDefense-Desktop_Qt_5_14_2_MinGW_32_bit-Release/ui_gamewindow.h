@@ -47,18 +47,28 @@ public:
     QLabel *l_level;
     QWidget *widget_3;
     QGridLayout *gridLayout_4;
-    QLabel *label_5;
-    QWidget *widget_4;
-    QHBoxLayout *horizontalLayout;
-    QSpacerItem *horizontalSpacer;
-    QPushButton *pb_stop;
-    QSpacerItem *horizontalSpacer_2;
     QWidget *widget_5;
     QVBoxLayout *verticalLayout_4;
     QRadioButton *radioButton_1;
     QRadioButton *radioButton_2;
     QRadioButton *radioButton_3;
     QRadioButton *radioButton_4;
+    QLabel *label_5;
+    QWidget *widget_4;
+    QHBoxLayout *horizontalLayout;
+    QSpacerItem *horizontalSpacer;
+    QPushButton *pb_stop;
+    QPushButton *pb_music;
+    QSpacerItem *horizontalSpacer_2;
+    QWidget *widget_8;
+    QHBoxLayout *horizontalLayout_2;
+    QSpacerItem *horizontalSpacer_3;
+    QPushButton *pb_freezeBomb;
+    QLabel *label_freezeBomb;
+    QSpacerItem *horizontalSpacer_5;
+    QPushButton *pb_bomb;
+    QLabel *label_bomb;
+    QSpacerItem *horizontalSpacer_4;
     QWidget *widget_6;
     QVBoxLayout *verticalLayout_3;
     QLabel *label_6;
@@ -74,7 +84,7 @@ public:
     {
         if (GameWindow->objectName().isEmpty())
             GameWindow->setObjectName(QString::fromUtf8("GameWindow"));
-        GameWindow->resize(708, 748);
+        GameWindow->resize(912, 764);
         gridLayout_2 = new QGridLayout(GameWindow);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
         w_mainScene = new QWidget(GameWindow);
@@ -91,13 +101,13 @@ public:
 
         widget_2 = new QWidget(GameWindow);
         widget_2->setObjectName(QString::fromUtf8("widget_2"));
-        widget_2->setMinimumSize(QSize(500, 0));
-        widget_2->setMaximumSize(QSize(400, 16777215));
+        widget_2->setMinimumSize(QSize(800, 0));
+        widget_2->setMaximumSize(QSize(800, 16777215));
         verticalLayout_2 = new QVBoxLayout(widget_2);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         widget = new QWidget(widget_2);
         widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setMaximumSize(QSize(16777215, 400));
+        widget->setMaximumSize(QSize(16777215, 800));
         gridLayout = new QGridLayout(widget);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         l_progress = new QLabel(widget);
@@ -147,34 +157,6 @@ public:
         widget_3->setObjectName(QString::fromUtf8("widget_3"));
         gridLayout_4 = new QGridLayout(widget_3);
         gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
-        label_5 = new QLabel(widget_3);
-        label_5->setObjectName(QString::fromUtf8("label_5"));
-        label_5->setMaximumSize(QSize(16777215, 40));
-        label_5->setAlignment(Qt::AlignCenter);
-
-        gridLayout_4->addWidget(label_5, 1, 0, 1, 1);
-
-        widget_4 = new QWidget(widget_3);
-        widget_4->setObjectName(QString::fromUtf8("widget_4"));
-        widget_4->setMaximumSize(QSize(16777215, 200));
-        horizontalLayout = new QHBoxLayout(widget_4);
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout->addItem(horizontalSpacer);
-
-        pb_stop = new QPushButton(widget_4);
-        pb_stop->setObjectName(QString::fromUtf8("pb_stop"));
-
-        horizontalLayout->addWidget(pb_stop);
-
-        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout->addItem(horizontalSpacer_2);
-
-
-        gridLayout_4->addWidget(widget_4, 0, 0, 1, 1);
-
         widget_5 = new QWidget(widget_3);
         widget_5->setObjectName(QString::fromUtf8("widget_5"));
         widget_5->setMaximumSize(QSize(16777215, 400));
@@ -202,6 +184,78 @@ public:
 
 
         gridLayout_4->addWidget(widget_5, 2, 0, 1, 1);
+
+        label_5 = new QLabel(widget_3);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
+        label_5->setMaximumSize(QSize(16777215, 40));
+        label_5->setAlignment(Qt::AlignCenter);
+
+        gridLayout_4->addWidget(label_5, 1, 0, 1, 1);
+
+        widget_4 = new QWidget(widget_3);
+        widget_4->setObjectName(QString::fromUtf8("widget_4"));
+        widget_4->setMaximumSize(QSize(16777215, 200));
+        horizontalLayout = new QHBoxLayout(widget_4);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer);
+
+        pb_stop = new QPushButton(widget_4);
+        pb_stop->setObjectName(QString::fromUtf8("pb_stop"));
+
+        horizontalLayout->addWidget(pb_stop);
+
+        pb_music = new QPushButton(widget_4);
+        pb_music->setObjectName(QString::fromUtf8("pb_music"));
+
+        horizontalLayout->addWidget(pb_music);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_2);
+
+
+        gridLayout_4->addWidget(widget_4, 0, 0, 1, 1);
+
+        widget_8 = new QWidget(widget_3);
+        widget_8->setObjectName(QString::fromUtf8("widget_8"));
+        horizontalLayout_2 = new QHBoxLayout(widget_8);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_3);
+
+        pb_freezeBomb = new QPushButton(widget_8);
+        pb_freezeBomb->setObjectName(QString::fromUtf8("pb_freezeBomb"));
+
+        horizontalLayout_2->addWidget(pb_freezeBomb);
+
+        label_freezeBomb = new QLabel(widget_8);
+        label_freezeBomb->setObjectName(QString::fromUtf8("label_freezeBomb"));
+
+        horizontalLayout_2->addWidget(label_freezeBomb);
+
+        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_5);
+
+        pb_bomb = new QPushButton(widget_8);
+        pb_bomb->setObjectName(QString::fromUtf8("pb_bomb"));
+
+        horizontalLayout_2->addWidget(pb_bomb);
+
+        label_bomb = new QLabel(widget_8);
+        label_bomb->setObjectName(QString::fromUtf8("label_bomb"));
+
+        horizontalLayout_2->addWidget(label_bomb);
+
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_4);
+
+
+        gridLayout_4->addWidget(widget_8, 3, 0, 1, 1);
 
 
         verticalLayout_2->addWidget(widget_3);
@@ -295,12 +349,17 @@ public:
         label_3->setText(QCoreApplication::translate("GameWindow", "\346\270\270\346\210\217\350\277\233\345\272\246", nullptr));
         label->setText(QCoreApplication::translate("GameWindow", "\345\205\263\345\215\241\344\277\241\346\201\257", nullptr));
         l_level->setText(QCoreApplication::translate("GameWindow", "\347\254\2540\345\205\263", nullptr));
-        label_5->setText(QCoreApplication::translate("GameWindow", "\346\224\276\347\275\256\351\235\242\346\235\277", nullptr));
-        pb_stop->setText(QCoreApplication::translate("GameWindow", "\346\232\202\345\201\234/\347\273\247\347\273\255", nullptr));
         radioButton_1->setText(QCoreApplication::translate("GameWindow", "\345\241\2241: \350\277\221\346\210\230\346\234\272\347\224\262", nullptr));
         radioButton_2->setText(QCoreApplication::translate("GameWindow", "\345\241\2242: \350\266\205\347\272\247\350\277\221\346\210\230\346\234\272\347\224\262", nullptr));
         radioButton_3->setText(QCoreApplication::translate("GameWindow", "\345\241\2243: \350\277\234\347\250\213\346\234\272\347\224\262", nullptr));
         radioButton_4->setText(QCoreApplication::translate("GameWindow", "\345\241\2244: \350\266\205\347\272\247\350\277\234\347\250\213\346\234\272\347\224\262", nullptr));
+        label_5->setText(QCoreApplication::translate("GameWindow", "\346\224\276\347\275\256\351\235\242\346\235\277", nullptr));
+        pb_stop->setText(QCoreApplication::translate("GameWindow", "\346\232\202\345\201\234/\347\273\247\347\273\255", nullptr));
+        pb_music->setText(QCoreApplication::translate("GameWindow", "\350\203\214\346\231\257\351\237\263\344\271\220", nullptr));
+        pb_freezeBomb->setText(QCoreApplication::translate("GameWindow", "\345\206\260\345\260\201\347\202\270\345\274\271", nullptr));
+        label_freezeBomb->setText(QCoreApplication::translate("GameWindow", "\345\211\251\344\275\2310\344\270\252", nullptr));
+        pb_bomb->setText(QCoreApplication::translate("GameWindow", "\346\257\201\347\201\255\347\202\270\345\274\271", nullptr));
+        label_bomb->setText(QCoreApplication::translate("GameWindow", "\345\211\251\344\275\2310\344\270\252", nullptr));
         label_6->setText(QCoreApplication::translate("GameWindow", "\350\257\246\347\273\206\344\277\241\346\201\257", nullptr));
         QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QCoreApplication::translate("GameWindow", "\345\261\236\346\200\247", nullptr));

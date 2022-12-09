@@ -1,4 +1,5 @@
 debug/cloudcat.o
+debug/document.o
 debug/dragonmaster.o
 debug/enemy.o
 debug/gamescene.o
@@ -8,14 +9,21 @@ debug/mainwindow.o
 debug/makemap.o
 debug/mapgrid.o
 debug/remotetower.o
+debug/store.o
+debug/superremotetower.o
+debug/supertower.o
 debug/tower.o
 debug/vanguard.o
 debug/wizard.o
 debug/qrc_res.o
+debug/moc_document.o
 debug/moc_enemy.o
 debug/moc_gamewindow.o
 debug/moc_mainwindow.o
 debug/moc_makemap.o
 debug/moc_mapgrid.o
 debug/moc_remotetower.o
+debug/moc_store.o
+debug/moc_superremotetower.o
+debug/moc_supertower.o
 debug/moc_tower.o

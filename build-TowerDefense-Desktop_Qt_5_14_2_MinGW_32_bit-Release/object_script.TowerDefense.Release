@@ -1,4 +1,5 @@
 release/cloudcat.o
+release/document.o
 release/dragonmaster.o
 release/enemy.o
 release/gamescene.o
@@ -8,14 +9,21 @@ release/mainwindow.o
 release/makemap.o
 release/mapgrid.o
 release/remotetower.o
+release/store.o
+release/superremotetower.o
+release/supertower.o
 release/tower.o
 release/vanguard.o
 release/wizard.o
 release/qrc_res.o
+release/moc_document.o
 release/moc_enemy.o
 release/moc_gamewindow.o
 release/moc_mainwindow.o
 release/moc_makemap.o
 release/moc_mapgrid.o
 release/moc_remotetower.o
+release/moc_store.o
+release/moc_superremotetower.o
+release/moc_supertower.o
 release/moc_tower.o

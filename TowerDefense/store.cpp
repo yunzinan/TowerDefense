@@ -7,7 +7,7 @@
 
 void Store::loadInfo()
 {
-    QString fp = QDir::currentPath() + "./info/buff.txt";
+    QString fp = QDir::currentPath() + "/info/buff.txt";
     qDebug() << fp;
     QFile file(fp);
     if(!file.open(QIODevice::ReadOnly)) {

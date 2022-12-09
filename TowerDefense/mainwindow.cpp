@@ -144,6 +144,19 @@ MainWindow::MainWindow(QWidget *parent)
         qDebug()<<QString("文件夹%1创建成功！").arg(folder_name);
     }
 //    qDebug() << QDir::currentPath();
+    //需要先创建buff.txt文件
+    QString fp = QDir::currentPath() + "/info/buff.txt";
+    qDebug() << fp;
+    QFile file(fp);
+    if(!file.open(QIODevice::ReadOnly)) {
+        qDebug() << "buff.txt not exists!";
+        file.open(QFile::WriteOnly|QFile::Text|QIODevice::Append);
+        QTextStream out(&file);
+        out.setCodec("UTF-8");
+        out << 0 << " " << 1.0 << " " << 1.0 << " " << 0 << " " << 0;
+        file.close();
+    }
+    file.close();
     connect(ui->pb_shop, &QPushButton::clicked, [=](){
         this->store = new Store();
         connect(store, &Store::returnSignal, [=](){
