@@ -1,5 +1,7 @@
 # Tower Defense 塔防游戏
 
+![Alt](https://repobeats.axiom.co/api/embed/3fe435f8806dd5ad8440641ab03c954ff124ea5a.svg "Repobeats analytics image")
+
 > 名字朴实到等于没有.
 
 ## What's this ?
